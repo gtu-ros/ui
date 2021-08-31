@@ -51,9 +51,9 @@ export class ModelVisualizer extends React.Component {
         return (
             <div>
                 <div id={this.viewerDivId}></div>
-                <Button variant="contained" onClick={this.onMouseClick}>
+                {/* <Button variant="contained" onClick={this.onMouseClick}>
                     Print Camera
-				</Button>
+				</Button> */}
             </div>
         );
     }

@@ -86,6 +86,7 @@ const useStyles = makeStyles((theme) => ({
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
+    paddingTop: '100px',
     height: '100vh',
     overflow: 'auto'
   },
@@ -100,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column'
   },
   fixedHeight: {
-    height: 240
+    height: 300
   }
 }));
 
@@ -125,7 +126,6 @@ const DashboardView = (props) => {
           <IconButton
             edge="start"
             color="inherit"
-            aria-label="open drawer"
             onClick={handleDrawerOpen}
             className={clsx(
               classes.menuButton,
@@ -146,46 +146,55 @@ const DashboardView = (props) => {
         </Toolbar>
       </AppBar>
       <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={8} lg={9}>
-              <ModelVisualizer
-                urdfPath={
-                  'http://' +
-                  process.env.REACT_APP_FILE_SERVER_URL +
-                  ':' +
-                  process.env.REACT_APP_FILE_SERVER_PORT
-                }
-                targetFrame={panda_simulation.constants.ROBOT_BASE_LINK}
-                tfRate={panda_simulation.config.tfRate}
-                width={panda_simulation.config.width}
-                height={panda_simulation.config.height}
-                cameraPosition={panda_simulation.config.cameraPosition}
-              />
-
-              {/* <Paper className={fixedHeightPaper}> */}
-              {/* </Paper> */}
-            </Grid>
-            <Grid item xs={12} md={4} lg={2}>
-              <Paper className={fixedHeightPaper}>
-                <TransformClient
-                  targetFrame={panda_simulation.constants.WORLD_LINK}
-                  sourceFrame={panda_simulation.constants.PANDA_EE_PARENT_LINK}
-                  tfRate={10}
-                />
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <JointStates
-                  topic={panda_simulation.constants.JOINT_STATES_TOPIC}
-                />
-              </Paper>
-            </Grid>
+        <div className={''} />
+        {/* <Container maxWidth="lg" className={classes.container}> */}
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
+            <ModelVisualizer
+              urdfPath={
+                'http://' +
+                process.env.REACT_APP_FILE_SERVER_URL +
+                ':' +
+                process.env.REACT_APP_FILE_SERVER_PORT
+              }
+              targetFrame={panda_simulation.constants.ROBOT_BASE_LINK}
+              tfRate={panda_simulation.config.tfRate}
+              width={panda_simulation.config.width}
+              height={panda_simulation.config.height}
+              cameraPosition={panda_simulation.config.cameraPosition}
+            />
           </Grid>
-          <Box pt={4}>{/* <Copyright /> */}</Box>
-        </Container>
+
+          <Grid item xs={6}>
+            <Paper elevation={8} className={fixedHeightPaper}>
+              <JointStates
+                topic={panda_simulation.constants.JOINT_STATES_TOPIC}
+              />
+            </Paper>
+            <br />
+            <Paper elevation={8} className={fixedHeightPaper}>
+              <TransformClient
+                targetFrame={panda_simulation.constants.WORLD_LINK}
+                sourceFrame={panda_simulation.constants.PANDA_EE_PARENT_LINK}
+                tfRate={10}
+              />
+            </Paper>
+          </Grid>
+
+          {/* <Grid item xs={3}>
+            <Paper className={fixedHeightPaper}>
+              <TransformClient
+                targetFrame={panda_simulation.constants.WORLD_LINK}
+                sourceFrame={panda_simulation.constants.PANDA_EE_PARENT_LINK}
+                tfRate={10}
+              />
+            </Paper>
+          </Grid> */}
+
+          {/* <Paper className={fixedHeightPaper}> */}
+          {/* </Paper> */}
+        </Grid>
+        {/* </Container> */}
       </main>
     </div>
   );

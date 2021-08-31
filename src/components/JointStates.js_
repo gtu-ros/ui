@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  jogJoint,
-  jogMessage,
-  JointStatesListener
-} from '../services/RosService';
-import { Button, Divider, Grid, IconButton, Slider } from '@material-ui/core';
+import { JointStatesListener } from '../services/RosService';
+import { Divider, Grid, IconButton, Slider } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 
 export const JointStates = (props) => {
   const float_precision = 3;
 
-  const [jointStatesListenerState, setJointStatesListenerState] =
-    useState(null);
+  const [jointStatesListener, setJointStatesListener] = useState(null);
   const [jointStates, setJointStates] = useState(null);
 
   const jointStatesCallback = (message) => {
@@ -27,14 +22,13 @@ export const JointStates = (props) => {
   };
 
   useEffect(() => {
-    setJointStatesListenerState(JointStatesListener(props.topic));
-  }, []);
+    setJointStatesListener(
+      { jointStatesListener: JointStatesListener(props.topic) },
+      () => jointStatesListener.subscribe(jointStatesCallback)
+    );
 
-  useEffect(() => {
-    if (jointStatesListenerState)
-      jointStatesListenerState.subscribe(jointStatesCallback);
-    return () => jointStatesListenerState?.unsubscribe();
-  }, [jointStatesListenerState]);
+    // return () => jointStatesListener.unsubscribe();
+  }, [jointStates]);
 
   const classes = {
     table: {
@@ -44,45 +38,14 @@ export const JointStates = (props) => {
 
   const rows = [];
 
-  const hide = [
-    'polar_finger_joint1',
-    'polar_finger_joint2',
-    'polar_hand_joint2'
-  ];
-
   if (jointStates) {
     for (let i = 0; i < jointStates.name.length; ++i) {
-      if (hide.includes(jointStates.name[i])) continue;
       rows.push({
         name: jointStates.name[i],
-        position: jointStates.position[i],
-        delta: 0,
-        decrease: () => jogJoint.publish(jogMessage(jointStates.name[i], -0.1)),
-        increase: () => jogJoint.publish(jogMessage(jointStates.name[i], 0.1))
+        position: jointStates.position[i]
       });
     }
   }
-
-  useEffect(() => {
-    // Add event listener on keypress
-    document.addEventListener(
-      'keypress',
-      (event) => {
-        var name = event.key;
-        var code = event.code;
-
-        if (name === 'q') {
-          jogJoint.publish(jogMessage('polar_joint1', 0.01));
-        }
-        if (name === 'a') {
-          jogJoint.publish(jogMessage('polar_joint1', -0.01));
-        }
-        // Alert the key name and key code on keydown
-        console.log(`Key pressed ${name} \r\n Key code value: ${code}`);
-      },
-      false
-    );
-  }, []);
 
   return (
     <div>
@@ -106,10 +69,10 @@ export const JointStates = (props) => {
                   </Grid>
                   <Grid xs={2}>
                     <IconButton color="secondary" size="small">
-                      <RemoveCircleIcon onClick={value.decrease} />
+                      <RemoveCircleIcon />
                     </IconButton>
                     <IconButton color="primary" size="small">
-                      <AddCircleIcon onClick={value.increase} />
+                      <AddCircleIcon />
                     </IconButton>
                   </Grid>
                   <Divider />
