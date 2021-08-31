@@ -5,9 +5,10 @@ import {
   jogMessage,
   JointStatesListener
 } from '../services/RosService';
-import { Button, Divider, Grid, IconButton, Slider } from '@material-ui/core';
+import { Divider, Grid, IconButton, Slider } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import { eventLoop, jointConfig } from '../utils/constants';
 
 export const JointStates = (props) => {
   const float_precision = 3;
@@ -15,6 +16,8 @@ export const JointStates = (props) => {
   const [jointStatesListenerState, setJointStatesListenerState] =
     useState(null);
   const [jointStates, setJointStates] = useState(null);
+  const keyState = {};
+  const [speed, setSpeed] = useState(1);
 
   const jointStatesCallback = (message) => {
     setJointStates({
@@ -26,6 +29,7 @@ export const JointStates = (props) => {
     });
   };
 
+  // set callback in initial render
   useEffect(() => {
     setJointStatesListenerState(JointStatesListener(props.topic));
   }, []);
@@ -36,23 +40,50 @@ export const JointStates = (props) => {
     return () => jointStatesListenerState?.unsubscribe();
   }, [jointStatesListenerState]);
 
-  const classes = {
-    table: {
-      minWidth: 350
-    }
+  useEffect(() => {
+    window.addEventListener(
+      'keydown',
+      (e) => {
+        // console.log(e);
+        keyState[e.key] = true;
+      },
+      true
+    );
+    window.addEventListener(
+      'keyup',
+      (e) => {
+        // console.log(e);
+        keyState[e.key] = false;
+      },
+      true
+    );
+
+    const keyEventLoop = () => {
+      for (const [joint, control] of Object.entries(jointConfig.joints)) {
+        if (keyState[control.increase]) {
+          console.log(`${joint}: +`);
+          jogJoint.publish(jogMessage(joint, jointConfig.movementStep * speed));
+        }
+        if (keyState[control.decrease]) {
+          console.log(`${joint}: -`);
+          jogJoint.publish(jogMessage(joint, -jointConfig.movementStep * speed));
+        }
+      }
+      setTimeout(keyEventLoop, eventLoop.timeout);
+    };
+    keyEventLoop();
+  }, []);
+
+  const handleSpeedChange = (event, newValue) => {
+    setSpeed(newValue);
+    console.log(speed);
   };
 
   const rows = [];
 
-  const hide = [
-    'polar_finger_joint1',
-    'polar_finger_joint2',
-    'polar_hand_joint2'
-  ];
-
   if (jointStates) {
     for (let i = 0; i < jointStates.name.length; ++i) {
-      if (hide.includes(jointStates.name[i])) continue;
+      if (jointConfig.hide.includes(jointStates.name[i])) continue;
       rows.push({
         name: jointStates.name[i],
         position: jointStates.position[i],
@@ -62,27 +93,6 @@ export const JointStates = (props) => {
       });
     }
   }
-
-  useEffect(() => {
-    // Add event listener on keypress
-    document.addEventListener(
-      'keypress',
-      (event) => {
-        var name = event.key;
-        var code = event.code;
-
-        if (name === 'q') {
-          jogJoint.publish(jogMessage('polar_joint1', 0.01));
-        }
-        if (name === 'a') {
-          jogJoint.publish(jogMessage('polar_joint1', -0.01));
-        }
-        // Alert the key name and key code on keydown
-        console.log(`Key pressed ${name} \r\n Key code value: ${code}`);
-      },
-      false
-    );
-  }, []);
 
   return (
     <div>
@@ -100,7 +110,7 @@ export const JointStates = (props) => {
                       valueLabelDisplay="auto"
                       step={0.1}
                       marks
-                      min={-2}
+                      min={-2} // TODO: set min max in config
                       max={2}
                     />
                   </Grid>
@@ -119,6 +129,36 @@ export const JointStates = (props) => {
           </Grid>
         </>
       ) : null}
+      <Grid container spacing={3}>
+        <Grid xs={4}>Speed</Grid>
+        <Grid xs={4}>
+          <Slider
+            value={speed}
+            onChange={handleSpeedChange}
+            valueLabelDisplay="auto"
+            step={1} // TODO: set in config
+            marks
+            min={1}
+            max={10}
+          />
+        </Grid>
+        <Grid xs={2}>
+          <IconButton color="secondary" size="small">
+            <RemoveCircleIcon
+              onClick={() => {
+                setSpeed(speed - 1);
+              }}
+            />
+          </IconButton>
+          <IconButton color="primary" size="small">
+            <AddCircleIcon
+              onClick={() => {
+                setSpeed(speed + 1);
+              }}
+            />
+          </IconButton>
+        </Grid>
+      </Grid>
     </div>
   );
 };
