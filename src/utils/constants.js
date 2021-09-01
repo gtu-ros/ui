@@ -15,16 +15,32 @@ const simulation = {
 
 const jointConfig = {
   hide: ['polar_finger_joint1', 'polar_finger_joint2', 'polar_hand_joint2'],
-  movementStep: 0.01,
+  movementStep: 0.0001,
   joints: {
     polar_joint1: {
-      increase: 'q',
-      decrease: 'w'
+      decrease: 'q',
+      increase: 'w'
     },
     polar_joint2: {
-      increase: 'e',
-      decrease: 'r'
-    }
+      decrease: 'a',
+      increase: 's'
+    },
+    polar_joint3: {
+      decrease: 'z',
+      increase: 'x'
+    },
+    polar_joint4: {
+      decrease: 'e',
+      increase: 'r'
+    },
+    polar_joint5: {
+      decrease: 'd',
+      increase: 'f'
+    },
+    polar_joint6: {
+      decrease: 'c',
+      increase: 'v'
+    },
   }
 };
 

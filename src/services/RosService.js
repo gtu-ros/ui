@@ -33,8 +33,8 @@ var tfClientToFrame = (fixedFrame, rate) => {
   return new ROSLIB.TFClient({
     ros: ros,
     fixedFrame: fixedFrame,
-    angularThres: 0.01,
-    transThres: 0.01,
+    angularThres: 0.001,
+    transThres: 0.001,
     rate: rate
   });
 };

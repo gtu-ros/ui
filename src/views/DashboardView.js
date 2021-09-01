@@ -107,13 +107,6 @@ const useStyles = makeStyles((theme) => ({
 
 const DashboardView = (props) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
@@ -126,10 +119,9 @@ const DashboardView = (props) => {
           <IconButton
             edge="start"
             color="inherit"
-            onClick={handleDrawerOpen}
             className={clsx(
               classes.menuButton,
-              open && classes.menuButtonHidden
+              false && classes.menuButtonHidden
             )}
           >
             <MenuIcon />

@@ -16,17 +16,21 @@ export const JointStates = (props) => {
   const [jointStatesListenerState, setJointStatesListenerState] =
     useState(null);
   const [jointStates, setJointStates] = useState(null);
-  const keyState = {};
-  const [speed, setSpeed] = useState(1);
+  // const keyState = {};
+  const [keyState, setKeyState] = useState({});
+  const [speed, setSpeed] = useState(25);
 
   const jointStatesCallback = (message) => {
-    setJointStates({
-      name: message.name,
-      position: message.position,
-      effort: message.effort,
-      velocity: message.velocity,
-      frame_id: message.header.frame_id
-    });
+    console.log(message);
+    if (message.header.seq % 20 === 0) {
+      setJointStates({
+        name: message.name,
+        position: message.position,
+        // effort: message.effort,
+        // velocity: message.velocity,
+        frame_id: message.header.frame_id
+      });
+    }
   };
 
   // set callback in initial render
@@ -40,39 +44,52 @@ export const JointStates = (props) => {
     return () => jointStatesListenerState?.unsubscribe();
   }, [jointStatesListenerState]);
 
-  useEffect(() => {
-    window.addEventListener(
-      'keydown',
-      (e) => {
-        // console.log(e);
-        keyState[e.key] = true;
-      },
-      true
-    );
-    window.addEventListener(
-      'keyup',
-      (e) => {
-        // console.log(e);
-        keyState[e.key] = false;
-      },
-      true
-    );
+  const handleKeyDown = (e) => {
+    // console.log(e);
+    // keyState[e.key] = true;
+    // setKeyState({ ...keyState, [e.key]: true });
+    setKeyState({ [e.key]: true });
+  };
 
+  const handleKeyUp = (e) => {
+    // console.log(e);
+    // keyState[e.key] = false;
+    // setKeyState({ ...keyState, [e.key]: false });
+    setKeyState({ [e.key]: false });
+  };
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown, true);
+    window.addEventListener('keyup', handleKeyUp, true);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keydown', handleKeyUp);
+    };
+  }, []);
+
+  useEffect(() => {
+    let timer;
     const keyEventLoop = () => {
+      // console.log(keyState);
       for (const [joint, control] of Object.entries(jointConfig.joints)) {
+        // console.log(keyState);
         if (keyState[control.increase]) {
           console.log(`${joint}: +`);
           jogJoint.publish(jogMessage(joint, jointConfig.movementStep * speed));
         }
         if (keyState[control.decrease]) {
           console.log(`${joint}: -`);
-          jogJoint.publish(jogMessage(joint, -jointConfig.movementStep * speed));
+          jogJoint.publish(
+            jogMessage(joint, -jointConfig.movementStep * speed)
+          );
         }
       }
-      setTimeout(keyEventLoop, eventLoop.timeout);
+      timer = setTimeout(keyEventLoop, eventLoop.timeout);
     };
     keyEventLoop();
-  }, []);
+    return () => clearTimeout(timer);
+  }, [keyState]);
 
   const handleSpeedChange = (event, newValue) => {
     setSpeed(newValue);
@@ -88,8 +105,14 @@ export const JointStates = (props) => {
         name: jointStates.name[i],
         position: jointStates.position[i],
         delta: 0,
-        decrease: () => jogJoint.publish(jogMessage(jointStates.name[i], -0.1)),
-        increase: () => jogJoint.publish(jogMessage(jointStates.name[i], 0.1))
+        decrease: () =>
+          jogJoint.publish(
+            jogMessage(jointStates.name[i], -jointConfig.movementStep * speed)
+          ),
+        increase: () =>
+          jogJoint.publish(
+            jogMessage(jointStates.name[i], jointConfig.movementStep * speed)
+          )
       });
     }
   }
@@ -129,31 +152,32 @@ export const JointStates = (props) => {
           </Grid>
         </>
       ) : null}
-      <Grid container spacing={3}>
-        <Grid xs={4}>Speed</Grid>
-        <Grid xs={4}>
+      <Grid container spacing={3} style={{ paddingTop: 30 }}>
+        <Grid xs={2}>Speed</Grid>
+        <Grid xs={2}>{speed}</Grid>
+        <Grid xs={6}>
           <Slider
             value={speed}
             onChange={handleSpeedChange}
             valueLabelDisplay="auto"
-            step={1} // TODO: set in config
+            step={5} // TODO: set in config
             marks
-            min={1}
-            max={10}
+            min={10}
+            max={125}
           />
         </Grid>
         <Grid xs={2}>
           <IconButton color="secondary" size="small">
             <RemoveCircleIcon
               onClick={() => {
-                setSpeed(speed - 1);
+                setSpeed(speed - 5);
               }}
             />
           </IconButton>
           <IconButton color="primary" size="small">
             <AddCircleIcon
               onClick={() => {
-                setSpeed(speed + 1);
+                setSpeed(speed + 5);
               }}
             />
           </IconButton>
