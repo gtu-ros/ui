@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { tfClientToFrame, viewer3d, urdfClient } from '../services/RosService';
 import { Grid } from 'ros3d';
 import * as THREE from 'three';
-import useWindowDimensions, { useWindowSize } from '../utils/utils';
 
 export const ModelVisualizer = (props) => {
   const viewerDivId = 'urdf';
@@ -37,22 +36,18 @@ export const ModelVisualizer = (props) => {
     viewer3dTmp.camera.add(pointLight);
     viewer3dTmp.scene.add(viewer3dTmp.camera);
     setViewer3dState(viewer3dTmp);
+    let tfClientTmp = tfClientToFrame(props.targetFrame, props.tfRate);
+    setTfClient(tfClientTmp);
+    setUrdfClientState(urdfClient(tfClientTmp, viewer3dTmp, props.urdfPath));
+    return () => {
+      urdfClientState?.unsubscribe();
+      tfClient?.unsubscribe();
+    };
   }, []);
 
   useEffect(() => {
     viewer3dState?.resize(width, height);
   }, [width, height]);
-
-  useEffect(() => {
-    let tfClientTmp = tfClientToFrame(props.targetFrame, props.tfRate);
-    setTfClient(tfClientTmp);
-    setUrdfClientState(urdfClient(tfClientTmp, viewer3d, props.urdfPath));
-
-    return () => {
-      // urdfClientState?.unsubscribe();
-      // tfClient?.unsubscribe();
-    };
-  }, [viewer3d]);
 
   return (
     <div>
