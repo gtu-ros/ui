@@ -11,7 +11,7 @@ import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { eventLoop, jointConfig } from '../utils/constants';
 
 export const JointStates = (props) => {
-  const float_precision = 3;
+  const float_precision = 2;
 
   const [jointStatesListenerState, setJointStatesListenerState] =
     useState(null);
@@ -22,7 +22,7 @@ export const JointStates = (props) => {
 
   const jointStatesCallback = (message) => {
     console.log(message);
-    if (message.header.seq % 20 === 0) {
+    if (message.header.seq % 10 === 0) {
       setJointStates({
         name: message.name,
         position: message.position,
@@ -103,8 +103,8 @@ export const JointStates = (props) => {
       if (jointConfig.hide.includes(jointStates.name[i])) continue;
       rows.push({
         name: jointStates.name[i],
-        position: jointStates.position[i],
-        delta: 0,
+        // position: jointStates.position[i],
+        position: jointStates.position[i] * (180 / Math.PI),
         decrease: () =>
           jogJoint.publish(
             jogMessage(jointStates.name[i], -jointConfig.movementStep * speed)
@@ -125,23 +125,27 @@ export const JointStates = (props) => {
             {rows.map((value, index) => {
               return (
                 <>
-                  <Grid xs={4}>{value.name}</Grid>
+                  <Grid style={{ textAlign: 'left' }} xs={4}>
+                    {value.name}
+                  </Grid>
                   <Grid xs={2}>{value.position.toFixed(float_precision)}</Grid>
                   <Grid xs={4}>
                     <Slider
                       value={value.position.toFixed(float_precision)}
                       valueLabelDisplay="auto"
-                      step={0.1}
-                      marks
-                      min={-2} // TODO: set min max in config
-                      max={2}
+                      // step={0.1}
+                      // marks
+                      min={-90} // TODO: set min max in config
+                      max={90}
                     />
                   </Grid>
                   <Grid xs={2}>
                     <IconButton color="secondary" size="small">
+                      <div>{jointConfig.joints[value.name]?.decrease}</div>
                       <RemoveCircleIcon onClick={value.decrease} />
                     </IconButton>
                     <IconButton color="primary" size="small">
+                      <div>{jointConfig.joints[value.name]?.increase}</div>
                       <AddCircleIcon onClick={value.increase} />
                     </IconButton>
                   </Grid>
@@ -152,7 +156,7 @@ export const JointStates = (props) => {
           </Grid>
         </>
       ) : null}
-      <Grid container spacing={3} style={{ paddingTop: 30 }}>
+      <Grid container spacing={3} style={{ paddingTop: 30, textAlign: 'left' }}>
         <Grid xs={2}>Speed</Grid>
         <Grid xs={2}>{speed}</Grid>
         <Grid xs={6}>
