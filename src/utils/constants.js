@@ -7,8 +7,8 @@ const simulation = {
   },
   config: {
     tfRate: 25,
-    width: 900,
-    height: 680,
+    // width: 950,
+    // height: 900,
     cameraPosition: { x: 3, y: 3, z: 3 }
   }
 };
@@ -40,8 +40,15 @@ const jointConfig = {
     polar_joint6: {
       decrease: 'c',
       increase: 'v'
-    },
+    }
   }
+};
+
+const cameraConfig = {
+  ip: 'localhost',
+  port: 8083,
+  path: '/stream/player/',
+  streams: ['cam1', 'cam2', 'cam3']
 };
 
 const eventLoop = {
@@ -51,5 +58,6 @@ const eventLoop = {
 module.exports = {
   simulation,
   eventLoop,
-  jointConfig
+  jointConfig,
+  cameraConfig
 };
