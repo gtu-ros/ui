@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { tfClientToFrame } from '../services/RosService';
+import {
+  Airspeed,
+  Altimeter,
+  AttitudeIndicator,
+  HeadingIndicator,
+  TurnCoordinator,
+  Variometer
+} from 'react-flight-indicators';
 
 export class TransformClient extends React.Component {
   float_precision = 3;
@@ -49,6 +57,14 @@ export class TransformClient extends React.Component {
       <div>
         {this.state.transform ? (
           <div>
+            <HeadingIndicator heading={Math.random() * 360} showBox={false} />
+
+            <AttitudeIndicator
+              roll={(Math.random() - 0.5) * 120}
+              pitch={(Math.random() - 0.5) * 40}
+              showBox={false}
+            />
+
             <h2>
               {this.props.sourceFrame} to {this.props.targetFrame} transform:
             </h2>

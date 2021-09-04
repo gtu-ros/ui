@@ -9,6 +9,7 @@ import { Divider, Grid, IconButton, Slider } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { eventLoop, jointConfig } from '../utils/constants';
+import { KeyPress } from './KeyPress';
 
 export const JointStates = (props) => {
   const float_precision = 2;
@@ -21,13 +22,11 @@ export const JointStates = (props) => {
   const [speed, setSpeed] = useState(25);
 
   const jointStatesCallback = (message) => {
-    console.log(message);
+    // console.log(message);
     if (message.header.seq % 10 === 0) {
       setJointStates({
         name: message.name,
         position: message.position,
-        // effort: message.effort,
-        // velocity: message.velocity,
         frame_id: message.header.frame_id
       });
     }
@@ -118,18 +117,18 @@ export const JointStates = (props) => {
   }
 
   return (
-    <div>
+    <div style={{ padding: '20px' }}>
       {jointStates ? (
         <>
-          <Grid container spacing={3}>
+          <Grid container spacing={3} style={{ paddingTop: '20px !important' }}>
             {rows.map((value, index) => {
               return (
                 <>
-                  <Grid style={{ textAlign: 'left' }} xs={4}>
+                  <Grid style={{ textAlign: 'left' }} xs={2}>
                     {value.name}
                   </Grid>
                   <Grid xs={2}>{value.position.toFixed(float_precision)}</Grid>
-                  <Grid xs={4}>
+                  <Grid xs={6}>
                     <Slider
                       value={value.position.toFixed(float_precision)}
                       valueLabelDisplay="auto"
@@ -140,14 +139,29 @@ export const JointStates = (props) => {
                     />
                   </Grid>
                   <Grid xs={2}>
-                    <IconButton color="secondary" size="small">
-                      <div>{jointConfig.joints[value.name]?.decrease}</div>
-                      <RemoveCircleIcon onClick={value.decrease} />
-                    </IconButton>
-                    <IconButton color="primary" size="small">
-                      <div>{jointConfig.joints[value.name]?.increase}</div>
-                      <AddCircleIcon onClick={value.increase} />
-                    </IconButton>
+                    <>
+                      <KeyPress
+                        keyName={jointConfig.joints[value.name]?.decrease}
+                        highlight={
+                          keyState[jointConfig.joints[value.name]?.decrease]
+                        }
+                      />
+                      <IconButton color="secondary" size="small">
+                        {/* <div>{jointConfig.joints[value.name]?.decrease}</div> */}
+                        {/* <div>{jointConfig.joints[value.name]?.decrease}</div> */}
+                        <RemoveCircleIcon onClick={value.decrease} />
+                      </IconButton>
+                      <IconButton color="primary" size="small">
+                        {/* <div>{jointConfig.joints[value.name]?.increase}</div> */}
+                        <AddCircleIcon onClick={value.increase} />
+                      </IconButton>
+                      <KeyPress
+                        keyName={jointConfig.joints[value.name]?.increase}
+                        highlight={
+                          keyState[jointConfig.joints[value.name]?.increase]
+                        }
+                      />
+                    </>
                   </Grid>
                   <Divider />
                 </>
@@ -171,20 +185,22 @@ export const JointStates = (props) => {
           />
         </Grid>
         <Grid xs={2}>
-          <IconButton color="secondary" size="small">
-            <RemoveCircleIcon
-              onClick={() => {
-                setSpeed(speed - 5);
-              }}
-            />
-          </IconButton>
-          <IconButton color="primary" size="small">
-            <AddCircleIcon
-              onClick={() => {
-                setSpeed(speed + 5);
-              }}
-            />
-          </IconButton>
+          <div>
+            <IconButton color="secondary" size="small">
+              <RemoveCircleIcon
+                onClick={() => {
+                  setSpeed(speed - 5);
+                }}
+              />
+            </IconButton>
+            <IconButton color="primary" size="small">
+              <AddCircleIcon
+                onClick={() => {
+                  setSpeed(speed + 5);
+                }}
+              />
+            </IconButton>
+          </div>
         </Grid>
       </Grid>
     </div>

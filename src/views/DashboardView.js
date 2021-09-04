@@ -165,22 +165,6 @@ const DashboardView = (props) => {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Grid container spacing={3}>
-          {/* <Grid item xs={6}>
-            <ModelVisualizer
-              urdfPath={
-                'http://' +
-                process.env.REACT_APP_FILE_SERVER_URL +
-                ':' +
-                process.env.REACT_APP_FILE_SERVER_PORT
-              }
-              targetFrame={simulation.constants.ROBOT_BASE_LINK}
-              tfRate={simulation.config.tfRate}
-              width={simulation.config.width}
-              height={simulation.config.height}
-              cameraPosition={simulation.config.cameraPosition}
-            />
-          </Grid> */}
-
           <Grid item xs={12}>
             <Paper elevation={8} className={fixedHeightPaper}>
               <JointStates topic={simulation.constants.JOINT_STATES_TOPIC} />
