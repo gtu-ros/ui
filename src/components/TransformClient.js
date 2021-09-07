@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { tfClientToFrame } from '../services/RosService';
+import * as THREE from 'three';
 import {
   Airspeed,
   Altimeter,
@@ -8,7 +9,7 @@ import {
   HeadingIndicator,
   TurnCoordinator,
   Variometer
-} from 'react-flight-indicators';
+} from '../dep/react-flight-indicators/src';
 
 export class TransformClient extends React.Component {
   float_precision = 3;
@@ -53,18 +54,21 @@ export class TransformClient extends React.Component {
     // capture variable for lambda functions
     const float_precision = this.float_precision;
 
+    if (this.state.transform)
+      var r = new THREE.Euler().setFromQuaternion(
+        this.state.transform?.rotation
+      );
+
     return (
       <div>
+        <AttitudeIndicator
+          roll={(Math.random() - 0.5) * 120}
+          pitch={(Math.random() - 0.5) * 40}
+          showBox={false}
+        />
+        <HeadingIndicator heading={Math.random() * 360} showBox={false} />
         {this.state.transform ? (
           <div>
-            <HeadingIndicator heading={Math.random() * 360} showBox={false} />
-
-            <AttitudeIndicator
-              roll={(Math.random() - 0.5) * 120}
-              pitch={(Math.random() - 0.5) * 40}
-              showBox={false}
-            />
-
             <h2>
               {this.props.sourceFrame} to {this.props.targetFrame} transform:
             </h2>

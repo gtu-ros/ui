@@ -5,6 +5,7 @@ import DashboardView from './views/DashboardView';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { simulation } from './utils/constants';
 import { ModelVisualizer } from './components/ModelVisualizer';
+import Navigation from './views/Navigation';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/urdf" component={Urdf} />
+          <Route path="/navigation" component={Navigation} />
           <Route path="/" component={DashboardView} />
         </Switch>
       </BrowserRouter>

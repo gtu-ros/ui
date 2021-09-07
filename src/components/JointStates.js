@@ -185,7 +185,7 @@ export const JointStates = (props) => {
           />
         </Grid>
         <Grid xs={2}>
-          <div>
+          <div style={{marginLeft: 50}}>
             <IconButton color="secondary" size="small">
               <RemoveCircleIcon
                 onClick={() => {
