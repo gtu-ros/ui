@@ -6,29 +6,75 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import GridOnIcon from '@material-ui/icons/GridOn';
 import VideocamIcon from '@material-ui/icons/Videocam';
+import MapIcon from '@material-ui/icons/Map';
+import NavigationIcon from '@material-ui/icons/Navigation';
 import { cameraConfig } from './constants';
+import { Divider } from '@material-ui/core';
 
-export const mainListItems = (
+export const MainListItems = (props) => (
   <div>
-    <ListItem button>
+    <ListSubheader inset style={{ textAlign: 'left' }}>
+      Dashboard
+    </ListSubheader>
+
+    <ListItem
+      button
+      onClick={() => {
+        props.setDashboardState(props.dashboardStates.roboticArm);
+      }}
+    >
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+      <ListItemText primary="Robotic Arm" />
     </ListItem>
-    <ListItem button>
+    <ListItem
+      button
+      onClick={() => {
+        props.setDashboardState(props.dashboardStates.navigation);
+      }}
+    >
       <ListItemIcon>
-        <GridOnIcon
-          onClick={() => {
-            window.open(
-              `${window.location.origin}/urdf`,
-              'urdf',
-              'width=640,height=480'
-            );
-          }}
-        />
+        <NavigationIcon />
+      </ListItemIcon>
+      <ListItemText primary="Navigation" />
+    </ListItem>
+
+    <Divider />
+
+    <ListSubheader inset style={{ textAlign: 'left' }}>
+      Views
+    </ListSubheader>
+
+    <ListItem
+      button
+      onClick={() => {
+        window.open(
+          `${window.location.origin}/urdf`,
+          'urdf',
+          'width=640,height=480'
+        );
+      }}
+    >
+      <ListItemIcon>
+        <GridOnIcon />
       </ListItemIcon>
       <ListItemText primary="URDF" />
+    </ListItem>
+    <ListItem
+      button
+      onClick={() => {
+        window.open(
+          `${window.location.origin}/navigation`,
+          'navigation',
+          'width=640,height=480'
+        );
+      }}
+    >
+      <ListItemIcon>
+        <MapIcon />
+      </ListItemIcon>
+      <ListItemText primary="Map" />
     </ListItem>
   </div>
 );
@@ -38,13 +84,14 @@ export const Cameras = () => {
 
   const listItems = cameraConfig.streams.map((cam) => {
     return (
-      <ListItem button>
+      <ListItem
+        button
+        onClick={() => {
+          window.open(`${baseUrl}${cam}`, cam, 'width=800,height=460');
+        }}
+      >
         <ListItemIcon>
-          <VideocamIcon
-            onClick={() => {
-              window.open(`${baseUrl}${cam}`, cam, 'width=800,height=460');
-            }}
-          />
+          <VideocamIcon />
         </ListItemIcon>
         <ListItemText primary={`${cam}`} />
       </ListItem>
@@ -53,7 +100,9 @@ export const Cameras = () => {
 
   return (
     <div>
-      <ListSubheader inset>Cameras</ListSubheader>
+      <ListSubheader inset style={{ textAlign: 'left' }}>
+        Cameras
+      </ListSubheader>
       {listItems}
     </div>
   );

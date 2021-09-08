@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { tfClientToFrame, viewer3d, markerClient } from '../services/RosService';
+import { tfClientToFrame, viewer3d, markerClient } from '../../services/RosService';
 
 export class SimpleMarker extends React.Component {
     viewerDivId = 'marker';

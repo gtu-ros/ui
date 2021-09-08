@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { tfClientToFrame } from '../services/RosService';
+import { tfClientToFrame } from '../../services/RosService';
 import * as THREE from 'three';
 import {
   Airspeed,
@@ -9,10 +9,19 @@ import {
   HeadingIndicator,
   TurnCoordinator,
   Variometer
-} from '../dep/react-flight-indicators/src';
+} from '../../dep/react-flight-indicators/src';
+import { Grid, Typography } from '@material-ui/core';
+import Title from '../Title';
 
 export class TransformClient extends React.Component {
   float_precision = 3;
+
+  getEuler = () => {
+    const quaternion = new THREE.Quaternion();
+    quaternion.copy(this.state.transform.rotation);
+    // return new THREE.Euler().setFromQuaternion(quaternion, "ZYX");
+    return new THREE.Euler().setFromQuaternion(quaternion);
+  };
 
   constructor(props) {
     super(props);
@@ -53,27 +62,40 @@ export class TransformClient extends React.Component {
   render() {
     // capture variable for lambda functions
     const float_precision = this.float_precision;
-
-    if (this.state.transform)
-      var r = new THREE.Euler().setFromQuaternion(
-        this.state.transform?.rotation
-      );
-
+    let roll, pitch, yaw;
+    if (this.state.transform) {
+      roll = (this.getEuler().z * 180) / Math.PI;
+      pitch = (this.getEuler().x * 180) / Math.PI + 90;
+      yaw = (this.getEuler().y * 180) / Math.PI;
+    }
     return (
       <div>
-        <AttitudeIndicator
-          roll={(Math.random() - 0.5) * 120}
-          pitch={(Math.random() - 0.5) * 40}
-          showBox={false}
-        />
-        <HeadingIndicator heading={Math.random() * 360} showBox={false} />
         {this.state.transform ? (
           <div>
-            <h2>
-              {this.props.sourceFrame} to {this.props.targetFrame} transform:
-            </h2>
+            <Title>
+              {this.props.sourceFrame} - {this.props.targetFrame} transform
+            </Title>
 
-            <h3>translation</h3>
+            <Grid container spacing={3}>
+              <Grid item xs={6}>
+                <div>
+                  <AttitudeIndicator
+                    roll={roll}
+                    pitch={pitch}
+                    showBox={false}
+                    size={300}
+                  />
+                  <div>X: {roll.toFixed(float_precision)}</div>
+                  <div>Y: {pitch.toFixed(float_precision)}</div>
+                </div>
+              </Grid>
+              <Grid item xs={6}>
+                <HeadingIndicator heading={yaw} showBox={false} size={300} />
+                <div>Z: {yaw.toFixed(float_precision)}</div>
+              </Grid>
+            </Grid>
+
+            {/* <h3>translation</h3>
             <span>
               x: {this.state.transform.translation.x.toFixed(float_precision)}{' '}
             </span>
@@ -82,21 +104,7 @@ export class TransformClient extends React.Component {
             </span>
             <span>
               z: {this.state.transform.translation.z.toFixed(float_precision)}{' '}
-            </span>
-
-            <h3>rotation</h3>
-            <span>
-              x: {this.state.transform.rotation.x.toFixed(float_precision)}{' '}
-            </span>
-            <span>
-              y: {this.state.transform.rotation.y.toFixed(float_precision)}{' '}
-            </span>
-            <span>
-              z: {this.state.transform.rotation.z.toFixed(float_precision)}{' '}
-            </span>
-            <span>
-              w: {this.state.transform.rotation.w.toFixed(float_precision)}{' '}
-            </span>
+            </span> */}
           </div>
         ) : null}
       </div>

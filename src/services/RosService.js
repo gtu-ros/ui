@@ -80,7 +80,6 @@ var jogJoint = new ROSLIB.Topic({
   ros: ros,
   name: '/jog_joint',
   messageType: 'jog_msgs/JogJoint'
-  //   messageType: 'jog_msgs.JogJoint'
 });
 
 var jogMessage = (jointName, delta) => {
@@ -104,6 +103,14 @@ var jogMessage = (jointName, delta) => {
   });
 };
 
+var zed2Odom = () => {
+  return new ROSLIB.Topic({
+    ros: ros,
+    name: '/zed2/odom',
+    messageType: 'nav_msgs/Odometry'
+  });
+};
+
 module.exports = {
   JointStatesListener,
   tfClientToFrame,
@@ -112,5 +119,6 @@ module.exports = {
   markerArrayClient,
   urdfClient,
   jogJoint,
-  jogMessage
+  jogMessage,
+  zed2Odom
 };

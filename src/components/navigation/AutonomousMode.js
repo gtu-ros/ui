@@ -1,0 +1,51 @@
+import React, { useEffect, useState } from 'react';
+import roverSideView from './rover-side.png';
+import roverFrontView from './rover-front.png';
+
+import { zed2Odom } from '../../services/RosService';
+
+import * as THREE from 'three';
+
+import { Grid, Typography } from '@material-ui/core';
+import Title from '../Title';
+
+export const AutonomousMode = (props) => {
+  const AUTONOMOUS_MODES = {
+    idle: {
+      text: 'Idle'
+    },
+    waiting: {
+      text: 'Waiting'
+    },
+    working: {
+      text: 'Working'
+    }
+  };
+  const [odomListenerState, setOdomListenerState] = useState(null);
+  const [mode, setMode] = useState(AUTONOMOUS_MODES.idle);
+
+  return (
+    <>
+      <Title>Status</Title>
+      <div style={{ height: '100%', position: 'relative' }}>
+        <Grid container spacing={3}>
+          <Typography
+            style={{
+              position: 'absolute',
+              width: '100%',
+              top: '50%',
+              textAlign: 'center',
+              transform: 'translateY(-50%)'
+            }}
+            variant="h4"
+            // color="primary"
+            align="left"
+            gutterBottom
+          >
+            {`${mode.text}`}
+          </Typography>
+        </Grid>
+      </div>
+    </>
+  );
+};

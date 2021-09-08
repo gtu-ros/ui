@@ -4,8 +4,8 @@ import './App.css';
 import DashboardView from './views/DashboardView';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { simulation } from './utils/constants';
-import { ModelVisualizer } from './components/ModelVisualizer';
-import Navigation from './views/Navigation';
+import { ModelVisualizer } from './components/roboticArm/ModelVisualizer';
+import NavigationMap from './components/navigation/NavigationMap';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/urdf" component={Urdf} />
-          <Route path="/navigation" component={Navigation} />
+          <Route path="/navigation" component={NavigationMap} />
           <Route path="/" component={DashboardView} />
         </Switch>
       </BrowserRouter>

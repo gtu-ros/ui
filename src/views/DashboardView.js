@@ -1,23 +1,20 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { JointStates } from '../components/JointStates';
-import { TransformClient } from '../components/TransformClient';
-import { simulation } from '../utils/constants';
 import {
   AppBar,
   Divider,
   Drawer,
-  Grid,
   IconButton,
   List,
   Toolbar,
-  Typography,
-  Paper
+  Typography
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { mainListItems, Cameras } from '../utils/listItems';
+import { MainListItems, Cameras } from '../utils/listItems';
+import RoboticArmDashboard from './RoboticArmDashboard';
+import NavigationDashboard from './NavigationDashboard';
 
 const drawerWidth = 240;
 
@@ -57,7 +54,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'none'
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
+    textAlign: 'left'
   },
   drawerPaper: {
     position: 'relative',
@@ -96,21 +94,32 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     flexDirection: 'column'
   },
-  fixedHeight: {
-    height: 300
+  fixedHeight4: {
+    height: 400
+  },
+  fixedHeight2: {
+    height: 200
   }
 }));
 
 const DashboardView = (props) => {
   const classes = useStyles();
+  const dashboardStates = {
+    roboticArm: <RoboticArmDashboard />,
+    navigation: <NavigationDashboard />
+  };
+
   const [open, setOpen] = useState(false);
+  const [dashboardState, setDashboardState] = useState(
+    dashboardStates.roboticArm
+  );
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
     <div className={classes.root}>
@@ -155,7 +164,12 @@ const DashboardView = (props) => {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+        <List>
+          <MainListItems
+            dashboardStates={dashboardStates}
+            setDashboardState={setDashboardState}
+          />
+        </List>
         <Divider />
         <List>
           <Cameras />
@@ -164,24 +178,11 @@ const DashboardView = (props) => {
 
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Paper elevation={8} className={fixedHeightPaper}>
-              <JointStates topic={simulation.constants.JOINT_STATES_TOPIC} />
-            </Paper>
-            <br />
-            <Paper elevation={8} className={fixedHeightPaper}>
-              <TransformClient
-                targetFrame={simulation.constants.WORLD_LINK}
-                sourceFrame={simulation.constants.PANDA_EE_PARENT_LINK}
-                tfRate={10}
-              />
-            </Paper>
-          </Grid>
-        </Grid>
+        {dashboardState}
       </main>
     </div>
   );
 };
 
+export { useStyles };
 export default DashboardView;

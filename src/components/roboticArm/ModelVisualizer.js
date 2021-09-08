@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { tfClientToFrame, viewer3d, urdfClient } from '../services/RosService';
+import { tfClientToFrame, viewer3d, urdfClient } from '../../services/RosService';
 import { Grid } from 'ros3d';
 import * as THREE from 'three';
 
