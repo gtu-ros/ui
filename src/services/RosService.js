@@ -111,6 +111,14 @@ var zed2Odom = () => {
   });
 };
 
+var wheelOdom = () => {
+  return new ROSLIB.Topic({
+    ros: ros,
+    name: '/wheel_odom',
+    messageType: 'geometry_msgs/TwistStamped'
+  });
+};
+
 module.exports = {
   JointStatesListener,
   tfClientToFrame,
@@ -120,5 +128,6 @@ module.exports = {
   urdfClient,
   jogJoint,
   jogMessage,
-  zed2Odom
+  zed2Odom,
+  wheelOdom
 };

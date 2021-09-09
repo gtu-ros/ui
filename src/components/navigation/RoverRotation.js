@@ -36,12 +36,12 @@ export const RoverRotation = (props) => {
     {
       title: 'Pitch',
       img: roverSideView,
-      angle: 30 //TODO
+      angle: (-(orientation?.y * 180) / Math.PI).toFixed(float_precision)
     },
     {
       title: 'Roll',
       img: roverFrontView,
-      angle: -10 //TODO
+      angle: ((orientation?.x * 180) / Math.PI).toFixed(float_precision)
     }
   ];
 
