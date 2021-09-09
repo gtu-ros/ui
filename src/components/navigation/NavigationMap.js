@@ -1,5 +1,10 @@
-import { Slider } from '@material-ui/core';
+import { Fab, IconButton, Slider } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
+import { saveAs } from 'file-saver';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import PublishIcon from '@material-ui/icons/Publish';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+import TimelineIcon from '@material-ui/icons/Timeline';
 
 // import Map, { Marker } from 'react-canvas-map';
 
@@ -38,7 +43,7 @@ const NavigationMap = (props) => {
   //   { x: 9.8, y: 0 }
   // ];
 
-  const path = [
+  const pathEx = [
     { x: 0, y: 0, rotation: 180 },
     { x: 0.5, y: 0, rotation: 180 },
     { x: 1, y: 0, rotation: 180 },
@@ -48,12 +53,14 @@ const NavigationMap = (props) => {
     { x: 3, y: 0.2, rotation: 160 },
     { x: 3.5, y: 0.3, rotation: 150 }
   ];
-  // const [path, setPath] = useState([]);
+  // const [path, setPath] = useState(pathEx);
+  const [path, setPath] = useState([]);
 
-  const [markers, setMarkers] = useState([]);
+  // const [markers, setMarkers] = useState([]);
   const [rotation, setRotation] = useState(0);
   const [odomListenerState, setOdomListenerState] = useState(null);
   const [odom, setOdom] = useState(null);
+  const [pathSlicer, setPathSlicer] = useState(0); // 0: disable slicing
 
   const diff = ({ x1, y1 }, { x2, y2 }) => {
     return Math.sqrt(Math.abs(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2)));
@@ -80,29 +87,43 @@ const NavigationMap = (props) => {
     setOdomListenerState(zed2Odom());
   }, []);
 
-  // useEffect(() => {
-  //   if (odom)
-  //     setPath([
-  //       ...path,
-  //       {
-  //         x: odom.position.x,
-  //         y: odom.position.y,
-  //         rotation: -odom.orientation.z
-  //       }
-  //     ]);
-  // }, [odom]);
-
   useEffect(() => {
-    setMarkers(
-      path.map((coords) => {
-        return {
-          x: -coords.x * scale + offset.x,
-          y: coords.y * scale + offset.y,
-          rotation: coords.rotation
-        };
-      })
-    );
-  }, [path]);
+    if (odom)
+      setPath([
+        ...path,
+        {
+          x: odom.position.x,
+          y: odom.position.y,
+          rotation: -odom.orientation.z
+        }
+      ]);
+  }, [odom]);
+
+  const getMarkers = (n) => {
+    const markers = path.map((coords) => {
+      return {
+        x: -coords.x * scale + offset.x,
+        y: coords.y * scale + offset.y,
+        rotation: coords.rotation
+      };
+    });
+    if (n === 0) return markers;
+    return markers.slice(0, n);
+  };
+
+  const noMarkers = (n) => path.length;
+
+  // useEffect(() => {
+  //   setMarkers(
+  //     path.map((coords) => {
+  //       return {
+  //         x: -coords.x * scale + offset.x,
+  //         y: coords.y * scale + offset.y,
+  //         rotation: coords.rotation
+  //       };
+  //     })
+  //   );
+  // }, [path]);
 
   useEffect(() => {
     if (odomListenerState) odomListenerState.subscribe(odomCallback);
@@ -120,12 +141,70 @@ const NavigationMap = (props) => {
     div.style.transform = 'rotate(' + deg + 'deg)';
   }, [rotation]);
 
+  const loadMap = (file) => {
+    const fileReader = new FileReader();
+    fileReader.onloadend = (e) => {
+      const content = fileReader.result;
+      const pathFromFile = JSON.parse(content);
+      console.log(pathFromFile);
+      setPath(pathFromFile);
+    };
+    fileReader.readAsText(file);
+  };
+
+  const saveMap = () => {
+    const timestamp = Date.now();
+    saveImage(timestamp);
+    const data = path;
+    const fileName = `path-${timestamp}.json`;
+    const fileToSave = new Blob([JSON.stringify(data, undefined, 2)], {
+      type: 'application/json'
+    });
+    saveAs(fileToSave, fileName);
+  };
+
+  const saveImage = (timestamp) => {
+    const canvas = document
+      .getElementById('navigation-map')
+      .getElementsByTagName('canvas')[0];
+
+    canvas.toBlob(function (blob) {
+      saveAs(blob, `map-${timestamp}.png`);
+    });
+  };
+
   return (
     <>
+      <Fab
+        size="small"
+        color="primary"
+        onClick={saveMap}
+        style={{ position: 'fixed', right: 10, top: 10, zIndex: 99 }}
+      >
+        <GetAppIcon />
+      </Fab>
+      <Fab
+        size="small"
+        color="primary"
+        onClick={() => document.getElementById('file-reader').click()}
+        style={{ position: 'fixed', right: 60, top: 10, zIndex: 99 }}
+      >
+        <input
+          hidden
+          id="file-reader"
+          type="file"
+          accept=".json"
+          onChange={(e) => loadMap(e.target.files[0])}
+        />
+        <PublishIcon />
+      </Fab>
       <div id={navigationMapId} style={{ height: '90vh' }}>
-        <Map image="./static/map.png">
-          {markers.map((marker, markerIndex) => {
-            if (markerIndex === markers.length - 1) {
+        <Map id="navigation-map" image="./static/map.png">
+          {getMarkers(pathSlicer).map((marker, markerIndex) => {
+            if (
+              markerIndex === noMarkers() - 1 ||
+              (pathSlicer !== 0 && markerIndex === pathSlicer - 1)
+            ) {
               return (
                 <Marker
                   key={`marker-${markerIndex}`}
@@ -156,14 +235,34 @@ const NavigationMap = (props) => {
           /> */}
         </Map>
       </div>
-      <div style={{ margin: 20 }}>
-        <Slider
-          value={rotation}
-          onChange={(_, newValue) => setRotation(newValue)}
-          valueLabelDisplay="auto"
-          min={0}
-          max={360}
-        />
+      <div style={{ margin: '0px 10px' }}>
+        <div style={{ display: 'flex' }}>
+          <IconButton style={{ marginRight: '8px' }}>
+            <RotateLeftIcon onClick={() => setRotation(0)} />
+          </IconButton>
+          <Slider
+            style={{ marginTop: 10 }}
+            value={rotation}
+            onChange={(_, newValue) => setRotation(newValue)}
+            valueLabelDisplay="auto"
+            min={0}
+            max={360}
+          />
+        </div>
+        <div style={{ display: 'flex' }}>
+          <IconButton style={{ marginRight: '8px' }}>
+            <TimelineIcon onClick={() => setPathSlicer(0)} />
+          </IconButton>
+          <Slider
+            style={{ marginTop: 10 }}
+            value={pathSlicer}
+            onChange={(_, newValue) => setPathSlicer(newValue)}
+            valueLabelDisplay="auto"
+            marks
+            min={0}
+            max={path.length}
+          />
+        </div>
       </div>
     </>
   );
