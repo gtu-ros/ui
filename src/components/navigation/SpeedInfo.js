@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import roverSideView from './rover-side.png';
-import roverFrontView from './rover-front.png';
 
 import { wheelOdom } from '../../services/RosService';
 
-import * as THREE from 'three';
-
-import { Grid, Slider, Typography } from '@material-ui/core';
 import Title from '../Title';
 
 import GaugeChart from 'react-gauge-chart';
+import { speedInfoConfig } from '../../utils/constants';
 
 export const SpeedInfo = (props) => {
   const [odomListenerState, setOdomListenerState] = useState(null);
@@ -18,7 +14,7 @@ export const SpeedInfo = (props) => {
   const float_precision = 2;
 
   const odomCallback = (message) => {
-    if (message.header.seq % 10 === 0) {
+    if (message.header.seq % speedInfoConfig.odomPeriod === 0) {
       if (message) {
         const updatedSpeed = message.twist.linear.x.toFixed(float_precision);
         setSpeed(updatedSpeed <= 0 ? 0 : updatedSpeed);
@@ -45,7 +41,7 @@ export const SpeedInfo = (props) => {
         id="gauge-chart4"
         style={{ height: '150px' }}
         animate={false}
-        nrOfLevels={10}
+        nrOfLevels={speedInfoConfig.nrOfLevels}
         textColor="000"
         formatTextValue={() => `${speed} m/s`}
         percent={speed - 0.05}

@@ -7,8 +7,6 @@ const simulation = {
   },
   config: {
     tfRate: 25,
-    // width: 950,
-    // height: 900,
     cameraPosition: { x: 3, y: 3, z: 3 }
   }
 };
@@ -16,6 +14,17 @@ const simulation = {
 const jointConfig = {
   hide: ['polar_finger_joint1', 'polar_finger_joint2', 'polar_hand_joint2'],
   movementStep: 0.0001,
+  speed: {
+    initialSpeed: 25,
+    step: 5,
+    min: 10,
+    max: 125
+  },
+  period: 10,
+  angles: {
+    min: -180,
+    max: 180
+  },
   joints: {
     polar_joint1: {
       decrease: 'q',
@@ -44,6 +53,41 @@ const jointConfig = {
   }
 };
 
+const navigationMapConfig = {
+  odomPeriod: 3,
+  map: {
+    scale: 71,
+    path: [
+      { x: 0, y: 0 },
+      { x: 8.37, y: -6.26 },
+      { x: 34, y: 1.5 },
+      { x: 30.77, y: -5.3 },
+      { x: 9.8, y: 0 }
+    ]
+  }
+};
+
+const roverRotationConfig = {
+  odomPeriod: 3
+};
+
+const speedInfoConfig = {
+  odomPeriod: 10,
+  nrOfLevels: 10
+};
+
+const autonomousModes = {
+  idle: {
+    text: 'Idle'
+  },
+  waiting: {
+    text: 'Waiting'
+  },
+  working: {
+    text: 'Working'
+  }
+};
+
 const cameraConfig = {
   ip: 'localhost',
   port: 8083,
@@ -59,5 +103,9 @@ module.exports = {
   simulation,
   eventLoop,
   jointConfig,
-  cameraConfig
+  cameraConfig,
+  autonomousModes,
+  navigationMapConfig,
+  roverRotationConfig,
+  speedInfoConfig
 };

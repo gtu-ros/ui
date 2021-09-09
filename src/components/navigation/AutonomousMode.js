@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import roverSideView from './rover-side.png';
 import roverFrontView from './rover-front.png';
+import { autonomousModes as AUTONOMOUS_MODES } from '../../utils/constants';
 
 import { zed2Odom } from '../../services/RosService';
 
@@ -10,17 +11,6 @@ import { Grid, Typography } from '@material-ui/core';
 import Title from '../Title';
 
 export const AutonomousMode = (props) => {
-  const AUTONOMOUS_MODES = {
-    idle: {
-      text: 'Idle'
-    },
-    waiting: {
-      text: 'Waiting'
-    },
-    working: {
-      text: 'Working'
-    }
-  };
   const [odomListenerState, setOdomListenerState] = useState(null);
   const [mode, setMode] = useState(AUTONOMOUS_MODES.idle);
 

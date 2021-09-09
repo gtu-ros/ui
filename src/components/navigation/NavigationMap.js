@@ -12,6 +12,7 @@ import Map, { Marker } from '../../dep/react-canvas-map/src';
 
 import { zed2Odom } from '../../services/RosService';
 import * as THREE from 'three';
+import { navigationMapConfig } from '../../utils/constants';
 
 const NavigationMap = (props) => {
   // const [width, setWidth] = useState(window.innerWidth);
@@ -33,8 +34,8 @@ const NavigationMap = (props) => {
   roverImage.src = './static/next.svg';
   const navigationMapId = 'navigation-map';
 
-  const offset = { x: 2773, y: 1996 };
-  const scale = 71;
+  const offset = navigationMapConfig.offset;
+  const scale = navigationMapConfig.scale;
   // const path = [
   //   { x: 0, y: 0 },
   //   { x: 8.37, y: -6.26 },
@@ -67,15 +68,9 @@ const NavigationMap = (props) => {
   };
 
   const odomCallback = (message) => {
-    if (message.header.seq % 3 === 0) {
-      // console.log(message);
-      // if (odom) {
-      //   console.log('x:', diff(message.pose.pose.position, odom.position));
-      //   if (diff(message.pose.pose.position, odom.position) < 0.1) return;
-      // }
+    if (message.header.seq % navigationMapConfig.odomPeriod === 0) {
       const quaternion = new THREE.Quaternion();
       quaternion.copy(message.pose.pose.orientation);
-      // console.log(new THREE.Euler().setFromQuaternion(quaternion));
       setOdom({
         position: message.pose.pose.position,
         orientation: new THREE.Euler().setFromQuaternion(quaternion)
@@ -223,16 +218,6 @@ const NavigationMap = (props) => {
               />
             );
           })}
-          {/* <Marker
-            key={`roverId`}
-            markerKey={`roverId`}
-            coords={{
-              x: odom.position.x,
-              y: odom.position.y,
-              rotation: odom.rotation.z
-            }}
-            image={roverImage}
-          /> */}
         </Map>
       </div>
       <div style={{ margin: '0px 10px' }}>

@@ -8,6 +8,7 @@ import * as THREE from 'three';
 
 import { Grid, Slider, Typography } from '@material-ui/core';
 import Title from '../Title';
+import { roverRotationConfig } from '../../utils/constants';
 
 export const RoverRotation = (props) => {
   const float_precision = 2;
@@ -16,7 +17,7 @@ export const RoverRotation = (props) => {
   const [orientation, setOrientation] = useState(null);
 
   const odomCallback = (message) => {
-    if (message.header.seq % 3 === 0) {
+    if (message.header.seq % roverRotationConfig.odomPeriod === 0) {
       const quaternion = new THREE.Quaternion();
       quaternion.copy(message.pose.pose.orientation);
       setOrientation(new THREE.Euler().setFromQuaternion(quaternion));

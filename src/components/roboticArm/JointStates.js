@@ -20,11 +20,11 @@ export const JointStates = (props) => {
   const [jointStates, setJointStates] = useState(null);
   // const keyState = {};
   const [keyState, setKeyState] = useState({});
-  const [speed, setSpeed] = useState(25);
+  const [speed, setSpeed] = useState(jointConfig.speed.initialSpeed);
 
   const jointStatesCallback = (message) => {
     // console.log(message);
-    if (message.header.seq % 10 === 0) {
+    if (message.header.seq % jointConfig.period === 0) {
       setJointStates({
         name: message.name,
         position: message.position,
@@ -146,8 +146,8 @@ export const JointStates = (props) => {
                         valueLabelDisplay="auto"
                         // step={0.1}
                         // marks
-                        min={-180} // TODO: set min max in config
-                        max={180}
+                        min={jointConfig.min}
+                        max={jointConfig.max}
                       />
                     </Grid>
                     <Grid xs={2}>
@@ -190,10 +190,10 @@ export const JointStates = (props) => {
               value={speed}
               onChange={handleSpeedChange}
               valueLabelDisplay="auto"
-              step={5} // TODO: set in config
+              step={jointConfig.speed.step} // TODO: set in config
               marks
-              min={10}
-              max={125}
+              min={jointConfig.speed.min}
+              max={jointConfig.speed.max}
             />
           </Grid>
           <Grid xs={2}>
@@ -201,14 +201,14 @@ export const JointStates = (props) => {
               <IconButton color="secondary" size="small">
                 <RemoveCircleIcon
                   onClick={() => {
-                    setSpeed(speed - 5);
+                    setSpeed(speed - jointConfig.speed.step);
                   }}
                 />
               </IconButton>
               <IconButton color="primary" size="small">
                 <AddCircleIcon
                   onClick={() => {
-                    setSpeed(speed + 5);
+                    setSpeed(speed + jointConfig.speed.step);
                   }}
                 />
               </IconButton>
