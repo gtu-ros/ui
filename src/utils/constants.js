@@ -57,6 +57,10 @@ const navigationMapConfig = {
   odomPeriod: 3,
   map: {
     scale: 71,
+    offset: {
+      x: 2773,
+      y: 1996
+    },
     path: [
       { x: 0, y: 0 },
       { x: 8.37, y: -6.26 },

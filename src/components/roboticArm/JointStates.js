@@ -146,8 +146,8 @@ export const JointStates = (props) => {
                         valueLabelDisplay="auto"
                         // step={0.1}
                         // marks
-                        min={jointConfig.min}
-                        max={jointConfig.max}
+                        min={jointConfig.angles.min}
+                        max={jointConfig.angles.max}
                       />
                     </Grid>
                     <Grid xs={2}>

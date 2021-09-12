@@ -34,8 +34,8 @@ const NavigationMap = (props) => {
   roverImage.src = './static/next.svg';
   const navigationMapId = 'navigation-map';
 
-  const offset = navigationMapConfig.offset;
-  const scale = navigationMapConfig.scale;
+  const offset = navigationMapConfig.map.offset;
+  const scale = navigationMapConfig.map.scale;
   // const path = [
   //   { x: 0, y: 0 },
   //   { x: 8.37, y: -6.26 },

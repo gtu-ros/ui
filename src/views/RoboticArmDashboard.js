@@ -18,7 +18,8 @@ const RoboticArmDashboard = () => {
         <Paper elevation={8} className={fixedHeightPaper}>
           <JointStates topic={simulation.constants.JOINT_STATES_TOPIC} />
         </Paper>
-        <br />
+      </Grid>
+      <Grid item xs={12}>
         <Paper elevation={8} className={fixedHeightPaper}>
           <TransformClient
             targetFrame={simulation.constants.WORLD_LINK}
@@ -27,6 +28,10 @@ const RoboticArmDashboard = () => {
           />
         </Paper>
       </Grid>
+      {/* <Grid item xs={4}>
+        <Paper elevation={8} className={fixedHeightPaper}>
+        </Paper>
+      </Grid> */}
     </Grid>
   );
 };

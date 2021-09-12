@@ -139,6 +139,7 @@ const DashboardView = (props) => {
           >
             <MenuIcon />
           </IconButton>
+
           <Typography
             component="h1"
             variant="h6"
@@ -148,6 +149,7 @@ const DashboardView = (props) => {
           >
             GTU Rover
           </Typography>
+          <img style={{ width: 50, marginRight: 20 }} src="./logo.png" />
         </Toolbar>
       </AppBar>
 
