@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { useStyles } from './DashboardView';
 
 import { Grid, Paper } from '@material-ui/core';
-import { RoverRotation } from '../components/navigation/RoverRotation';
+import { RoverRotation } from '../components/RoverRotation';
 import { SpeedInfo } from '../components/navigation/SpeedInfo';
 import { AutonomousMode } from '../components/navigation/AutonomousMode';
 

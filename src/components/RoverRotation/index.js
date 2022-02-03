@@ -48,14 +48,13 @@ export const RoverRotation = (props) => {
 
   return (
     <>
-      <Title>Orientation</Title>
       <div style={{ padding: '20px' }}>
         <Grid container spacing={3} style={{}}>
           {orientationViews.map((view) => (
             <Grid xs={6}>
               <Typography
                 component="h2"
-                variant="h6"
+                variant="subtitle2"
                 color="secondary"
                 align="left"
                 gutterBottom

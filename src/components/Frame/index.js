@@ -1,14 +1,36 @@
-import { Grid, Paper } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 
-const Frame = ({ children, ...rest }) => {
-  const { xs = 1 } = rest;
-
+export const FrameTitle = ({ children }) => {
   return (
-    <Grid item xs={xs} {...rest}>
-      <Paper style={{ height: '100%' }} elevation={8}>
+    <div
+      style={{
+        backgroundColor: 'white',
+        position: 'sticky',
+        top: 0,
+        cursor: 'grab',
+        paddingTop: -1,
+        zIndex: 10
+      }}
+    >
+      <Typography
+        style={{ margin: 0 }}
+        variant="subtitle2"
+        color="primary"
+        align="left"
+        gutterBottom
+      >
         {children}
-      </Paper>
-    </Grid>
+      </Typography>
+    </div>
+  );
+};
+
+const Frame = ({ children, title }) => {
+  return (
+    <Box padding={0}>
+      <FrameTitle className="draggable">{title}</FrameTitle>
+      <Box className="cancel-draggable">{children}</Box>
+    </Box>
   );
 };
 

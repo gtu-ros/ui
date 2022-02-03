@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import roverSideView from './rover-side.png';
-import roverFrontView from './rover-front.png';
 import { autonomousModes as AUTONOMOUS_MODES } from '../../utils/constants';
 
 import { zed2Odom } from '../../services/RosService';
