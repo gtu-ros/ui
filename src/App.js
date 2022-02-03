@@ -1,23 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 import DashboardView from './views/DashboardView';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { simulation } from './utils/constants';
 import { ModelVisualizer } from './components/roboticArm/ModelVisualizer';
 import NavigationMap from './components/navigation/NavigationMap';
+import './App.css';
 
 function App() {
+
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Switch>
-          <Route path="/urdf" component={Urdf} />
-          <Route path="/navigation" component={NavigationMap} />
-          <Route path="/" component={DashboardView} />
-        </Switch>
-      </BrowserRouter>
-    </div>
+      <div className="App">
+        <BrowserRouter>
+          <Switch>
+            <Route path="/urdf" component={Urdf} />
+            <Route path="/navigation" component={NavigationMap} />
+            <Route path="/" component={DashboardView} />
+          </Switch>
+        </BrowserRouter>
+      </div>
   );
 }
 

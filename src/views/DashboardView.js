@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  AppBar,
   Divider,
   Drawer,
   IconButton,
@@ -10,19 +9,21 @@ import {
   Toolbar,
   Typography
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { MainListItems, Cameras } from '../utils/listItems';
 import RoboticArmDashboard from './RoboticArmDashboard';
 import NavigationDashboard from './NavigationDashboard';
 import TestLayout from './TestLayout';
+import AppBar from '../components/AppBar';
+import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => {
   let styles = {
     root: {
-      display: 'flex'
+      display: 'flex',
+      backgroundColor: 'white'
     },
     toolbar: {
       paddingRight: 24 // keep right padding when drawer closed
@@ -115,9 +116,6 @@ const DashboardView = (props) => {
     test: <TestLayout />
   };
 
-  const [open, setOpen] = useState(false);
-  const [dashboardState, setDashboardState] = useState(dashboardStates.test);
-
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -125,68 +123,51 @@ const DashboardView = (props) => {
     setOpen(false);
   };
 
+  const [open, setOpen] = useState(false);
+  const [dashboardState, setDashboardState] = useState(dashboardStates.test);
+  const handle = useFullScreenHandle();
+
   return (
-    <div className={classes.root}>
-      <AppBar
-        position="absolute"
-        className={clsx(classes.appBar, open && classes.appBarShift)}
-      >
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            onClick={handleDrawerOpen}
-            color="inherit"
-            className={clsx(
-              classes.menuButton,
-              open && classes.menuButtonHidden
-            )}
-          >
-            <MenuIcon />
-          </IconButton>
+    <FullScreen handle={handle}>
+      <div className={classes.root}>
+        <AppBar
+          onDrawerClose={handleDrawerClose}
+          onDrawerOpen={handleDrawerOpen}
+          isOpen={open}
+          enterFullscreen={handle.enter}
+        />
 
-          <Typography
-            component="h1"
-            variant="h6"
-            color="inherit"
-            noWrap
-            className={classes.title}
-          >
-            GTU Rover
-          </Typography>
-          <img style={{ width: 50, marginRight: 20 }} src="./logo.png" />
-        </Toolbar>
-      </AppBar>
+        <Drawer
+          variant="permanent"
+          classes={{
+            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
+          }}
+          open={open}
+        >
+          <div className={classes.toolbarIcon}>
+            <IconButton onClick={handleDrawerClose}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+            <MainListItems
+              dashboardStates={dashboardStates}
+              setDashboardState={setDashboardState}
+            />
+          </List>
+          <Divider />
+          <List>
+            <Cameras />
+          </List>
+        </Drawer>
 
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
-        }}
-        open={open}
-      >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-          <MainListItems
-            dashboardStates={dashboardStates}
-            setDashboardState={setDashboardState}
-          />
-        </List>
-        <Divider />
-        <List>
-          <Cameras />
-        </List>
-      </Drawer>
-
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        {dashboardState}
-      </main>
-    </div>
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          {dashboardState}
+        </main>
+      </div>
+    </FullScreen>
   );
 };
 
