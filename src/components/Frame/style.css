@@ -1,0 +1,7 @@
+.wrapper .zoomOutButton {
+  visibility: hidden;
+}
+
+.wrapper:hover .zoomOutButton {
+  visibility: visible;
+}

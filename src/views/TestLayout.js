@@ -33,7 +33,7 @@ const TestLayout = () => {
       </div>
       <div
         key={COMPONENTS.MISSION_ELAPSED_TIME}
-        data-grid={{ x: 2, y: 0, w: 2, h: 2 }}
+        data-grid={{ x: 1, y: 0, w: 2, h: 2 }}
       >
         <Frame title={COMPONENTS.MISSION_ELAPSED_TIME}>
           <Stopwatch />
@@ -41,7 +41,7 @@ const TestLayout = () => {
       </div>
       <div
         key={COMPONENTS.BATTERY_STATUS}
-        data-grid={{ x: 4, y: 0, w: 4, h: 8 }}
+        data-grid={{ x: 3, y: 0, w: 4, h: 8 }}
       >
         <Frame title={COMPONENTS.ORIENTATION}>
           <RoverRotation />
@@ -49,13 +49,13 @@ const TestLayout = () => {
       </div>
       <div
         key={COMPONENTS.ROVER_NAVCAM_1}
-        data-grid={{ x: 0, y: 1, w: 3, h: 3 }}
+        data-grid={{ x: 0, y: 1, w: 3, h: 6 }}
       >
         <Frame title={COMPONENTS.ROVER_NAVCAM_1}></Frame>
       </div>
       <div
         key={COMPONENTS.ROVER_NAVCAM_2}
-        data-grid={{ x: 3, y: 1, w: 3, h: 3 }}
+        data-grid={{ x: 3, y: 1, w: 3, h: 6 }}
       >
         <Frame title={COMPONENTS.ROVER_NAVCAM_2}></Frame>
       </div>
@@ -80,11 +80,7 @@ const TestLayout = () => {
       >
         <Frame title={COMPONENTS.BATTERY_TEMPERATURE}></Frame>
       </div>
-      <div
-        key={COMPONENTS.URDF}
-        data-grid={{ x: 6, y: 7, w: 3, h: 2 }}
-        style={{ overflow: 'hidden' }}
-      >
+      <div key={COMPONENTS.URDF} data-grid={{ x: 7, y: 0, w: 5, h: 8 }}>
         <Frame title={COMPONENTS.URDF} fixed>
           <UrdfVisualizer />
         </Frame>

@@ -19,11 +19,12 @@ body {
 .react-grid-item {
   box-sizing: border-box;
   display: block;
+  background-color: white;
 }
 .react-grid-item:not(.react-grid-placeholder) {
   /* background: #ccc; */
-  padding-left: 5px;
-  padding-right: 5px;
+  /* padding-left: 5px;
+  padding-right: 5px; */
   border: 2px solid rgba(0, 0, 0, 0.12);
   border-radius: 4px;
 }

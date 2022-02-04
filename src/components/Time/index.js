@@ -11,7 +11,7 @@ const Time = () => {
   const offset = date.getTimezoneOffset() / 60;
 
   return (
-    <Grid container direction="row" alignItems="center">
+    <Grid style={{paddingLeft: 4}} container direction="row" alignItems="center">
       <span>{pad(hours + offset)}</span>:<span>{pad(minutes)}</span>:
       <span>{pad(seconds)}</span>
     </Grid>
