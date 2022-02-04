@@ -8,9 +8,12 @@ import {
 
 import { Menu, Fullscreen } from '@material-ui/icons';
 import { useStyles } from '../../views/DashboardView';
+import { useSelector } from 'react-redux';
+import { selectTitle } from '../../redux/ui/ui.selectors';
 
 const AppBar = ({ onDrawerOpen, onDrawerClose, isOpen, enterFullscreen }) => {
   const classes = useStyles();
+  const title = useSelector(selectTitle);
 
   return (
     <MuiAppBar
@@ -37,7 +40,7 @@ const AppBar = ({ onDrawerOpen, onDrawerClose, isOpen, enterFullscreen }) => {
           noWrap
           className={classes.title}
         >
-          GTU Rover
+          {title}
         </Typography>
         <IconButton color="inherit" onClick={enterFullscreen}>
           <Fullscreen />

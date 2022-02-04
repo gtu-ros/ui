@@ -1,27 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { tfClientToFrame, viewer3d, urdfClient } from '../../services/RosService';
+import {
+  tfClientToFrame,
+  viewer3d,
+  urdfClient
+} from '../../services/RosService';
 import { Grid } from 'ros3d';
 import * as THREE from 'three';
+import { useResizeDetector } from 'react-resize-detector';
 
 export const ModelVisualizer = (props) => {
   const viewerDivId = 'urdf';
-
   const [tfClient, setTfClient] = useState(null);
   const [viewer3dState, setViewer3dState] = useState(null);
   const [urdfClientState, setUrdfClientState] = useState(null);
-  const [width, setWidth] = useState(window.innerWidth);
-  const [height, setHeight] = useState(window.innerHeight);
-
-  const updateWidthAndHeight = () => {
-    setWidth(window.innerWidth);
-    setHeight(window.innerHeight);
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', updateWidthAndHeight);
-    return () => window.removeEventListener('resize', updateWidthAndHeight);
-  });
+  const { width, height, ref } = useResizeDetector();
 
   useEffect(() => {
     let viewer3dTmp = viewer3d(
@@ -46,13 +39,16 @@ export const ModelVisualizer = (props) => {
   }, []);
 
   useEffect(() => {
+    if (props.width && props.height) return;
     viewer3dState?.resize(width, height);
   }, [width, height]);
 
   return (
-    <div>
-      <div id={viewerDivId}></div>
-    </div>
+    <div
+      style={{ height: '100%', maxHeight: 1080, maxWidth: 1920 }}
+      ref={ref}
+      id={viewerDivId}
+    ></div>
   );
 };
 

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Frame from '../components/Frame';
 
 import ShowcaseLayout from '../components/Grid';
 import { RoverRotation } from '../components/RoverRotation';
 import Stopwatch from '../components/Stopwatch';
 import Time from '../components/Time';
+import UrdfVisualizer from '../components/UrdfVisualizer';
+import { useResizeDetector } from 'react-resize-detector';
 
 const COMPONENTS = {
   UTC: 'UTC',
@@ -17,7 +19,8 @@ const COMPONENTS = {
   BATTERY_CURRENT: 'Battery Current',
   BATTERY_TEMPERATURE: 'Battery Temperature',
   BATTERY_STATE_OF_CHARGE: 'Battery State of Charge',
-  ORIENTATION: 'Orientation'
+  ORIENTATION: 'Orientation',
+  URDF: 'URDF'
 };
 
 const TestLayout = () => {
@@ -76,6 +79,15 @@ const TestLayout = () => {
         data-grid={{ x: 3, y: 7, w: 3, h: 2 }}
       >
         <Frame title={COMPONENTS.BATTERY_TEMPERATURE}></Frame>
+      </div>
+      <div
+        key={COMPONENTS.URDF}
+        data-grid={{ x: 6, y: 7, w: 3, h: 2 }}
+        style={{ overflow: 'hidden' }}
+      >
+        <Frame title={COMPONENTS.URDF} fixed>
+          <UrdfVisualizer />
+        </Frame>
       </div>
       <div
         key={COMPONENTS.BATTERY_STATE_OF_CHARGE}

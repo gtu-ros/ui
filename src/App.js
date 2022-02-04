@@ -1,42 +1,23 @@
 import React from 'react';
 import DashboardView from './views/DashboardView';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { simulation } from './utils/constants';
-import { ModelVisualizer } from './components/roboticArm/ModelVisualizer';
 import NavigationMap from './components/navigation/NavigationMap';
 import './App.css';
+import UrdfVisualizer from './components/UrdfVisualizer';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
-
   return (
-      <div className="App">
-        <BrowserRouter>
-          <Switch>
-            <Route path="/urdf" component={Urdf} />
-            <Route path="/navigation" component={NavigationMap} />
-            <Route path="/" component={DashboardView} />
-          </Switch>
-        </BrowserRouter>
-      </div>
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<DashboardView />} />
+        <Route path="navigation" element={<NavigationMap />} />
+        <Route
+          path="urdf"
+          element={<UrdfVisualizer width={1920} height={1080} />}
+        />
+      </Routes>
+    </div>
   );
 }
-
-const Urdf = () => {
-  return (
-    <ModelVisualizer
-      urdfPath={
-        'http://' +
-        process.env.REACT_APP_FILE_SERVER_URL +
-        ':' +
-        process.env.REACT_APP_FILE_SERVER_PORT
-      }
-      targetFrame={simulation.constants.ROBOT_BASE_LINK}
-      tfRate={simulation.config.tfRate}
-      width={simulation.config.width}
-      height={simulation.config.height}
-      cameraPosition={simulation.config.cameraPosition}
-    />
-  );
-};
 
 export default App;

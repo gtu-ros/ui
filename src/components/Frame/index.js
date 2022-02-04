@@ -25,12 +25,16 @@ export const FrameTitle = ({ children }) => {
   );
 };
 
-const Frame = ({ children, title }) => {
+const Frame = ({ children, title, fixed = false }) => {
   return (
-    <Box padding={0}>
-      <FrameTitle className="draggable">{title}</FrameTitle>
-      <Box className="cancel-draggable">{children}</Box>
-    </Box>
+    <div style={{ height: '100%', overflow: fixed ? 'hidden' : 'auto' }}>
+      <Box sx={fixed && { height: '100%' }} padding={0}>
+        <FrameTitle className="draggable">{title}</FrameTitle>
+        <Box sx={fixed && { height: '100%' }} className="cancel-draggable">
+          {children}
+        </Box>
+      </Box>
+    </div>
   );
 };
 
