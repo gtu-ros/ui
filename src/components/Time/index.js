@@ -9,10 +9,17 @@ const Time = () => {
 
   const date = new Date();
   const offset = date.getTimezoneOffset() / 60;
+  let utcHours = hours + offset;
+  if (utcHours < 0) utcHours += 24;
 
   return (
-    <Grid style={{paddingLeft: 4}} container direction="row" alignItems="center">
-      <span>{pad(hours + offset)}</span>:<span>{pad(minutes)}</span>:
+    <Grid
+      style={{ paddingLeft: 4 }}
+      container
+      direction="row"
+      alignItems="center"
+    >
+      <span>{pad(utcHours)}</span>:<span>{pad(minutes)}</span>:
       <span>{pad(seconds)}</span>
     </Grid>
   );
