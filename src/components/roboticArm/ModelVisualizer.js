@@ -8,9 +8,10 @@ import {
 import { Grid } from 'ros3d';
 import * as THREE from 'three';
 import { useResizeDetector } from 'react-resize-detector';
+import nextId from 'react-id-generator';
 
 export const ModelVisualizer = (props) => {
-  const viewerDivId = 'urdf';
+  const viewerDivId = nextId('urdf');
   const [tfClient, setTfClient] = useState(null);
   const [viewer3dState, setViewer3dState] = useState(null);
   const [urdfClientState, setUrdfClientState] = useState(null);
