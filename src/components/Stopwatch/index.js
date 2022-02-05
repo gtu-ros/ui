@@ -1,12 +1,19 @@
 import React from 'react';
-import { useStopwatch } from 'react-timer-hook';
 import { IconButton } from '@mui/material';
 import { Stop, PlayArrow, Pause } from '@mui/icons-material';
 import { Grid } from '@material-ui/core';
 
-const Stopwatch = () => {
-  const { seconds, minutes, hours, isRunning, start, pause, reset } =
-    useStopwatch({ autoStart: false });
+const Stopwatch = ({
+  seconds,
+  minutes,
+  hours,
+  isRunning,
+  start,
+  pause,
+  reset
+}) => {
+  // const { seconds, minutes, hours, isRunning, start, pause, reset } =
+  //   usePluginData('stopwatch');
 
   const pad = (n) => n.toString().padStart(2, '0');
 

@@ -7,14 +7,17 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { BrowserRouter } from 'react-router-dom';
 import ModalProvider from 'mui-modal-provider';
+import { PluginsDataProvider } from './contexts/PluginsData';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <ModalProvider>
-          <App />
-        </ModalProvider>
+        <PluginsDataProvider>
+          <ModalProvider>
+            <App />
+          </ModalProvider>
+        </PluginsDataProvider>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>,
