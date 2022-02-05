@@ -28,6 +28,9 @@ body {
   border: 2px solid rgba(0, 0, 0, 0.12);
   border-radius: 4px;
 }
+.react-grid-item:not(.react-grid-placeholder):hover {
+  border-color: #9c27b0;
+}
 .react-grid-item.resizing {
   opacity: 0.9;
 }
