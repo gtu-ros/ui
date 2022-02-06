@@ -8,8 +8,10 @@ import GridOnIcon from '@material-ui/icons/GridOn';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import MapIcon from '@material-ui/icons/Map';
 import NavigationIcon from '@material-ui/icons/Navigation';
+import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import { cameraConfig } from './constants';
-import { Divider } from '@material-ui/core';
+import { Collapse, Divider, List } from '@material-ui/core';
+import { ExpandLess } from '@material-ui/icons';
 
 export const MainListItems = (props) => (
   <div>
@@ -20,11 +22,22 @@ export const MainListItems = (props) => (
     <ListItem
       button
       onClick={() => {
-        props.setDashboardState(props.dashboardStates.roboticArm);
+        props.setDashboardState(props.dashboardStates.main);
       }}
     >
       <ListItemIcon>
         <DashboardIcon />
+      </ListItemIcon>
+      <ListItemText primary="Main" />
+    </ListItem>
+    <ListItem
+      button
+      onClick={() => {
+        props.setDashboardState(props.dashboardStates.roboticArm);
+      }}
+    >
+      <ListItemIcon>
+        <PrecisionManufacturingIcon />
       </ListItemIcon>
       <ListItemText primary="Robotic Arm" />
     </ListItem>

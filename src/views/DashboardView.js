@@ -13,9 +13,9 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { MainListItems, Cameras } from '../utils/listItems';
 import RoboticArmDashboard from './RoboticArmDashboard';
 import NavigationDashboard from './NavigationDashboard';
-import TestLayout from './TestLayout';
 import AppBar from '../components/AppBar';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
+import MainLayout from './MainLayout';
 
 const drawerWidth = 240;
 
@@ -111,9 +111,9 @@ const useStyles = makeStyles((theme) => {
 const DashboardView = (props) => {
   const classes = useStyles();
   const dashboardStates = {
+    main: <MainLayout />,
     roboticArm: <RoboticArmDashboard />,
-    navigation: <NavigationDashboard />,
-    test: <TestLayout />
+    navigation: <NavigationDashboard />
   };
 
   const handleDrawerOpen = () => {
@@ -124,7 +124,7 @@ const DashboardView = (props) => {
   };
 
   const [open, setOpen] = useState(false);
-  const [dashboardState, setDashboardState] = useState(dashboardStates.test);
+  const [dashboardState, setDashboardState] = useState(dashboardStates.main);
   const handle = useFullScreenHandle();
 
   return (
