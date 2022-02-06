@@ -62,7 +62,10 @@ const Frame = ({ children, title, fixed = false }) => {
             {zoomOutButton}
           </Grid>
         </Header>
-        <Box sx={fixed && { height: '100%' }} className="cancel-draggable">
+        <Box
+          sx={fixed && { height: 'calc(100% - 30px)' }} // header height: 30px
+          className="cancel-draggable"
+        >
           {children}
         </Box>
       </Box>
