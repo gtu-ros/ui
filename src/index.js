@@ -8,16 +8,19 @@ import store from './redux/store';
 import { BrowserRouter } from 'react-router-dom';
 import ModalProvider from 'mui-modal-provider';
 import { PluginsDataProvider } from './contexts/PluginsData';
+import { ROS } from 'react-ros';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <PluginsDataProvider>
-          <ModalProvider>
-            <App />
-          </ModalProvider>
-        </PluginsDataProvider>
+        <ROS>
+          <PluginsDataProvider>
+            <ModalProvider>
+              <App />
+            </ModalProvider>
+          </PluginsDataProvider>
+        </ROS>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>,
