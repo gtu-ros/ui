@@ -1,37 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import roverSideView from './rover-side.png';
 import roverFrontView from './rover-front.png';
-
-import { zed2Odom } from '../../services/RosService';
-
 import * as THREE from 'three';
-
 import { Grid, Slider, Typography } from '@material-ui/core';
-import Title from '../Title';
 import { roverRotationConfig } from '../../utils/constants';
+import useSubscribeTopic from '../../hooks/useSubscribeTopic';
 
 export const RoverRotation = (props) => {
   const float_precision = 2;
-
-  const [odomListenerState, setOdomListenerState] = useState(null);
   const [orientation, setOrientation] = useState(null);
+  const { message } = useSubscribeTopic('/zed2/odom');
 
-  const odomCallback = (message) => {
-    if (message.header.seq % roverRotationConfig.odomPeriod === 0) {
+  useEffect(() => {
+    if (message?.header?.seq % roverRotationConfig.odomPeriod === 0) {
       const quaternion = new THREE.Quaternion();
       quaternion.copy(message.pose.pose.orientation);
       setOrientation(new THREE.Euler().setFromQuaternion(quaternion));
     }
-  };
-
-  useEffect(() => {
-    setOdomListenerState(zed2Odom());
-  }, []);
-
-  useEffect(() => {
-    if (odomListenerState) odomListenerState.subscribe(odomCallback);
-    return () => odomListenerState?.unsubscribe();
-  }, [odomListenerState]);
+  }, [message]);
 
   const orientationViews = [
     {
