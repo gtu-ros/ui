@@ -1,4 +1,5 @@
 import { TextField, Box } from '@material-ui/core';
+import ReactJson from 'react-json-view';
 
 // TODO: subscribed status
 const RostopicEcho = ({
@@ -40,7 +41,15 @@ const RostopicEcho = ({
           />
         </Box>
       </Box>
-      <pre>{JSON.stringify(message, null, 4)}</pre>
+      {/* <pre>{JSON.stringify(message, null, 4)}</pre> */}
+      <ReactJson
+        src={message}
+        style={{ paddingLeft: 4 }}
+        name={false}
+        indentWidth={2}
+        displayDataTypes={false}
+        displayObjectSize={false}
+      />
     </div>
   );
 };
