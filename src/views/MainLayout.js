@@ -1,8 +1,8 @@
 import React from 'react';
 import Frame from '../components/Frame';
 
-import ShowcaseLayout from '../components/Grid';
-import { Checkbox, FormControlLabel } from '@material-ui/core';
+import GridLayout from '../components/Grid';
+import { Checkbox, FormControlLabel } from '@mui/material';
 import { MAIN_LAYOUT } from '../constants/plugins';
 
 // TODO: delete
@@ -17,7 +17,7 @@ const todo = (arr) => (
 );
 const MainLayout = () => {
   return (
-    <ShowcaseLayout editable>
+    <GridLayout editable>
       {MAIN_LAYOUT.map((item) => {
         const {
           plugin: { title, component, fixed },
@@ -33,14 +33,13 @@ const MainLayout = () => {
         );
       })}
 
-
       <div key="todo" data-grid={{ x: 0, y: 3, w: 3, h: 8 }}>
         <Frame title="TODO">
           {todo([
             'Consider new window components',
             'Consider dnd to toolbox/sidebar',
             'react-grid: local storage',
-            'zoom out: cancel draggable',
+            'zoom out: cancel draggable'
           ])}
         </Frame>
       </div>
@@ -54,7 +53,7 @@ const MainLayout = () => {
           ])}
         </Frame>
       </div>
-    </ShowcaseLayout>
+    </GridLayout>
   );
 };
 

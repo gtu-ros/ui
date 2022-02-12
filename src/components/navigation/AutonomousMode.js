@@ -5,7 +5,7 @@ import { zed2Odom } from '../../services/RosService';
 
 import * as THREE from 'three';
 
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@mui/material';
 import Title from '../Title';
 
 export const AutonomousMode = (props) => {

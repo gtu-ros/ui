@@ -1,8 +1,8 @@
 import { useROS } from 'react-ros';
 import { useForceUpdate } from '../../hooks/useForceUpdate';
 import { DataGrid } from '@mui/x-data-grid';
-import { Box, Fab } from '@material-ui/core';
-import { Refresh } from '@material-ui/icons';
+import { Box, Fab } from '@mui/material';
+import { Refresh } from '@mui/icons-material';
 
 // TODO: copy topic on click
 const RostopicList = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTime } from 'react-timer-hook';
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 
 const Time = () => {
   const { seconds, minutes, hours } = useTime({ format: '24-hour' });

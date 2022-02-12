@@ -1,7 +1,7 @@
-import { Box, Grid, IconButton, Typography } from '@material-ui/core';
+import { Box, Grid, IconButton, Typography } from '@mui/material';
 import { useModal } from 'mui-modal-provider';
 import LargeModal from '../LargeModal';
-import { ZoomOutMap } from '@material-ui/icons';
+import { ZoomOutMap } from '@mui/icons-material';
 import './style.css';
 
 export const FrameTitle = ({ children }) => {

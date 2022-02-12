@@ -5,9 +5,9 @@ import {
   jogMessage,
   JointStatesListener
 } from '../../services/RosService';
-import { Divider, Grid, IconButton, Slider } from '@material-ui/core';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import { Divider, Grid, IconButton, Slider } from '@mui/material';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import { eventLoop, jointConfig } from '../../utils/constants';
 import { KeyPress } from './KeyPress';
 import Title from '../Title';

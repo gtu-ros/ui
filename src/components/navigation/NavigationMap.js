@@ -1,10 +1,10 @@
-import { Fab, IconButton, Slider } from '@material-ui/core';
+import { Fab, IconButton, Slider } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { saveAs } from 'file-saver';
-import GetAppIcon from '@material-ui/icons/GetApp';
-import PublishIcon from '@material-ui/icons/Publish';
-import RotateLeftIcon from '@material-ui/icons/RotateLeft';
-import TimelineIcon from '@material-ui/icons/Timeline';
+import GetAppIcon from '@mui/icons-material/GetApp';
+import PublishIcon from '@mui/icons-material/Publish';
+import RotateLeftIcon from '@mui/icons-material/RotateLeft';
+import TimelineIcon from '@mui/icons-material/Timeline';
 
 // import Map, { Marker } from 'react-canvas-map';
 

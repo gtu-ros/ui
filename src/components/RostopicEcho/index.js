@@ -1,4 +1,4 @@
-import { TextField, Box } from '@material-ui/core';
+import { TextField, Box } from '@mui/material';
 import ReactJson from 'react-json-view';
 
 // TODO: subscribed status
@@ -13,7 +13,7 @@ const RostopicEcho = ({
 }) => {
   return (
     <div>
-      <Box sx={{ '& .MuiTextField-root': { margin: 10, width: '100%' } }}>
+      <Box sx={{ '& .MuiTextField-root': { margin: 1, width: '100%' } }}>
         <Box sx={{ display: 'flex' }}>
           <TextField
             size="small"
@@ -50,6 +50,7 @@ const RostopicEcho = ({
         displayDataTypes={false}
         displayObjectSize={false}
       />
+      {/* <img src={message?.data} /> */}
     </div>
   );
 };

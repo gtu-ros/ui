@@ -1,4 +1,4 @@
-import { DialogContent } from '@material-ui/core';
+import { DialogContent } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 

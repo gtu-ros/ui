@@ -10,7 +10,7 @@ import {
   TurnCoordinator,
   Variometer
 } from '../../dep/react-flight-indicators/src';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@mui/material';
 import Title from '../Title';
 
 export class TransformClient extends React.Component {

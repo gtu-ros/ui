@@ -1,17 +1,17 @@
 import React from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import GridOnIcon from '@material-ui/icons/GridOn';
-import VideocamIcon from '@material-ui/icons/Videocam';
-import MapIcon from '@material-ui/icons/Map';
-import NavigationIcon from '@material-ui/icons/Navigation';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import GridOnIcon from '@mui/icons-material/GridOn';
+import VideocamIcon from '@mui/icons-material/Videocam';
+import MapIcon from '@mui/icons-material/Map';
+import NavigationIcon from '@mui/icons-material/Navigation';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import { cameraConfig } from './constants';
-import { Collapse, Divider, List } from '@material-ui/core';
-import { ExpandLess } from '@material-ui/icons';
+import { Collapse, Divider, List } from '@mui/material';
+import { ExpandLess } from '@mui/icons-material';
 
 export const MainListItems = (props) => (
   <div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconButton } from '@mui/material';
 import { Stop, PlayArrow, Pause } from '@mui/icons-material';
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 
 const Stopwatch = ({
   seconds,

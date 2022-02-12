@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import roverSideView from './rover-side.png';
 import roverFrontView from './rover-front.png';
 import * as THREE from 'three';
-import { Grid, Slider, Typography } from '@material-ui/core';
+import { Grid, Slider, Typography } from '@mui/material';
 import { roverRotationConfig } from '../../utils/constants';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
 
@@ -34,8 +34,8 @@ export const RoverRotation = (props) => {
 
   return (
     <>
-      <div style={{ padding: '20px' }}>
-        <Grid container spacing={3} style={{}}>
+      <div style={{ padding: 4 }}>
+        <Grid container >
           {orientationViews.map((view) => (
             <Grid xs={6}>
               <Typography

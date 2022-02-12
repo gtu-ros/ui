@@ -1,4 +1,8 @@
-const simulation = {
+export const UI = {
+  DRAWER_WIDTH: 240
+};
+
+export const simulation = {
   constants: {
     JOINT_STATES_TOPIC: '/joint_states',
     PANDA_EE_PARENT_LINK: 'polar_link6',
@@ -11,7 +15,7 @@ const simulation = {
   }
 };
 
-const jointConfig = {
+export const jointConfig = {
   hide: ['polar_finger_joint1', 'polar_finger_joint2', 'polar_hand_joint2'],
   movementStep: 0.0001,
   speed: {
@@ -53,7 +57,7 @@ const jointConfig = {
   }
 };
 
-const navigationMapConfig = {
+export const navigationMapConfig = {
   odomPeriod: 3,
   map: {
     scale: 71,
@@ -71,16 +75,16 @@ const navigationMapConfig = {
   }
 };
 
-const roverRotationConfig = {
+export const roverRotationConfig = {
   odomPeriod: 3
 };
 
-const speedInfoConfig = {
+export const speedInfoConfig = {
   odomPeriod: 10,
   nrOfLevels: 10
 };
 
-const autonomousModes = {
+export const autonomousModes = {
   idle: {
     text: 'Idle'
   },
@@ -92,24 +96,13 @@ const autonomousModes = {
   }
 };
 
-const cameraConfig = {
+export const cameraConfig = {
   ip: 'localhost',
   port: 8083,
   path: '/stream/player/',
   streams: ['cam1', 'cam2', 'cam3']
 };
 
-const eventLoop = {
+export const eventLoop = {
   timeout: 100
-};
-
-module.exports = {
-  simulation,
-  eventLoop,
-  jointConfig,
-  cameraConfig,
-  autonomousModes,
-  navigationMapConfig,
-  roverRotationConfig,
-  speedInfoConfig
 };
