@@ -40,7 +40,7 @@ const Frame = ({ children, title, fixed = false }) => {
 
   const zoomOutButton = (
     <IconButton
-      className="zoomOutButton"
+      className="zoomOutButton cancel-draggable"
       size="small"
       edge="start"
       onClick={() => showModal(LargeModal, { title, children })}
