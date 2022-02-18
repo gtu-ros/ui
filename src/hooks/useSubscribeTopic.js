@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import useRosWs from './useRosWs';
 
-var listener = null;
+// var listener = null;
 
 const useSubscribeTopic = (topicInput) => {
   const { createListener, topics } = useRosWs();
+  const [listener, setListener] = useState(null);
   const [topic, setTopic] = useState();
   const [message, setMessage] = useState();
   const compression = 'none';
@@ -26,20 +27,22 @@ const useSubscribeTopic = (topicInput) => {
       return;
     }
     unsubscribe();
-    listener = null;
+    setListener(null);
     for (var i in topics) {
       if (topics[i].path == topicInput) {
-        listener = createListener(
-          topics[i].path,
-          topics[i].msgType,
-          Number(queue),
-          compression
+        setListener(
+          createListener(
+            topics[i].path,
+            topics[i].msgType,
+            Number(queue),
+            compression
+          )
         );
         break;
       }
     }
     if (listener) {
-      console.log('Subscribing to messages...');
+      // console.log('Subscribing to messages...');
       listener.subscribe(handleMsg);
     } else {
       console.log(
@@ -51,7 +54,7 @@ const useSubscribeTopic = (topicInput) => {
   };
   const handleMsg = (msg) => {
     setMessage(msg);
-    console.log(msg);
+    // console.log(msg);
   };
   return { message };
 };
