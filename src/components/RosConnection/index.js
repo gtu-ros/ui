@@ -7,6 +7,7 @@ const RosConnection = () => {
   return (
     <div>
       <FormControlLabel
+        sx={{ paddingLeft: 1 }}
         control={<Switch checked={isConnected} />}
         onChange={toggleConnection}
         label={url}
