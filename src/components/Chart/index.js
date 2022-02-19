@@ -77,7 +77,7 @@ const Chart = ({ data, label }) => {
             trackerPosition={tracker}
             onTrackerChanged={handleTrackerChanged}
           >
-            <ChartRow height="200">
+            <ChartRow height="220">
               <Charts>
                 <ScatterChart axis="y1" series={series} columns={['value']} />
                 <LineChart
