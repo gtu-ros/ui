@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import useRosWs from './useRosWs';
 
-// var listener = null;
-
 const useSubscribeTopic = (topicInput) => {
-  const { createListener, topics } = useRosWs();
+  const { isConnected, createListener, topics } = useRosWs();
   const [listener, setListener] = useState(null);
   const [topic, setTopic] = useState();
   const [message, setMessage] = useState();
@@ -56,7 +54,7 @@ const useSubscribeTopic = (topicInput) => {
     setMessage(msg);
     // console.log(msg);
   };
-  return { message };
+  return { isConnected, message };
 };
 
 export default useSubscribeTopic;

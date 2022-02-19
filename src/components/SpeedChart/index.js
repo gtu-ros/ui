@@ -5,14 +5,17 @@ import useInterval from '../../hooks/useInterval';
 
 const SpeedChart = () => {
   const [data, setData] = useState([]);
-  const { message } = useSubscribeTopic('/wheel_odom');
+  const { isConnected, message } = useSubscribeTopic('/wheel_odom');
   const interval = 500;
 
   useInterval(() => {
-    if (message) {
-      let updatedSpeed = message.twist.linear.x;
-      if (updatedSpeed < 0) updatedSpeed = 0;
-      setData([...data, [Date.now(), updatedSpeed]]);
+    if (isConnected && message) {
+      let speed = message.twist.linear.x;
+      console.log({ speed });
+      if (speed < 0) speed = 0;
+      setData([...data, [Date.now(), speed]]);
+    } else {
+      setData([...data, [Date.now(), NaN]]);
     }
   }, interval);
 
