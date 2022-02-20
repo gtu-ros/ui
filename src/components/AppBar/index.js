@@ -1,12 +1,9 @@
-import clsx from 'clsx';
 import MuiAppBar from '@mui/material/AppBar';
 import { IconButton, Toolbar, Typography } from '@mui/material';
-
 import { Menu, Fullscreen } from '@mui/icons-material';
-// import { useStyles } from '../../views/DashboardView';
 import { useSelector } from 'react-redux';
 import { selectTitle } from '../../redux/ui/ui.selectors';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { UI } from '../../utils/constants';
 
 const StyledMuiAppBar = styled(MuiAppBar, {
