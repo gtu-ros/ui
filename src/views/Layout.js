@@ -3,7 +3,7 @@ import Frame from '../components/Frame';
 
 import GridLayout from '../components/Grid';
 
-const Layout = ({ plugins }) => {
+const Layout = ({ plugins, gridKey = '' }) => {
   return (
     <GridLayout editable>
       {plugins.map((item) => {
@@ -13,7 +13,7 @@ const Layout = ({ plugins }) => {
         } = item;
         const Plugin = component;
         return (
-          <div key={title} data-grid={layout}>
+          <div key={`${title} - ${gridKey}`} data-grid={layout}>
             <Frame title={title} fixed={fixed}>
               {component && <Plugin />}
             </Frame>
