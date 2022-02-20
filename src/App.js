@@ -10,7 +10,16 @@ import withRosAutoconnect from './containers/withRosAutoconnect';
 function App() {
   const pluginRoutes = Object.entries(PLUGINS).map(([key, plugin]) => {
     const Element = withRosAutoconnect(plugin.component);
-    return <Route path={key} element={<Element />} />;
+    return (
+      <Route
+        path={key}
+        element={
+          <div style={{ height: '100vh' }}>
+            <Element />
+          </div>
+        }
+      />
+    );
   });
 
   return (
