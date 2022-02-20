@@ -1,13 +1,12 @@
 import Calibration from '../components/Calibration';
-import Chart from '../components/Chart';
 import NavigationMap from '../components/Map';
-import MultiChannelChart from '../components/MultiChannelChart';
 import DummyDataChart from '../components/MultiChannelChart/DummyDataChart';
 import RosConnection from '../components/RosConnection';
 import RosMessagePublisher from '../components/RosMessagePublisher';
 import RostopicEcho from '../components/RostopicEcho';
 import RostopicList from '../components/RostopicList';
 import { RoverRotation } from '../components/RoverRotation';
+import FossilTable from '../components/ScienceTables/FossilTable';
 import SpeedChart from '../components/SpeedChart';
 import Stopwatch from '../components/Stopwatch';
 import Time from '../components/Time';
@@ -50,7 +49,8 @@ export const PLUGINS = {
     title: 'ROS Message Publisher',
     component: RosMessagePublisher
   },
-  CHART: { title: 'Speed (/wheel_odom)', component: SpeedChart },
+  SPEED_CHART: { title: 'Speed (/wheel_odom)', component: SpeedChart },
+  FOSSIL_TABLE: { title: 'Fossils', component: FossilTable, fixed: true },
   MULTICHANNEL_CHART: {
     title: 'Multi-Channel Chart',
     component: DummyDataChart
@@ -67,7 +67,8 @@ export const MAIN_LAYOUT = [
   { plugin: PLUGINS.CALIBRATION, layout: { x: 0, y: 3, w: 3, h: 5 } },
   { plugin: PLUGINS.ROSTOPIC_LIST, layout: { x: 3, y: 0, w: 4, h: 9 } },
   { plugin: PLUGINS.MAP, layout: { x: 7, y: 0, w: 5, h: 9 } },
-  { plugin: PLUGINS.CHART, layout: { x: 7, y: 0, w: 5, h: 7 } },
+  { plugin: PLUGINS.SPEED_CHART, layout: { x: 7, y: 0, w: 5, h: 7 } },
   { plugin: PLUGINS.MESSAGE_PUBLISHER, layout: { x: 7, y: 0, w: 2, h: 3 } },
-  { plugin: PLUGINS.MULTICHANNEL_CHART, layout: { x: 0, y: 6, w: 7, h: 13 } }
+  { plugin: PLUGINS.MULTICHANNEL_CHART, layout: { x: 0, y: 6, w: 7, h: 13 } },
+  { plugin: PLUGINS.FOSSIL_TABLE, layout: { x: 0, y: 10, w: 10, h: 13 } }
 ];
