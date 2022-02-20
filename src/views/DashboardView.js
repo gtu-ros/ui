@@ -9,8 +9,9 @@ import RoboticArmDashboard from './RoboticArmDashboard';
 import NavigationDashboard from './NavigationDashboard';
 import AppBar from '../components/AppBar';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
-import MainLayout from './MainLayout';
 import { UI } from '../utils/constants';
+import Layout from './Layout';
+import { MAIN_LAYOUT, SCIENCE_LAYOUT } from '../constants/plugins';
 
 const mdTheme = createTheme();
 
@@ -42,9 +43,10 @@ const Drawer = styled(MuiDrawer, {
 
 const DashboardView = (props) => {
   const dashboardStates = {
-    main: <MainLayout />,
+    main: <Layout plugins={MAIN_LAYOUT} />,
     roboticArm: <RoboticArmDashboard />,
-    navigation: <NavigationDashboard />
+    navigation: <NavigationDashboard />,
+    science: <Layout plugins={SCIENCE_LAYOUT} />
   };
 
   const handleDrawerOpen = () => {

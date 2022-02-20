@@ -8,6 +8,7 @@ import GridOnIcon from '@mui/icons-material/GridOn';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import MapIcon from '@mui/icons-material/Map';
 import NavigationIcon from '@mui/icons-material/Navigation';
+import BiotechIcon from '@mui/icons-material/Biotech';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import { cameraConfig } from './constants';
 import { Collapse, Divider, List } from '@mui/material';
@@ -51,6 +52,17 @@ export const MainListItems = (props) => (
         <NavigationIcon />
       </ListItemIcon>
       <ListItemText primary="Navigation" />
+    </ListItem>
+    <ListItem
+      button
+      onClick={() => {
+        props.setDashboardState(props.dashboardStates.science);
+      }}
+    >
+      <ListItemIcon>
+        <BiotechIcon />
+      </ListItemIcon>
+      <ListItemText primary="Science" />
     </ListItem>
 
     <Divider />

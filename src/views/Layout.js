@@ -2,12 +2,11 @@ import React from 'react';
 import Frame from '../components/Frame';
 
 import GridLayout from '../components/Grid';
-import { MAIN_LAYOUT } from '../constants/plugins';
 
-const MainLayout = () => {
+const Layout = ({ plugins }) => {
   return (
     <GridLayout editable>
-      {MAIN_LAYOUT.map((item) => {
+      {plugins.map((item) => {
         const {
           plugin: { title, component, fixed },
           layout
@@ -25,4 +24,4 @@ const MainLayout = () => {
   );
 };
 
-export default MainLayout;
+export default Layout;
