@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import {
   jogJoint,
   jogMessage,
@@ -9,14 +8,14 @@ import { Divider, Grid, IconButton, Slider } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import { eventLoop, jointConfig } from '../../utils/constants';
-import { KeyPress } from './KeyPress';
-import Title from '../Title';
+import { KeyPress } from '../roboticArm/KeyPress';
 
 export const JointStates = (props) => {
   const float_precision = 2;
 
-  const [jointStatesListenerState, setJointStatesListenerState] =
-    useState(null);
+  const [jointStatesListenerState, setJointStatesListenerState] = useState(
+    null
+  );
   const [jointStates, setJointStates] = useState(null);
   // const keyState = {};
   const [keyState, setKeyState] = useState({});
@@ -35,7 +34,7 @@ export const JointStates = (props) => {
 
   // set callback in initial render
   useEffect(() => {
-    setJointStatesListenerState(JointStatesListener(props.topic));
+    setJointStatesListenerState(JointStatesListener('/joint_states'));
   }, []);
 
   useEffect(() => {
@@ -119,15 +118,10 @@ export const JointStates = (props) => {
 
   return (
     <>
-      <Title>Joint States</Title>
-      <div style={{ padding: '20px' }}>
+      <div style={{ padding: 4 }}>
         {jointStates ? (
           <>
-            <Grid
-              container
-              spacing={3}
-              style={{ paddingTop: '20px !important' }}
-            >
+            <Grid container style={{ paddingTop: '20px !important' }}>
               {rows.map((value, index) => {
                 return (
                   <>
@@ -151,7 +145,7 @@ export const JointStates = (props) => {
                       />
                     </Grid>
                     <Grid xs={2}>
-                      <>
+                      <div style={{ marginLeft: 50 }}>
                         <KeyPress
                           keyName={jointConfig.joints[value.name]?.decrease}
                           highlight={
@@ -170,7 +164,7 @@ export const JointStates = (props) => {
                             keyState[jointConfig.joints[value.name]?.increase]
                           }
                         />
-                      </>
+                      </div>
                     </Grid>
                   </>
                 );
@@ -178,11 +172,7 @@ export const JointStates = (props) => {
             </Grid>
           </>
         ) : null}
-        <Grid
-          container
-          spacing={3}
-          style={{ paddingTop: 50, textAlign: 'left' }}
-        >
+        <Grid container style={{ paddingTop: 10, textAlign: 'left' }}>
           <Grid xs={2}>Speed</Grid>
           <Grid xs={2}>{speed}</Grid>
           <Grid xs={6}>
@@ -220,6 +210,4 @@ export const JointStates = (props) => {
   );
 };
 
-JointStates.propTypes = {
-  topic: PropTypes.string.isRequired
-};
+export default JointStates;

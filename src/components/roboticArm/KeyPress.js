@@ -1,28 +1,22 @@
 import React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@mui/styles';
 import { Button } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme) => ({
-  content: {
-    padding: '0px',
-    minWidth: '26px'
-  },
-  highlight: {
+const StyledButton = styled(Button, {
+  shouldForwardProp: (prop) => prop !== 'open'
+})(({ highlight }) => ({
+  padding: '0px',
+  minWidth: '26px',
+  ...(highlight && {
     backgroundColor: '#ddd'
-  }
+  })
 }));
 
-export const KeyPress = (props) => {
-  const classes = useStyles();
-  return props.keyName ? (
-    <Button
-      className={clsx(classes.content, props.highlight && classes.highlight)}
-      variant="outlined"
-      size="small"
-    >
-      {props.keyName}
-    </Button>
+export const KeyPress = ({ highlight, keyName }) => {
+  return keyName ? (
+    <StyledButton highlight={highlight} variant="outlined" size="small">
+      {keyName}
+    </StyledButton>
   ) : (
     ''
   );
