@@ -5,8 +5,6 @@ import { Divider, IconButton, List, Toolbar, Box } from '@mui/material';
 import MuiDrawer from '@mui/material/Drawer';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { MainListItems, Cameras } from '../utils/listItems';
-import RoboticArmDashboard from './RoboticArmDashboard';
-import NavigationDashboard from './NavigationDashboard';
 import AppBar from '../components/AppBar';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import { UI } from '../utils/constants';
@@ -14,6 +12,7 @@ import Layout from './Layout';
 import {
   MAIN_LAYOUT,
   NAVIGATION_LAYOUT,
+  ROBOTIC_ARM_LAYOUT,
   SCIENCE_LAYOUT
 } from '../constants/plugins';
 
@@ -48,7 +47,7 @@ const Drawer = styled(MuiDrawer, {
 const DashboardView = (props) => {
   const dashboardStates = {
     main: <Layout plugins={MAIN_LAYOUT} gridKey="main" />,
-    roboticArm: <RoboticArmDashboard />,
+    roboticArm: <Layout plugins={ROBOTIC_ARM_LAYOUT} gridKey="arm" />,
     navigation: <Layout plugins={NAVIGATION_LAYOUT} gridKey="nav" />,
     science: <Layout plugins={SCIENCE_LAYOUT} gridKey="sci" />
   };

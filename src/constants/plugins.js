@@ -1,6 +1,7 @@
 import Calibration from '../components/Calibration';
 import NavigationMap from '../components/Map';
 import DummyDataChart from '../components/MultiChannelChart/DummyDataChart';
+import JointStates from '../components/JointStates';
 import RosConnection from '../components/RosConnection';
 import RosMessagePublisher from '../components/RosMessagePublisher';
 import RostopicEcho from '../components/RostopicEcho';
@@ -54,6 +55,10 @@ export const PLUGINS = {
   MULTICHANNEL_CHART: {
     title: 'Multi-Channel Chart',
     component: DummyDataChart
+  },
+  JOINT_STATES: {
+    title: 'Joint States',
+    component: JointStates
   }
 };
 
@@ -72,6 +77,14 @@ export const MAIN_LAYOUT = [
   { plugin: PLUGINS.MULTICHANNEL_CHART, layout: { x: 0, y: 6, w: 7, h: 13 } },
 ];
 
+export const ROBOTIC_ARM_LAYOUT = [
+  { plugin: PLUGINS.UTC, layout: { x: 0, y: 0, w: 1, h: 2 } },
+  { plugin: PLUGINS.MISSION_ELAPSED_TIME, layout: { x: 1, y: 0, w: 2, h: 2 } },
+  { plugin: PLUGINS.URDF, layout: { x: 3, y: 0, w: 7, h: 11 } },
+  { plugin: PLUGINS.ROSTOPIC_ECHO, layout: { x: 0, y: 3, w: 3, h: 9 } },
+  { plugin: PLUGINS.JOINT_STATES, layout: { x: 0, y: 4, w: 9, h: 8 } }
+];
+
 export const NAVIGATION_LAYOUT = [
   { plugin: PLUGINS.UTC, layout: { x: 0, y: 0, w: 1, h: 2 } },
   { plugin: PLUGINS.MISSION_ELAPSED_TIME, layout: { x: 1, y: 0, w: 2, h: 2 } },
@@ -80,7 +93,7 @@ export const NAVIGATION_LAYOUT = [
   { plugin: PLUGINS.ROS_CONNECTION, layout: { x: 0, y: 2, w: 3, h: 2 } },
   { plugin: PLUGINS.ROSTOPIC_ECHO, layout: { x: 0, y: 3, w: 3, h: 9 } },
   { plugin: PLUGINS.MESSAGE_PUBLISHER, layout: { x: 0, y: 6, w: 3, h: 3 } },
-  { plugin: PLUGINS.SPEED_CHART, layout: { x: 3, y: 9, w: 6, h: 7 } },
+  { plugin: PLUGINS.SPEED_CHART, layout: { x: 3, y: 9, w: 6, h: 7 } }
 ];
 
 export const SCIENCE_LAYOUT = [
