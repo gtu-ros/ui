@@ -1,21 +1,28 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  tfClientToFrame,
-  viewer3d,
-  urdfClient
-} from '../../services/RosService';
-import { Grid } from 'ros3d';
+import { Grid, Viewer } from 'ros3d';
 import * as THREE from 'three';
 import { useResizeDetector } from 'react-resize-detector';
 import nextId from 'react-id-generator';
+import useRosWs from '../../hooks/useRosWs';
 
 export const ModelVisualizer = (props) => {
+  const { tfClientToFrame, urdfClient } = useRosWs();
   const viewerDivId = nextId('urdf');
   const [tfClient, setTfClient] = useState(null);
   const [viewer3dState, setViewer3dState] = useState(null);
   const [urdfClientState, setUrdfClientState] = useState(null);
   const { width, height, ref } = useResizeDetector();
+
+  const viewer3d = (divId, width, height, cameraPosition) => {
+    return new Viewer({
+      divID: divId,
+      width: width,
+      height: height,
+      antialias: true,
+      cameraPose: cameraPosition
+    });
+  };
 
   useEffect(() => {
     let viewer3dTmp = viewer3d(
