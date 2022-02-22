@@ -8,7 +8,8 @@ const useRosWs = () => {
     process.env.REACT_APP_ROS_BRIDGE_PORT;
 
   const { url, changeUrl } = useROS();
-  if (url !== rosUrl) {
+  const isNetlifyBuild = !!(process.env.NETLIFY);
+  if (url !== rosUrl && !isNetlifyBuild ) {
     console.log({ rosUrl });
     changeUrl(rosUrl);
   }
