@@ -9,39 +9,27 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import { eventLoop, jointConfig } from '../../utils/constants';
 import { KeyPress } from '../roboticArm/KeyPress';
+import useSubscribeTopic from '../../hooks/useSubscribeTopic';
+import useInterval from '../../hooks/useInterval';
 
 export const JointStates = (props) => {
+  const { isConnected, message } = useSubscribeTopic('/joint_states');
+  const [jointStates, setJointStates] = useState()
+  const interval = 500;
   const float_precision = 2;
-
-  const [jointStatesListenerState, setJointStatesListenerState] = useState(
-    null
-  );
-  const [jointStates, setJointStates] = useState(null);
   // const keyState = {};
   const [keyState, setKeyState] = useState({});
   const [speed, setSpeed] = useState(jointConfig.speed.initialSpeed);
 
-  const jointStatesCallback = (message) => {
-    // console.log(message);
-    if (message.header.seq % jointConfig.period === 0) {
+  useInterval(() => {
+    if (isConnected && message) {
       setJointStates({
         name: message.name,
         position: message.position,
         frame_id: message.header.frame_id
       });
     }
-  };
-
-  // set callback in initial render
-  useEffect(() => {
-    setJointStatesListenerState(JointStatesListener('/joint_states'));
-  }, []);
-
-  useEffect(() => {
-    if (jointStatesListenerState)
-      jointStatesListenerState.subscribe(jointStatesCallback);
-    return () => jointStatesListenerState?.unsubscribe();
-  }, [jointStatesListenerState]);
+  }, interval);
 
   const handleKeyDown = (e) => {
     // console.log(e);
