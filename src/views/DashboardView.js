@@ -8,13 +8,7 @@ import { MainListItems, Cameras } from '../utils/listItems';
 import AppBar from '../components/AppBar';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import { UI } from '../utils/constants';
-import Layout from './Layout';
-import {
-  MAIN_LAYOUT,
-  NAVIGATION_LAYOUT,
-  ROBOTIC_ARM_LAYOUT,
-  SCIENCE_LAYOUT
-} from '../constants/plugins';
+import { Outlet } from 'react-router-dom';
 
 const mdTheme = createTheme();
 
@@ -45,13 +39,6 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const DashboardView = (props) => {
-  const dashboardStates = {
-    main: <Layout plugins={MAIN_LAYOUT} gridKey="main" />,
-    roboticArm: <Layout plugins={ROBOTIC_ARM_LAYOUT} gridKey="arm" />,
-    navigation: <Layout plugins={NAVIGATION_LAYOUT} gridKey="nav" />,
-    science: <Layout plugins={SCIENCE_LAYOUT} gridKey="sci" />
-  };
-
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -60,7 +47,6 @@ const DashboardView = (props) => {
   };
 
   const [open, setOpen] = useState(false);
-  const [dashboardState, setDashboardState] = useState(dashboardStates.main);
   const handle = useFullScreenHandle();
 
   return (
@@ -90,10 +76,7 @@ const DashboardView = (props) => {
             </Toolbar>
             <Divider />
             <List>
-              <MainListItems
-                dashboardStates={dashboardStates}
-                setDashboardState={setDashboardState}
-              />
+              <MainListItems />
             </List>
             <Divider />
             <List>
@@ -113,7 +96,7 @@ const DashboardView = (props) => {
             }}
           >
             <Toolbar />
-            {dashboardState}
+            <Outlet />
           </Box>
         </Box>
       </FullScreen>

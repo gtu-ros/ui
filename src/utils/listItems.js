@@ -13,6 +13,13 @@ import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturi
 import { cameraConfig } from './constants';
 import { Collapse, Divider, List } from '@mui/material';
 import { ExpandLess } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
+
+const StyledLink = styled(Link)(({ theme }) => ({
+  textDecoration: 'none',
+  color: theme.palette.grey[900]
+}));
 
 export const MainListItems = (props) => (
   <div>
@@ -20,50 +27,38 @@ export const MainListItems = (props) => (
       Dashboard
     </ListSubheader>
 
-    <ListItem
-      button
-      onClick={() => {
-        props.setDashboardState(props.dashboardStates.main);
-      }}
-    >
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="Main" />
-    </ListItem>
-    <ListItem
-      button
-      onClick={() => {
-        props.setDashboardState(props.dashboardStates.roboticArm);
-      }}
-    >
-      <ListItemIcon>
-        <PrecisionManufacturingIcon />
-      </ListItemIcon>
-      <ListItemText primary="Robotic Arm" />
-    </ListItem>
-    <ListItem
-      button
-      onClick={() => {
-        props.setDashboardState(props.dashboardStates.navigation);
-      }}
-    >
-      <ListItemIcon>
-        <NavigationIcon />
-      </ListItemIcon>
-      <ListItemText primary="Navigation" />
-    </ListItem>
-    <ListItem
-      button
-      onClick={() => {
-        props.setDashboardState(props.dashboardStates.science);
-      }}
-    >
-      <ListItemIcon>
-        <BiotechIcon />
-      </ListItemIcon>
-      <ListItemText primary="Science" />
-    </ListItem>
+    <StyledLink to="/">
+      <ListItem button>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary="Main" />
+      </ListItem>
+    </StyledLink>
+    <StyledLink to="/arm">
+      <ListItem button>
+        <ListItemIcon>
+          <PrecisionManufacturingIcon />
+        </ListItemIcon>
+        <ListItemText primary="Robotic Arm" />
+      </ListItem>
+    </StyledLink>
+    <StyledLink to="/navigation">
+      <ListItem button>
+        <ListItemIcon>
+          <NavigationIcon />
+        </ListItemIcon>
+        <ListItemText primary="Navigation" />
+      </ListItem>
+    </StyledLink>
+    <StyledLink to="/science">
+      <ListItem button>
+        <ListItemIcon>
+          <BiotechIcon />
+        </ListItemIcon>
+        <ListItemText primary="Science" />
+      </ListItem>
+    </StyledLink>
 
     <Divider />
 
