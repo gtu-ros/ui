@@ -3,21 +3,19 @@ import roverSideView from './rover-side.png';
 import roverFrontView from './rover-front.png';
 import * as THREE from 'three';
 import { Grid, Slider, Typography } from '@mui/material';
-import { roverRotationConfig } from '../../utils/constants';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
 
 export const RoverRotation = (props) => {
   const float_precision = 2;
-  const [orientation, setOrientation] = useState(null);
-  const { message } = useSubscribeTopic('/zed2/odom');
+  const { message } = useSubscribeTopic('/zed2/odom', 1000);
 
-  useEffect(() => {
-    if (message?.header?.seq % roverRotationConfig.odomPeriod === 0) {
-      const quaternion = new THREE.Quaternion();
-      quaternion.copy(message.pose.pose.orientation);
-      setOrientation(new THREE.Euler().setFromQuaternion(quaternion));
-    }
-  }, [message]);
+  let orientation = null;
+
+  if (message) {
+    const quaternion = new THREE.Quaternion();
+    quaternion.copy(message.pose.pose.orientation);
+    orientation = new THREE.Euler().setFromQuaternion(quaternion);
+  }
 
   const orientationViews = [
     {
@@ -35,7 +33,7 @@ export const RoverRotation = (props) => {
   return (
     <>
       <div style={{ padding: 4 }}>
-        <Grid container >
+        <Grid container>
           {orientationViews.map((view) => (
             <Grid xs={6}>
               <Typography

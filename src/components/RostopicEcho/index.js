@@ -1,16 +1,15 @@
 import { TextField, Box } from '@mui/material';
+import { useState } from 'react';
 import ReactJson from 'react-json-view';
+import useSubscribeTopic from '../../hooks/useSubscribeTopic';
 
 // TODO: subscribed status
-const RostopicEcho = ({
-  message,
-  topic,
-  queue,
-  compression,
-  handleTopic,
-  handleQueue,
-  handleCompression
-}) => {
+const RostopicEcho = ({}) => {
+  const [topic, setTopic] = useState();
+  const [queue, setQueue] = useState(0);
+  const [compression, setCompression] = useState('none');
+  const { message } = useSubscribeTopic(topic, 500);
+
   return (
     <div>
       <Box sx={{ '& .MuiTextField-root': { margin: 1, width: '100%' } }}>
@@ -21,7 +20,7 @@ const RostopicEcho = ({
             label="Topic"
             placeholder="/zed2/odom"
             defaultValue={topic}
-            onChange={(event) => handleTopic(event.target.value)}
+            onChange={(event) => setTopic(event.target.value)}
           />
         </Box>
         <Box sx={{ display: 'flex' }}>
@@ -30,14 +29,14 @@ const RostopicEcho = ({
             variant="outlined"
             label="Message queue length"
             defaultValue={queue}
-            onChange={(event) => handleQueue(event.target.value)}
+            onChange={(event) => setQueue(event.target.value)}
           />
           <TextField
             size="small"
             variant="outlined"
             label="Compression"
             defaultValue={compression}
-            onChange={(event) => handleCompression(event.target.value)}
+            onChange={(event) => setCompression(event.target.value)}
           />
         </Box>
       </Box>
@@ -50,7 +49,6 @@ const RostopicEcho = ({
         displayDataTypes={false}
         displayObjectSize={false}
       />
-      {/* <img src={message?.data} /> */}
     </div>
   );
 };
