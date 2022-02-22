@@ -1,35 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import {
-  jogJoint,
-  jogMessage,
-  JointStatesListener
-} from '../../services/RosService';
 import { Divider, Grid, IconButton, Slider } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import { eventLoop, jointConfig } from '../../utils/constants';
 import { KeyPress } from '../roboticArm/KeyPress';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
-import useInterval from '../../hooks/useInterval';
+import usePublisher from '../../hooks/usePublisher';
+import { jogMessage } from './utils';
 
 export const JointStates = (props) => {
-  const { isConnected, message } = useSubscribeTopic('/joint_states');
-  const [jointStates, setJointStates] = useState()
-  const interval = 500;
+  console.log('rener');
+  const { message } = useSubscribeTopic('/joint_states', 1000);
   const float_precision = 2;
   // const keyState = {};
   const [keyState, setKeyState] = useState({});
   const [speed, setSpeed] = useState(jointConfig.speed.initialSpeed);
+  const [publish] = usePublisher({
+    name: '/jog_joint',
+    type: 'jog_msgs/JogJoint'
+  });
 
-  useInterval(() => {
-    if (isConnected && message) {
-      setJointStates({
+  const jointStates = message
+    ? {
         name: message.name,
         position: message.position,
         frame_id: message.header.frame_id
-      });
-    }
-  }, interval);
+      }
+    : null;
 
   const handleKeyDown = (e) => {
     // console.log(e);
@@ -63,13 +60,11 @@ export const JointStates = (props) => {
         // console.log(keyState);
         if (keyState[control.increase]) {
           console.log(`${joint}: +`);
-          jogJoint.publish(jogMessage(joint, jointConfig.movementStep * speed));
+          publish(jogMessage(joint, jointConfig.movementStep * speed));
         }
         if (keyState[control.decrease]) {
           console.log(`${joint}: -`);
-          jogJoint.publish(
-            jogMessage(joint, -jointConfig.movementStep * speed)
-          );
+          publish(jogMessage(joint, -jointConfig.movementStep * speed));
         }
       }
       timer = setTimeout(keyEventLoop, eventLoop.timeout);
@@ -93,11 +88,11 @@ export const JointStates = (props) => {
         // position: jointStates.position[i],
         position: jointStates.position[i] * (180 / Math.PI),
         decrease: () =>
-          jogJoint.publish(
+          publish(
             jogMessage(jointStates.name[i], -jointConfig.movementStep * speed)
           ),
         increase: () =>
-          jogJoint.publish(
+          publish(
             jogMessage(jointStates.name[i], jointConfig.movementStep * speed)
           )
       });
