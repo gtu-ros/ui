@@ -1,59 +1,45 @@
 import { useEffect, useState } from 'react';
 import useRosWs from './useRosWs';
 
-const useSubscribeTopic = (topicInput) => {
-  const { isConnected, createListener, topics } = useRosWs();
-  const [listener, setListener] = useState(null);
-  const [topic, setTopic] = useState();
+const useSubscribeTopic = (topicInput, throttleRate = 1000) => {
+  const { isConnected, rosListener, topics } = useRosWs();
   const [message, setMessage] = useState();
   const compression = 'none';
   const queue = 0;
 
   useEffect(() => {
-    handleTopic(topicInput);
-  });
-  const unsubscribe = () => {
-    if (listener) {
-      console.log('Unsubscribing');
-      listener.unsubscribe();
-    }
-  };
+    const listener = handleTopic(topicInput);
+    return () => listener?.unsubscribe();
+  }, [isConnected, topicInput, topics, throttleRate]);
+
   const handleTopic = (topicInput) => {
-    if (topic !== topicInput) {
-      setTopic(topicInput);
-      unsubscribe();
-      return;
-    }
-    unsubscribe();
-    setListener(null);
+    console.log('handleTopic');
+    let newListener;
     for (var i in topics) {
       if (topics[i].path == topicInput) {
-        setListener(
-          createListener(
-            topics[i].path,
-            topics[i].msgType,
-            Number(queue),
-            compression
-          )
+        newListener = rosListener(
+          topics[i].path,
+          topics[i].msgType,
+          Number(queue),
+          compression,
+          throttleRate
         );
         break;
       }
     }
-    if (listener) {
-      // console.log('Subscribing to messages...');
-      listener.subscribe(handleMsg);
+    if (newListener) {
+      console.log('Subscribing to messages...');
+      newListener.subscribe((msg) => setMessage(msg));
     } else {
       console.log(
-        "Topic '" +
-          topic +
+        ">Topic '" +
+          topicInput +
           "' not found...make sure to input the full topic path - including the leading '/'"
       );
     }
+    return newListener;
   };
-  const handleMsg = (msg) => {
-    setMessage(msg);
-    // console.log(msg);
-  };
+
   return { isConnected, message };
 };
 
