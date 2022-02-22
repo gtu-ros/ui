@@ -88,7 +88,7 @@ const DummyDataChart = () => {
       points[channel] = [];
     });
 
-    for (let i = 0; i < data.time.length; i += 1) {
+    for (let i = 0; i < data.time.length / 10; i += 1) {
       if (i > 0) {
         const deltaTime = data.time[i] - data.time[i - 1];
         const time = data.time[i] * 1000;

@@ -60,7 +60,8 @@ GridLayout.defaultProps = {
   className: 'layout',
   rowHeight: 36,
   onLayoutChange: function() {},
-  cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
+  // cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
+  cols: { lg: 12, md: 12, sm: 12, xs: 12, xxs: 12 },
   initialLayout: [],
   editable: false
 };
