@@ -31,6 +31,7 @@ export default class GridLayout extends React.Component {
   }
 
   onLayoutChange(layout, layouts) {
+    console.log({ layouts });
     this.props.onLayoutChange(layout, layouts);
   }
 
@@ -39,6 +40,7 @@ export default class GridLayout extends React.Component {
       <div>
         <ResponsiveReactGridLayout
           {...this.props}
+          key={this.state.currentBreakpoint}
           isDraggable={this.state.editable}
           draggableCancel={'.cancel-draggable'}
           isResizable={this.state.editable}
@@ -60,8 +62,7 @@ GridLayout.defaultProps = {
   className: 'layout',
   rowHeight: 36,
   onLayoutChange: function() {},
-  // cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
-  cols: { lg: 12, md: 12, sm: 12, xs: 12, xxs: 12 },
+  cols: { lg: 12, md: 8, sm: 4, xs: 2, xxs: 2 },
   initialLayout: [],
   editable: false
 };
