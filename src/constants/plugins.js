@@ -68,13 +68,13 @@ export const MAIN_LAYOUT = [
   { plugin: PLUGINS.ORIENTATION, layout: { x: 3, y: 0, w: 4, h: 9 } },
   { plugin: PLUGINS.URDF, layout: { x: 7, y: 0, w: 5, h: 9 } },
   { plugin: PLUGINS.ROS_CONNECTION, layout: { x: 0, y: 2, w: 3, h: 2 } },
-  { plugin: PLUGINS.ROSTOPIC_ECHO, layout: { x: 0, y: 3, w: 3, h: 9 } },
-  { plugin: PLUGINS.CALIBRATION, layout: { x: 0, y: 3, w: 3, h: 5 } },
-  { plugin: PLUGINS.ROSTOPIC_LIST, layout: { x: 3, y: 0, w: 4, h: 9 } },
-  { plugin: PLUGINS.MAP, layout: { x: 7, y: 0, w: 5, h: 9 } },
-  { plugin: PLUGINS.SPEED_CHART, layout: { x: 7, y: 0, w: 5, h: 7 } },
-  { plugin: PLUGINS.MESSAGE_PUBLISHER, layout: { x: 7, y: 0, w: 2, h: 3 } },
-  { plugin: PLUGINS.MULTICHANNEL_CHART, layout: { x: 0, y: 6, w: 7, h: 13 } },
+  { plugin: PLUGINS.ROSTOPIC_ECHO, layout: { x: 0, y: 4, w: 3, h: 9 } },
+  { plugin: PLUGINS.CALIBRATION, layout: { x: 0, y: 13, w: 3, h: 5 } },
+  { plugin: PLUGINS.ROSTOPIC_LIST, layout: { x: 3, y: 9, w: 4, h: 9 } },
+  { plugin: PLUGINS.MAP, layout: { x: 7, y: 9, w: 5, h: 9 } },
+  { plugin: PLUGINS.SPEED_CHART, layout: { x: 7, y: 18, w: 5, h: 7 } },
+  { plugin: PLUGINS.MESSAGE_PUBLISHER, layout: { x: 7, y: 25, w: 2, h: 3 } },
+  { plugin: PLUGINS.MULTICHANNEL_CHART, layout: { x: 0, y: 18, w: 7, h: 13 } },
 ];
 
 export const ROBOTIC_ARM_LAYOUT = [
