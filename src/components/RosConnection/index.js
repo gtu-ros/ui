@@ -1,17 +1,31 @@
-import { FormControlLabel, Switch } from '@mui/material';
+import { Switch, TextField } from '@mui/material';
+import { useState } from 'react';
 import { useROS } from 'react-ros';
 
-// TODO: consider text field / content editable for url
 const RosConnection = () => {
-  const { isConnected, url, toggleConnection } = useROS();
+  const { isConnected, url, changeUrl, toggleConnection } = useROS();
+  const [isEdit, setIsEdit] = useState(false);
+
+  const handleOnBlur = (e) => {
+    changeUrl(e.target.value);
+    setIsEdit(false);
+  };
+
   return (
     <div>
-      <FormControlLabel
-        sx={{ paddingLeft: 1 }}
-        control={<Switch checked={isConnected} />}
-        onChange={toggleConnection}
-        label={url}
-      />
+      <Switch onChange={toggleConnection} checked={isConnected} />
+      {isEdit ? (
+        <TextField
+          sx={{ width: 250 }}
+          size="small"
+          variant="outlined"
+          placeholder="/zed2/odom"
+          defaultValue={url}
+          onBlur={handleOnBlur}
+        />
+      ) : (
+        <span onClick={() => setIsEdit(true)}>{url}</span>
+      )}
     </div>
   );
 };
