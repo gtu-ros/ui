@@ -35,7 +35,7 @@ const Header = ({ children }) => {
   );
 };
 
-const Frame = ({ children, title, fixed = false }) => {
+const Frame = ({ children, title, fixed = true }) => {
   const { showModal } = useModal();
 
   const zoomOutButton = (
