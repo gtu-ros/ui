@@ -14,6 +14,7 @@ import Time from '../components/Time';
 import UrdfVisualizer from '../components/UrdfVisualizer';
 import withPluginData from '../containers/withPluginData';
 import { PLUGIN_DATA_KEYS } from '../contexts/PluginsData';
+import RocksTable from '../components/ScienceTables/RocksTable';
 
 export const PLUGIN_KEYS = {
   STOPWATCH: 'STOPWATCH',
@@ -37,6 +38,7 @@ export const PLUGIN_KEYS = {
   MESSAGE_PUBLISHER: 'MESSAGE_PUBLISHER',
   SPEED_CHART: 'SPEED_CHART',
   FOSSIL_TABLE: 'FOSSIL_TABLE',
+  ROCKS_TABLE: 'ROCKS_TABLE',
   MULTICHANNEL_CHART: 'MULTICHANNEL_CHART',
   JOINT_STATES: 'JOINT_STATES'
 };
@@ -84,6 +86,10 @@ export const PLUGINS = {
     title: 'Fossils',
     component: FossilTable,
     fixed: true
+  },
+  [PLUGIN_KEYS.ROCKS_TABLE]: {
+    title: 'Rocks',
+    component: RocksTable,
   },
   [PLUGIN_KEYS.MULTICHANNEL_CHART]: {
     title: 'Multi-Channel Chart',
@@ -140,5 +146,6 @@ export const SCIENCE_LAYOUT = [
   plugin(PLUGIN_KEYS.MISSION_ELAPSED_TIME, { x: 1, y: 0, w: 2, h: 2 }),
   plugin(PLUGIN_KEYS.MAP, { x: 7, y: 0, w: 5, h: 9 }),
   plugin(PLUGIN_KEYS.MULTICHANNEL_CHART, { x: 0, y: 6, w: 7, h: 13 }),
-  plugin(PLUGIN_KEYS.FOSSIL_TABLE, { x: 0, y: 10, w: 10, h: 13 })
+  plugin(PLUGIN_KEYS.FOSSIL_TABLE, { x: 0, y: 10, w: 12, h: 13 }),
+  plugin(PLUGIN_KEYS.ROCKS_TABLE, { x: 0, y: 10, w: 12, h: 13 })
 ];
