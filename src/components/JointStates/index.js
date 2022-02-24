@@ -10,7 +10,7 @@ import { jogMessage } from './utils';
 
 export const JointStates = (props) => {
   console.log('rener');
-  const { message } = useSubscribeTopic('/joint_states', 1000);
+  const { message } = useSubscribeTopic('/joint_states', 100);
   const float_precision = 2;
   // const keyState = {};
   const [keyState, setKeyState] = useState({});
