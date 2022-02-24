@@ -9,12 +9,18 @@ const Layout = ({ plugins, gridKey = '' }) => {
       {plugins.map((item) => {
         const {
           plugin: { title, component, fixed },
-          layout
+          layout,
+          key
         } = item;
         const Plugin = component;
         return (
-          <div key={`${title} - ${gridKey}`} data-grid={layout}>
-            <Frame title={title} fixed={fixed}>
+          <div
+            key={`${key}-${gridKey}`}
+            data-grid={{
+              ...layout
+            }}
+          >
+            <Frame title={title} fixed={fixed} pluginKey={key}>
               {component && <Plugin />}
             </Frame>
           </div>
