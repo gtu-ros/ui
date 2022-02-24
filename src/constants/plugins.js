@@ -15,6 +15,7 @@ import UrdfVisualizer from '../components/UrdfVisualizer';
 import withPluginData from '../containers/withPluginData';
 import { PLUGIN_DATA_KEYS } from '../contexts/PluginsData';
 import RocksTable from '../components/ScienceTables/RocksTable';
+import MeteroitsTable from '../components/ScienceTables/MeteroitsTable';
 
 export const PLUGIN_KEYS = {
   STOPWATCH: 'STOPWATCH',
@@ -39,6 +40,7 @@ export const PLUGIN_KEYS = {
   SPEED_CHART: 'SPEED_CHART',
   FOSSIL_TABLE: 'FOSSIL_TABLE',
   ROCKS_TABLE: 'ROCKS_TABLE',
+  METEROITS_TABLE: 'METEROITS_TABLE',
   MULTICHANNEL_CHART: 'MULTICHANNEL_CHART',
   JOINT_STATES: 'JOINT_STATES'
 };
@@ -89,7 +91,11 @@ export const PLUGINS = {
   },
   [PLUGIN_KEYS.ROCKS_TABLE]: {
     title: 'Rocks',
-    component: RocksTable,
+    component: RocksTable
+  },
+  [PLUGIN_KEYS.METEROITS_TABLE]: {
+    title: 'Meteroits',
+    component: MeteroitsTable
   },
   [PLUGIN_KEYS.MULTICHANNEL_CHART]: {
     title: 'Multi-Channel Chart',
@@ -147,5 +153,7 @@ export const SCIENCE_LAYOUT = [
   plugin(PLUGIN_KEYS.MAP, { x: 7, y: 0, w: 5, h: 9 }),
   plugin(PLUGIN_KEYS.MULTICHANNEL_CHART, { x: 0, y: 6, w: 7, h: 13 }),
   plugin(PLUGIN_KEYS.FOSSIL_TABLE, { x: 0, y: 10, w: 12, h: 13 }),
-  plugin(PLUGIN_KEYS.ROCKS_TABLE, { x: 0, y: 10, w: 12, h: 13 })
+  plugin(PLUGIN_KEYS.ROCKS_TABLE, { x: 0, y: 10, w: 12, h: 13 }),
+  plugin(PLUGIN_KEYS.ROCKS_TABLE, { x: 0, y: 10, w: 12, h: 13 }),
+  plugin(PLUGIN_KEYS.METEROITS_TABLE, { x: 0, y: 10, w: 12, h: 7 })
 ];
