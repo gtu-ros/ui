@@ -5,6 +5,7 @@ import LargeModal from '../LargeModal';
 import LinkCell from './CellRenderers/LinkCell';
 import useCsvTable from '../../hooks/useCsvTable';
 import InfoModal from './InfoModal';
+import ColorList from './CellRenderers/ColorList';
 
 const RocksTable = () => {
   const { rows } = useCsvTable(rocksCsv);
@@ -36,7 +37,8 @@ const RocksTable = () => {
     },
     {
       field: 'Rock Color',
-      width: 200
+      width: 200,
+      renderCell: (params) => <ColorList array={params.value.split(',')} />
     },
     {
       field: 'Vitreous',
