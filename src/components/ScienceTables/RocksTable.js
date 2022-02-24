@@ -1,50 +1,19 @@
 import { DataGrid } from '@mui/x-data-grid';
-import { useEffect, useState } from 'react';
-import { parse } from 'papaparse';
 import { useModal } from 'mui-modal-provider';
-import { IconButton, Grid } from '@mui/material';
 import rocksCsv from './rocks.csv';
-import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import LargeModal from '../LargeModal';
-import DataGridRowInfo from './DataGridRowInfo';
+import LinkCell from './CellRenderers/LinkCell';
+import useCsvTable from '../../hooks/useCsvTable';
+import InfoModal from './InfoModal';
 
 const RocksTable = () => {
-  const [rows, setRows] = useState([]);
+  const { rows } = useCsvTable(rocksCsv);
   const { showModal } = useModal();
-
-  useEffect(() => {
-    fetch(rocksCsv)
-      .then((r) => r.text())
-      .then((text) => {
-        const { data } = parse(text, { header: true });
-        const rowsFromCsv = data.map((row, id) => ({ id, ...row }));
-        setRows(rowsFromCsv);
-      });
-  }, []);
-
-  const renderLinkCell = (params) =>
-    params.value ? (
-      <a target="_blank" href={params.value}>
-        <IconButton>
-          <PhotoLibraryIcon />
-        </IconButton>
-      </a>
-    ) : (
-      <div>-</div>
-    );
 
   const renderInfo = (params) =>
     showModal(LargeModal, {
       title: params.row['Rock Name'],
-      children: (
-        <div>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <DataGridRowInfo {...params.row} />
-            </Grid>
-          </Grid>
-        </div>
-      )
+      children: <InfoModal row={params.row} />
     });
 
   const columns = [
@@ -55,19 +24,19 @@ const RocksTable = () => {
     },
     {
       field: 'Rock Name',
-      width: 200
+      width: 160
     },
     {
       field: 'Rock Types',
-      width: 100
+      width: 140
     },
     {
       field: 'Chemical Formula',
-      width: 100
+      width: 200
     },
     {
       field: 'Rock Color',
-      width: 100
+      width: 200
     },
     {
       field: 'Vitreous',
@@ -83,8 +52,8 @@ const RocksTable = () => {
     },
     {
       field: 'Representative Photo',
-      width: 100,
-      renderCell: renderLinkCell
+      width: 60,
+      renderCell: (params) => <LinkCell src={params.value} />
     },
     {
       field: 'What this rock can tell us?',

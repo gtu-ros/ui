@@ -1,70 +1,23 @@
 import { DataGrid } from '@mui/x-data-grid';
-import { useEffect, useState } from 'react';
-import { parse } from 'papaparse';
 import { useModal } from 'mui-modal-provider';
-import { IconButton, Grid } from '@mui/material';
 import meteroitsCsv from './meteroits.csv';
-import ImageIcon from '@mui/icons-material/Image';
+import ImageCell from './CellRenderers/ImageCell';
+import useCsvTable from '../../hooks/useCsvTable';
+import InfoModal from './InfoModal';
 import LargeModal from '../LargeModal';
-import DataGridRowInfo from './DataGridRowInfo';
 
 const MeteroitsTable = () => {
-  const [rows, setRows] = useState([]);
+  const { rows } = useCsvTable(meteroitsCsv);
   const { showModal } = useModal();
-
-  useEffect(() => {
-    fetch(meteroitsCsv)
-      .then((r) => r.text())
-      .then((text) => {
-        const { data } = parse(text, { header: true });
-        const rowsFromCsv = data.map((row, id) => ({ id, ...row }));
-        setRows(rowsFromCsv);
-      });
-  }, []);
-
-  const renderImageCell = (params) => (
-    <IconButton
-      onClick={() => {
-        showModal(LargeModal, {
-          title: params.row.Name,
-          children: (
-            <img
-              src={params.value}
-              style={{
-                height: '100%',
-                width: '100%',
-                objectFit: 'contain'
-              }}
-            />
-          )
-        });
-      }}
-    >
-      <ImageIcon />
-    </IconButton>
-  );
 
   const renderInfo = (params) =>
     showModal(LargeModal, {
       title: params.row.Name,
       children: (
-        <div>
-          <Grid container spacing={2}>
-            <Grid item xs={7}>
-              <DataGridRowInfo {...params.row} />
-            </Grid>
-            <Grid item xs={5}>
-              <img
-                src={params.row['Representative Image']}
-                style={{
-                  height: '100%',
-                  width: '100%',
-                  objectFit: 'contain'
-                }}
-              />
-            </Grid>
-          </Grid>
-        </div>
+        <InfoModal
+          row={params.row}
+          image={params.row['Representative Image']}
+        />
       )
     });
 
@@ -93,7 +46,9 @@ const MeteroitsTable = () => {
     {
       field: 'Representative Image',
       width: 60,
-      renderCell: renderImageCell
+      renderCell: (params) => (
+        <ImageCell src={params.value} modalTitle={params.row.Name} />
+      )
     },
     {
       field: 'What this meteroit can tell us?',
