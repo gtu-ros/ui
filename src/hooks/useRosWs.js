@@ -12,8 +12,8 @@ const useRosWs = () => {
   const { ros, listeners, url, changeUrl } = useROS();
   const isNetlifyBuild = !!process.env.NETLIFY;
   if (url !== rosUrl && !isNetlifyBuild) {
-    console.log({ rosUrl });
-    changeUrl(rosUrl);
+    // console.log({ rosUrl });
+    // changeUrl(rosUrl);
   }
 
   const tfClientToFrame = (fixedFrame, rate) => {

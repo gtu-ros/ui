@@ -91,11 +91,13 @@ export const PLUGINS = {
   },
   [PLUGIN_KEYS.ROCKS_TABLE]: {
     title: 'Rocks',
-    component: RocksTable
+    component: RocksTable,
+    fixed: true
   },
   [PLUGIN_KEYS.METEROITS_TABLE]: {
     title: 'Meteroits',
-    component: MeteroitsTable
+    component: MeteroitsTable,
+    fixed: true
   },
   [PLUGIN_KEYS.MULTICHANNEL_CHART]: {
     title: 'Multi-Channel Chart',

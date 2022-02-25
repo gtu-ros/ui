@@ -4,6 +4,7 @@ import LargeModal from '../LargeModal';
 import { ZoomOutMap, OpenInBrowser } from '@mui/icons-material';
 import './style.css';
 import { Link } from 'react-router-dom';
+import useRosWs from '../../hooks/useRosWs';
 
 export const FrameTitle = ({ children }) => {
   return (
@@ -36,8 +37,9 @@ const Header = ({ children }) => {
   );
 };
 
-const WindowButton = ({ children }) => (
+const WindowButton = ({ children, ...rest }) => (
   <IconButton
+    {...rest}
     className="cancel-draggable"
     size="small"
     edge="start"
@@ -49,17 +51,22 @@ const WindowButton = ({ children }) => (
 
 const windowIconStyle = { transform: 'scale(0.6)' };
 
-const Frame = ({ children, title, pluginKey, fixed = true }) => {
+const Frame = ({ children, title, pluginKey, fixed = false }) => {
   const { showModal } = useModal();
+  const { url } = useRosWs();
 
   const zoomOutButton = (
-    <WindowButton>
+    <WindowButton onClick={() => showModal(LargeModal, { title, children })}>
       <ZoomOutMap style={windowIconStyle} />
     </WindowButton>
   );
 
   const newWindow = (
-    <Link to={`/${pluginKey}`} target="_blank" rel="noopener noreferrer">
+    <Link
+      to={`/${pluginKey}?ROS_URL=${url}`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <WindowButton>
         <OpenInBrowser style={windowIconStyle} />
       </WindowButton>

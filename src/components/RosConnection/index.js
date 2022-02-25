@@ -5,6 +5,12 @@ import { useROS } from 'react-ros';
 const RosConnection = () => {
   const { isConnected, url, changeUrl, toggleConnection } = useROS();
   const [isEdit, setIsEdit] = useState(false);
+  const rosUrl =
+    url ||
+    'ws://' +
+      process.env.REACT_APP_ROS_BRIDGE_URL +
+      ':' +
+      process.env.REACT_APP_ROS_BRIDGE_PORT;
 
   const handleOnBlur = (e) => {
     changeUrl(e.target.value);
@@ -20,7 +26,7 @@ const RosConnection = () => {
           size="small"
           variant="outlined"
           placeholder="/zed2/odom"
-          defaultValue={url}
+          defaultValue={rosUrl}
           onBlur={handleOnBlur}
         />
       ) : (
