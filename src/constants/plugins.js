@@ -150,7 +150,6 @@ export const NAVIGATION_LAYOUT = [
 export const SCIENCE_LAYOUT = [
   plugin(PLUGIN_KEYS.UTC, { x: 0, y: 0, w: 1, h: 2 }),
   plugin(PLUGIN_KEYS.MISSION_ELAPSED_TIME, { x: 1, y: 0, w: 2, h: 2 }),
-  plugin(PLUGIN_KEYS.MAP, { x: 7, y: 0, w: 5, h: 9 }),
   plugin(PLUGIN_KEYS.MULTICHANNEL_CHART, { x: 0, y: 6, w: 7, h: 13 }),
   plugin(PLUGIN_KEYS.FOSSIL_TABLE, { x: 0, y: 10, w: 12, h: 13 }),
   plugin(PLUGIN_KEYS.ROCKS_TABLE, { x: 0, y: 10, w: 12, h: 13 }),
