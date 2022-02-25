@@ -1,8 +1,9 @@
 import { Box, Grid, IconButton, Typography } from '@mui/material';
 import { useModal } from 'mui-modal-provider';
 import LargeModal from '../LargeModal';
-import { ZoomOutMap } from '@mui/icons-material';
+import { ZoomOutMap, OpenInBrowser } from '@mui/icons-material';
 import './style.css';
+import { Link } from 'react-router-dom';
 
 export const FrameTitle = ({ children }) => {
   return (
@@ -35,19 +36,34 @@ const Header = ({ children }) => {
   );
 };
 
-const Frame = ({ children, title, fixed = true }) => {
+const WindowButton = ({ children }) => (
+  <IconButton
+    className="cancel-draggable"
+    size="small"
+    edge="start"
+    color="inherit"
+  >
+    {children}
+  </IconButton>
+);
+
+const windowIconStyle = { transform: 'scale(0.6)' };
+
+const Frame = ({ children, title, pluginKey, fixed = true }) => {
   const { showModal } = useModal();
 
   const zoomOutButton = (
-    <IconButton
-      className="zoomOutButton cancel-draggable"
-      size="small"
-      edge="start"
-      onClick={() => showModal(LargeModal, { title, children })}
-      color="inherit"
-    >
-      <ZoomOutMap style={{ transform: 'scale(0.6)' }} />
-    </IconButton>
+    <WindowButton>
+      <ZoomOutMap style={windowIconStyle} />
+    </WindowButton>
+  );
+
+  const newWindow = (
+    <Link to={`/${pluginKey}`} target="_blank" rel="noopener noreferrer">
+      <WindowButton>
+        <OpenInBrowser style={windowIconStyle} />
+      </WindowButton>
+    </Link>
   );
 
   return (
@@ -59,7 +75,10 @@ const Frame = ({ children, title, fixed = true }) => {
         <Header>
           <Grid container justifyContent="space-between">
             <FrameTitle className="draggable">{title}</FrameTitle>
-            {zoomOutButton}
+            <div className="window-buttons">
+              {newWindow}
+              {zoomOutButton}
+            </div>
           </Grid>
         </Header>
         <Box
