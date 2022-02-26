@@ -5,6 +5,8 @@ import { ZoomOutMap, OpenInBrowser } from '@mui/icons-material';
 import './style.css';
 import { Link } from 'react-router-dom';
 import useRosWs from '../../hooks/useRosWs';
+import VisibilityToggle from '../VisibilityToggle';
+import usePluginState from '../../hooks/usePluginState';
 
 export const FrameTitle = ({ children }) => {
   return (
@@ -28,7 +30,6 @@ const Header = ({ children }) => {
         position: 'sticky',
         top: 0,
         cursor: 'grab',
-        paddingLeft: 4,
         zIndex: 10
       }}
     >
@@ -54,6 +55,7 @@ const windowIconStyle = { transform: 'scale(0.6)' };
 const Frame = ({ children, title, pluginKey, fixed = false }) => {
   const { showModal } = useModal();
   const { url } = useRosWs();
+  const { status, toggleStatus } = usePluginState(pluginKey);
 
   const zoomOutButton = (
     <WindowButton onClick={() => showModal(LargeModal, { title, children })}>
@@ -81,7 +83,13 @@ const Frame = ({ children, title, pluginKey, fixed = false }) => {
       <Box sx={fixed && { height: '100%' }} padding={0}>
         <Header>
           <Grid container justifyContent="space-between">
-            <FrameTitle className="draggable">{title}</FrameTitle>
+            <div style={{ display: 'flex' }}>
+              <VisibilityToggle
+                status={status}
+                onToggle={() => toggleStatus()}
+              />
+              <FrameTitle className="draggable">{title}</FrameTitle>
+            </div>
             <div className="window-buttons">
               {newWindow}
               {zoomOutButton}

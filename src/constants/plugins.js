@@ -17,6 +17,10 @@ import { PLUGIN_DATA_KEYS } from '../contexts/PluginsData';
 import RocksTable from '../components/ScienceTables/RocksTable';
 import MeteroitsTable from '../components/ScienceTables/MeteroitsTable';
 
+export const PLUGIN_TYPES = {
+  ROS: 'ROS'
+};
+
 export const PLUGIN_KEYS = {
   STOPWATCH: 'STOPWATCH',
   UTC: 'UTC',
@@ -59,7 +63,11 @@ export const PLUGINS = {
   [PLUGIN_KEYS.BATTERY_CURRENT]: { title: 'Battery Current' },
   [PLUGIN_KEYS.BATTERY_TEMPERATURE]: { title: 'Battery Temperature' },
   [PLUGIN_KEYS.BATTERY_CHARGE]: { title: 'Battery State of Charge' },
-  [PLUGIN_KEYS.ORIENTATION]: { title: 'Orientation', component: RoverRotation },
+  [PLUGIN_KEYS.ORIENTATION]: {
+    title: 'Orientation',
+    component: RoverRotation,
+    type: PLUGIN_TYPES.ROS
+  },
   [PLUGIN_KEYS.URDF]: { title: 'URDF', component: UrdfVisualizer, fixed: true },
   [PLUGIN_KEYS.ROS_CONNECTION]: {
     title: 'Ros Connection Status ',
@@ -107,6 +115,10 @@ export const PLUGINS = {
     title: 'Joint States',
     component: JointStates
   }
+};
+
+export const getPluginType = (pluginKey) => {
+  return Object.values(PLUGINS).filter((plugin) => pluginKey == plugin.type);
 };
 
 const plugin = (key, layout) => ({
