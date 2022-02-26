@@ -7,9 +7,10 @@ import { KeyPress } from '../roboticArm/KeyPress';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
 import usePublisher from '../../hooks/usePublisher';
 import { jogMessage } from './utils';
+import { PLUGIN_KEYS } from '../../constants/plugins';
+import usePluginState from '../../hooks/usePluginState';
 
 export const JointStates = (props) => {
-  console.log('rener');
   const { message } = useSubscribeTopic('/joint_states', 100);
   const float_precision = 2;
   // const keyState = {};
@@ -19,6 +20,9 @@ export const JointStates = (props) => {
     name: '/jog_joint',
     type: 'jog_msgs/JogJoint'
   });
+  const { status, setOnline, setOffline } = usePluginState(
+    PLUGIN_KEYS.JOINT_STATES
+  );
 
   const jointStates = message
     ? {
@@ -27,6 +31,9 @@ export const JointStates = (props) => {
         frame_id: message.header.frame_id
       }
     : null;
+
+  if (message) setOnline();
+  else setOffline();
 
   const handleKeyDown = (e) => {
     // console.log(e);

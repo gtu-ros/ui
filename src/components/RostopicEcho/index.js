@@ -1,6 +1,8 @@
 import { TextField, Box } from '@mui/material';
 import { useState } from 'react';
 import ReactJson from 'react-json-view';
+import { PLUGIN_KEYS } from '../../constants/plugins';
+import usePluginState from '../../hooks/usePluginState';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
 
 // TODO: subscribed status
@@ -9,6 +11,11 @@ const RostopicEcho = ({}) => {
   const [queue, setQueue] = useState(0);
   const [compression, setCompression] = useState('none');
   const { message } = useSubscribeTopic(topic, 500);
+  const { status, setOnline, setOffline } = usePluginState(
+    PLUGIN_KEYS.ROSTOPIC_ECHO
+  );
+
+  message ? setOnline() : setOffline();
 
   return (
     <div>
