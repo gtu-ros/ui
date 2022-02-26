@@ -100,7 +100,7 @@ const Frame = ({ children, title, pluginKey, fixed = false }) => {
           sx={fixed && { height: 'calc(100% - 30px)' }} // header height: 30px
           className="cancel-draggable"
         >
-          {children}
+          {status !== 'disabled' && children}
         </Box>
       </Box>
     </div>
