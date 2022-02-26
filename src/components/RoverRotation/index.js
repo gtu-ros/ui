@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import roverSideView from './rover-side.png';
-import roverFrontView from './rover-front.png';
+import roverSideView from './rover-side.jpeg';
+import roverFrontView from './rover-front.jpeg';
 import * as THREE from 'three';
 import { Grid, Slider, Typography } from '@mui/material';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
@@ -13,7 +13,7 @@ export const RoverRotation = (props) => {
   const { status, setOnline, setOffline } = usePluginState(
     PLUGIN_KEYS.ORIENTATION
   );
-  const { message } = useSubscribeTopic('/zed2/odom', 1000);
+  const { message } = useSubscribeTopic('/zed2/odom', 500);
 
   let orientation = null;
   if (message) {
