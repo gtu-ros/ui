@@ -167,6 +167,5 @@ export const SCIENCE_LAYOUT = [
   plugin(PLUGIN_KEYS.MULTICHANNEL_CHART, { x: 0, y: 6, w: 7, h: 13 }),
   plugin(PLUGIN_KEYS.FOSSIL_TABLE, { x: 0, y: 10, w: 12, h: 13 }),
   plugin(PLUGIN_KEYS.ROCKS_TABLE, { x: 0, y: 10, w: 12, h: 13 }),
-  plugin(PLUGIN_KEYS.ROCKS_TABLE, { x: 0, y: 10, w: 12, h: 13 }),
   plugin(PLUGIN_KEYS.METEROITS_TABLE, { x: 0, y: 10, w: 12, h: 7 })
 ];
