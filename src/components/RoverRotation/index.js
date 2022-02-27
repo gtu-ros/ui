@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import roverSideView from './rover-side.jpeg';
-import roverFrontView from './rover-front.jpeg';
+import roverBackView from './rover-back.jpeg';
 import * as THREE from 'three';
 import { Grid, Slider, Typography } from '@mui/material';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
@@ -9,7 +9,7 @@ import usePluginState from '../../hooks/usePluginState';
 import OrientationView from './OrientationView';
 
 export const RoverRotation = (props) => {
-  const float_precision = 2;
+  const float_precision = 1;
   const { status, setOnline, setOffline } = usePluginState(
     PLUGIN_KEYS.ORIENTATION
   );
@@ -33,7 +33,7 @@ export const RoverRotation = (props) => {
     },
     {
       title: 'Roll',
-      img: roverFrontView,
+      img: roverBackView,
       angle: ((orientation?.x * 180) / Math.PI).toFixed(float_precision)
     }
   ];
