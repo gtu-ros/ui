@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Map, { Marker, NavigationControl } from 'react-map-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
+import usePluginState from '../../hooks/usePluginState';
+import { PLUGIN_KEYS } from '../../constants/plugins';
 
 // TODO: set in env
 const MAPBOX_TOKEN =
@@ -15,9 +17,17 @@ const workshop = {
 
 function NavigationMap() {
   const { message } = useSubscribeTopic('/fix', 500);
-  console.log({ message });
+  const [current, setCurrent] = useState(null);
+  const { status, setOnline, setOffline } = usePluginState(PLUGIN_KEYS.MAP);
 
-  const current = { latitude: 40.812114473678, longitude: 29.357002765392842 };
+  useEffect(() => {
+    if (message) {
+      setCurrent({ latitude: message.latitude, longitude: message.longitude });
+      setOnline();
+    } else {
+      setOffline();
+    }
+  }, [message]);
 
   return (
     <Map
@@ -31,7 +41,7 @@ function NavigationMap() {
       mapboxAccessToken={MAPBOX_TOKEN}
     >
       <Marker {...workshop} color="red" />
-      <Marker {...current} color="blue" />
+      {current && <Marker {...current} color="blue" />}
       <NavigationControl visualizePitch />
     </Map>
   );
