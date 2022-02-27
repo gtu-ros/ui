@@ -3,39 +3,33 @@ import { Button, Fab } from '@mui/material';
 import ReactJson from 'react-json-view';
 import usePublisher from '../../hooks/usePublisher';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
+import { ActionClient, Goal } from 'roslib';
+import { useROS } from 'react-ros';
 
 const RosMessagePublisher = ({}) => {
   const { message } = useSubscribeTopic('/output_point', 200);
-  const topic = {
-    name: '/test',
-    type: 'geometry_msgs/PoseStamped',
-    rate: 1
-  };
-
-  const [publish] = usePublisher(topic);
-  console.log('message publisher', { message });
-
-  // const message = {
-  //   header: {
-  //     frame_id: 'map'
-  //   },
-  //   pose: {
-  //     position: {
-  //       x: -0.03,
-  //       y: -0.81,
-  //       z: -0.0
-  //     },
-  //     orientation: {
-  //       x: 0,
-  //       y: 0,
-  //       z: -0.91,
-  //       w: -0.39
-  //     }
-  //   }
-  // };
+  const { ros } = useROS();
 
   const handlePublish = () => {
-    publish(message);
+    const actionClient = new ActionClient({
+      ros: ros,
+      serverName: '/move_base',
+      actionName: 'move_base_msgs/MoveBaseAction'
+    });
+
+    const goal = new Goal({
+      actionClient: actionClient,
+      goalMessage: {
+        target_pose: {
+          header: {
+            frame_id: '/map'
+          },
+          pose: message.pose
+        }
+      }
+    });
+
+    goal.send();
   };
 
   return (
