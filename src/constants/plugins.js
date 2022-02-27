@@ -85,11 +85,11 @@ export const PLUGINS = {
   },
   [PLUGIN_KEYS.MAP]: { title: 'Map', component: NavigationMap, fixed: true },
   [PLUGIN_KEYS.MESSAGE_PUBLISHER]: {
-    title: 'ROS Message Publisher',
+    title: 'Move Base Goal',
     component: RosMessagePublisher
   },
   [PLUGIN_KEYS.SPEED_CHART]: {
-    title: 'Speed (/wheel_odom)',
+    title: 'Speed',
     component: SpeedChart
   },
   [PLUGIN_KEYS.FOSSIL_TABLE]: {
@@ -138,7 +138,6 @@ export const MAIN_LAYOUT = [
   plugin(PLUGIN_KEYS.ROSTOPIC_LIST, { x: 3, y: 9, w: 4, h: 9 }),
   plugin(PLUGIN_KEYS.MAP, { x: 7, y: 9, w: 5, h: 9 }),
   plugin(PLUGIN_KEYS.SPEED_CHART, { x: 7, y: 18, w: 5, h: 7 }),
-  plugin(PLUGIN_KEYS.MESSAGE_PUBLISHER, { x: 7, y: 25, w: 2, h: 3 }),
   plugin(PLUGIN_KEYS.MULTICHANNEL_CHART, { x: 0, y: 18, w: 7, h: 13 })
 ];
 
@@ -157,7 +156,7 @@ export const NAVIGATION_LAYOUT = [
   plugin(PLUGIN_KEYS.MAP, { x: 7, y: 0, w: 5, h: 9 }),
   plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 }),
   plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 3, w: 3, h: 9 }),
-  plugin(PLUGIN_KEYS.MESSAGE_PUBLISHER, { x: 0, y: 6, w: 3, h: 3 }),
+  plugin(PLUGIN_KEYS.MESSAGE_PUBLISHER, { x: 0, y: 6, w: 3, h: 6 }),
   plugin(PLUGIN_KEYS.SPEED_CHART, { x: 3, y: 9, w: 6, h: 7 })
 ];
 
