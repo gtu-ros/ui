@@ -13,13 +13,13 @@ export const RoverRotation = (props) => {
   const { status, setOnline, setOffline } = usePluginState(
     PLUGIN_KEYS.ORIENTATION
   );
-  const { message } = useSubscribeTopic('/zed2/odom', 500);
+  const { message } = useSubscribeTopic('/zed2/zed_node/imu/data', 500);
 
   let orientation = null;
   if (message) {
     setOnline();
     const quaternion = new THREE.Quaternion();
-    quaternion.copy(message.pose.pose.orientation);
+    quaternion.copy(message.orientation);
     orientation = new THREE.Euler().setFromQuaternion(quaternion);
   } else {
     setOffline();
