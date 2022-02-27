@@ -22,9 +22,12 @@ const RosMessagePublisher = ({}) => {
       goalMessage: {
         target_pose: {
           header: {
-            frame_id: '/map'
+            frame_id: 'odom'
           },
-          pose: message.pose
+          pose: {
+            position: message.position,
+            orientation: { x: 0, y: 0, z: 0, w: 1 }
+          }
         }
       }
     });
