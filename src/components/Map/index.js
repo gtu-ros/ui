@@ -1,7 +1,8 @@
 import React from 'react';
-import Map, { Marker } from 'react-map-gl';
+import Map, { Marker, NavigationControl } from 'react-map-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import useSubscribeTopic from '../../hooks/useSubscribeTopic';
 
 // TODO: set in env
 const MAPBOX_TOKEN =
@@ -13,6 +14,11 @@ const workshop = {
 };
 
 function NavigationMap() {
+  const { message } = useSubscribeTopic('/fix', 500);
+  console.log({ message });
+
+  const current = { latitude: 40.812114473678, longitude: 29.357002765392842 };
+
   return (
     <Map
       initialViewState={{
@@ -25,6 +31,8 @@ function NavigationMap() {
       mapboxAccessToken={MAPBOX_TOKEN}
     >
       <Marker {...workshop} color="red" />
+      <Marker {...current} color="blue" />
+      <NavigationControl visualizePitch />
     </Map>
   );
 }
