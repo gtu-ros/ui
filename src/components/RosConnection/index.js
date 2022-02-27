@@ -11,6 +11,7 @@ const RosConnection = () => {
 
   const rosUrl =
     urlFromSearchParams ||
+    url ||
     'ws://' +
       process.env.REACT_APP_ROS_BRIDGE_URL +
       ':' +
@@ -37,7 +38,7 @@ const RosConnection = () => {
         />
       ) : (
         <span onClick={() => setIsEdit(true)}>
-          {urlFromSearchParams || url}
+          {rosUrl}
         </span>
       )}
     </div>
