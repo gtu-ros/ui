@@ -36,6 +36,14 @@ const pluginReducer = (state = initialState, { type, payload }) => {
         [key]: { ...plugin, status: 'offline' }
       };
     }
+    case pluginActionTypes.SET_DATA: {
+      const { plugin: key, data } = payload;
+      const plugin = state[key];
+      return {
+        ...state,
+        [key]: { ...plugin, data }
+      };
+    }
     default:
       return state;
   }
