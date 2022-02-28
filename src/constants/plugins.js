@@ -134,7 +134,6 @@ export const MAIN_LAYOUT = [
   plugin(PLUGIN_KEYS.URDF, { x: 7, y: 0, w: 5, h: 9 }),
   plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 }),
   plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 4, w: 3, h: 9 }),
-  plugin(PLUGIN_KEYS.CALIBRATION, { x: 0, y: 13, w: 3, h: 5 }),
   plugin(PLUGIN_KEYS.ROSTOPIC_LIST, { x: 3, y: 9, w: 4, h: 9 }),
   plugin(PLUGIN_KEYS.MAP, { x: 7, y: 9, w: 5, h: 9 }),
   plugin(PLUGIN_KEYS.SPEED_CHART, { x: 7, y: 18, w: 5, h: 7 }),
@@ -156,8 +155,9 @@ export const NAVIGATION_LAYOUT = [
   plugin(PLUGIN_KEYS.MAP, { x: 7, y: 0, w: 5, h: 9 }),
   plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 }),
   plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 3, w: 3, h: 9 }),
-  plugin(PLUGIN_KEYS.MESSAGE_PUBLISHER, { x: 0, y: 6, w: 3, h: 6 }),
-  plugin(PLUGIN_KEYS.SPEED_CHART, { x: 3, y: 9, w: 6, h: 7 })
+  plugin(PLUGIN_KEYS.CALIBRATION, { x: 0, y: 5, w: 3, h: 5 }),
+  plugin(PLUGIN_KEYS.MESSAGE_PUBLISHER, { x: 3, y: 6, w: 3, h: 7 }),
+  plugin(PLUGIN_KEYS.SPEED_CHART, { x: 6, y: 9, w: 6, h: 7 })
 ];
 
 export const SCIENCE_LAYOUT = [
