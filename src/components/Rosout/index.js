@@ -12,13 +12,13 @@ const Rosout = () => {
   useEffect(() => {
     if (isConnected && message) {
       setOnline();
-      setData([...data.slice(-50), message]);
+      setData([...data.slice(-300), message]);
     } else {
       setOffline();
     }
   }, [isConnected, message]);
 
-  if (!message) return <div>No data</div>;
+  if (!message) return null;
 
   return (
     <div style={{ margin: 8 }}>
