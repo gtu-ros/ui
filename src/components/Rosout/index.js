@@ -22,9 +22,11 @@ const Rosout = () => {
 
   return (
     <div style={{ margin: 8 }}>
-      {data.map((message) => (
-        <LogMessage message={message} />
-      ))}
+      <pre>
+        {data.map((message) => (
+          <LogMessage message={message} />
+        ))}
+      </pre>
     </div>
   );
 };
