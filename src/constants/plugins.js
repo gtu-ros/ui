@@ -16,8 +16,8 @@ import withPluginData from '../containers/withPluginData';
 import { PLUGIN_DATA_KEYS } from '../contexts/PluginsData';
 import RocksTable from '../components/ScienceTables/RocksTable';
 import MeteroitsTable from '../components/ScienceTables/MeteroitsTable';
-import VideoStream from '../components/VideoStream';
 import Rosout from '../components/Rosout';
+import ZedImage from '../components/VideoStream/ZedImage';
 
 export const PLUGIN_TYPES = {
   ROS: 'ROS'
@@ -49,8 +49,8 @@ export const PLUGIN_KEYS = {
   METEROITS_TABLE: 'METEROITS_TABLE',
   MULTICHANNEL_CHART: 'MULTICHANNEL_CHART',
   JOINT_STATES: 'JOINT_STATES',
-  VIDEO_STREAM: 'VIDEO_STREAM',
-  ROSOUT: 'ROSOUT'
+  ROSOUT: 'ROSOUT',
+  ZED_IMAGE: 'ZED_IMAGE',
 };
 
 export const PLUGINS = {
@@ -119,9 +119,9 @@ export const PLUGINS = {
     title: 'Joint States',
     component: JointStates
   },
-  [PLUGIN_KEYS.VIDEO_STREAM]: {
-    title: 'Zed',
-    component: VideoStream
+  [PLUGIN_KEYS.ZED_IMAGE]: {
+    title: 'Zed Image',
+    component: ZedImage
   },
   [PLUGIN_KEYS.ROSOUT]: {
     title: 'Rosout',
@@ -142,14 +142,12 @@ const plugin = (key, layout) => ({
 export const MAIN_LAYOUT = [
   plugin(PLUGIN_KEYS.UTC, { x: 0, y: 0, w: 1, h: 2 }),
   plugin(PLUGIN_KEYS.MISSION_ELAPSED_TIME, { x: 1, y: 0, w: 2, h: 2 }),
-  plugin(PLUGIN_KEYS.ORIENTATION, { x: 3, y: 0, w: 4, h: 9 }),
-  plugin(PLUGIN_KEYS.URDF, { x: 7, y: 0, w: 5, h: 9 }),
+  plugin(PLUGIN_KEYS.URDF, { x: 7, y: 0, w: 5, h: 13 }),
   plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 }),
   plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 4, w: 3, h: 9 }),
-  plugin(PLUGIN_KEYS.ROSTOPIC_LIST, { x: 3, y: 9, w: 4, h: 9 }),
-  plugin(PLUGIN_KEYS.MAP, { x: 7, y: 9, w: 5, h: 9 }),
-  plugin(PLUGIN_KEYS.SPEED_CHART, { x: 7, y: 18, w: 5, h: 7 }),
-  plugin(PLUGIN_KEYS.ROSOUT, { x: 0, y: 18, w: 7, h: 13 })
+  plugin(PLUGIN_KEYS.ROSTOPIC_LIST, { x: 3, y: 9, w: 4, h: 13 }),
+  plugin(PLUGIN_KEYS.ROSOUT, { x: 0, y: 18, w: 6, h: 9 }),
+  plugin(PLUGIN_KEYS.ZED_IMAGE, { x: 6, y: 9, w: 6, h: 11 })
 ];
 
 export const ROBOTIC_ARM_LAYOUT = [
@@ -169,8 +167,7 @@ export const NAVIGATION_LAYOUT = [
   plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 3, w: 3, h: 9 }),
   plugin(PLUGIN_KEYS.CALIBRATION, { x: 0, y: 5, w: 3, h: 5 }),
   plugin(PLUGIN_KEYS.MESSAGE_PUBLISHER, { x: 3, y: 6, w: 3, h: 7 }),
-  plugin(PLUGIN_KEYS.SPEED_CHART, { x: 6, y: 9, w: 6, h: 7 })
-  // plugin(PLUGIN_KEYS.VIDEO_STREAM, { x: 6, y: 9, w: 6, h: 7 })
+  plugin(PLUGIN_KEYS.SPEED_CHART, { x: 6, y: 9, w: 6, h: 7 }),
 ];
 
 export const SCIENCE_LAYOUT = [
