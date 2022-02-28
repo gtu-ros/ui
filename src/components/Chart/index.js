@@ -19,7 +19,7 @@ import {
   styler
 } from 'react-timeseries-charts';
 
-const Chart = ({ data, label }) => {
+const Chart = ({ data, label, min, max }) => {
   const [tracker, setTracker] = useState();
   const [trackerX, setTrackerX] = useState();
 
@@ -90,8 +90,8 @@ const Chart = ({ data, label }) => {
               </Charts>
               <YAxis
                 id="y1"
-                min={0}
-                max={1}
+                min={min}
+                max={max}
                 type="linear"
                 format=",.2f"
                 showGrid
@@ -101,8 +101,8 @@ const Chart = ({ data, label }) => {
                 label={label}
                 hideScale
                 values={summary}
-                min={0}
-                max={1}
+                min={min}
+                max={max}
                 width={40}
                 type="linear"
               />

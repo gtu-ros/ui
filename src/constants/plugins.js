@@ -93,7 +93,7 @@ export const PLUGINS = {
     component: RosMessagePublisher
   },
   [PLUGIN_KEYS.SPEED_CHART]: {
-    title: 'Speed',
+    title: 'Linear Acceleration',
     component: SpeedChart
   },
   [PLUGIN_KEYS.FOSSIL_TABLE]: {

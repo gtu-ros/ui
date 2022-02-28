@@ -9,14 +9,18 @@ const SpeedChart = () => {
     PLUGIN_KEYS.SPEED_CHART
   );
   const [data, setData] = useState([]);
-  const { isConnected, message } = useSubscribeTopic('/wheel_odom', 500);
+  const { isConnected, message } = useSubscribeTopic(
+    '/zed2/zed_node/imu/data',
+    500
+  );
+
+  console.log(message);
 
   useEffect(() => {
     if (isConnected && message) {
       setOnline();
-      let speed = message.twist.linear.x;
-      if (speed < 0) speed = 0;
-      setData([...data, [Date.now(), speed]]);
+      const accelerationX = message.linear_acceleration.x;
+      setData([...data.slice(-50), [Date.now(), accelerationX]]);
     } else {
       setOffline();
       status !== 'offline' && setOffline();
@@ -24,7 +28,7 @@ const SpeedChart = () => {
     }
   }, [isConnected, message]);
 
-  return <Chart label={'Speed (m/s)'} data={data.slice(-50)} />;
+  return <Chart label={'Acceleration'} min={-10} max={10} data={data} />;
 };
 
 export default SpeedChart;
