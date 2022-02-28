@@ -51,6 +51,7 @@ const RostopicEcho = ({}) => {
       <ReactJson
         src={message}
         style={{ paddingLeft: 4, fontSize: 12, lineHeight: 1.1 }}
+        enableClipboard={false}
         name={false}
         indentWidth={2}
         displayDataTypes={false}
