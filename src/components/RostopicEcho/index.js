@@ -50,7 +50,7 @@ const RostopicEcho = ({}) => {
       {/* <pre>{JSON.stringify(message, null, 4)}</pre> */}
       <ReactJson
         src={message}
-        style={{ paddingLeft: 4 }}
+        style={{ paddingLeft: 4, fontSize: 12, lineHeight: 1.1 }}
         name={false}
         indentWidth={2}
         displayDataTypes={false}
