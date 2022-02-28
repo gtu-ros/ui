@@ -16,6 +16,8 @@ import withPluginData from '../containers/withPluginData';
 import { PLUGIN_DATA_KEYS } from '../contexts/PluginsData';
 import RocksTable from '../components/ScienceTables/RocksTable';
 import MeteroitsTable from '../components/ScienceTables/MeteroitsTable';
+import VideoStream from '../components/VideoStream';
+import Rosout from '../components/Rosout';
 
 export const PLUGIN_TYPES = {
   ROS: 'ROS'
@@ -46,7 +48,9 @@ export const PLUGIN_KEYS = {
   ROCKS_TABLE: 'ROCKS_TABLE',
   METEROITS_TABLE: 'METEROITS_TABLE',
   MULTICHANNEL_CHART: 'MULTICHANNEL_CHART',
-  JOINT_STATES: 'JOINT_STATES'
+  JOINT_STATES: 'JOINT_STATES',
+  VIDEO_STREAM: 'VIDEO_STREAM',
+  ROSOUT: 'ROSOUT'
 };
 
 export const PLUGINS = {
@@ -114,6 +118,14 @@ export const PLUGINS = {
   [PLUGIN_KEYS.JOINT_STATES]: {
     title: 'Joint States',
     component: JointStates
+  },
+  [PLUGIN_KEYS.VIDEO_STREAM]: {
+    title: 'Zed',
+    component: VideoStream
+  },
+  [PLUGIN_KEYS.ROSOUT]: {
+    title: 'Rosout',
+    component: Rosout
   }
 };
 
@@ -137,7 +149,7 @@ export const MAIN_LAYOUT = [
   plugin(PLUGIN_KEYS.ROSTOPIC_LIST, { x: 3, y: 9, w: 4, h: 9 }),
   plugin(PLUGIN_KEYS.MAP, { x: 7, y: 9, w: 5, h: 9 }),
   plugin(PLUGIN_KEYS.SPEED_CHART, { x: 7, y: 18, w: 5, h: 7 }),
-  plugin(PLUGIN_KEYS.MULTICHANNEL_CHART, { x: 0, y: 18, w: 7, h: 13 })
+  plugin(PLUGIN_KEYS.ROSOUT, { x: 0, y: 18, w: 7, h: 13 })
 ];
 
 export const ROBOTIC_ARM_LAYOUT = [
@@ -158,6 +170,7 @@ export const NAVIGATION_LAYOUT = [
   plugin(PLUGIN_KEYS.CALIBRATION, { x: 0, y: 5, w: 3, h: 5 }),
   plugin(PLUGIN_KEYS.MESSAGE_PUBLISHER, { x: 3, y: 6, w: 3, h: 7 }),
   plugin(PLUGIN_KEYS.SPEED_CHART, { x: 6, y: 9, w: 6, h: 7 })
+  // plugin(PLUGIN_KEYS.VIDEO_STREAM, { x: 6, y: 9, w: 6, h: 7 })
 ];
 
 export const SCIENCE_LAYOUT = [

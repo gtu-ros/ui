@@ -1,0 +1,27 @@
+.container {
+  text-indent: -20px;
+  padding-left: 20px;
+  white-space: pre-wrap;
+  line-height: 1.2;
+}
+
+.fatal {
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+.error {
+  color: #d32f2f;
+}
+
+.warn {
+  color: #ed6c02;
+}
+
+.info {
+  color: #0288d1;
+}
+
+.debug {
+  color: #93a1a1;
+}
