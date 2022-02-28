@@ -13,8 +13,8 @@ const RosConnection = () => {
   const { data, setData } = usePluginState(PLUGIN_KEYS.ROS_CONNECTION);
 
   const rosUrl =
-    data?.url ||
     urlFromSearchParams ||
+    data?.url ||
     url ||
     'ws://' +
       process.env.REACT_APP_ROS_BRIDGE_URL +
