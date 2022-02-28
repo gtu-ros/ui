@@ -1,5 +1,5 @@
 import { Switch, TextField } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useROS } from 'react-ros';
 import { useSearchParams } from 'react-router-dom';
 import { PLUGIN_KEYS } from '../../constants/plugins';
@@ -12,6 +12,13 @@ const RosConnection = () => {
   const urlFromSearchParams = searchParams.get('ROS_URL');
   const { data, setData } = usePluginState(PLUGIN_KEYS.ROS_CONNECTION);
 
+  const setRosUrl = (url) => {
+    changeUrl(url);
+    setSearchParams({ ROS_URL: url });
+    setIsEdit(false);
+    setData({ url: url });
+  };
+
   const rosUrl =
     urlFromSearchParams ||
     data?.url ||
@@ -21,12 +28,13 @@ const RosConnection = () => {
       ':' +
       process.env.REACT_APP_ROS_BRIDGE_PORT;
 
+  useEffect(() => {
+    setRosUrl(rosUrl);
+  }, []);
+
   const handleOnBlur = (e) => {
     const { value } = e.target;
-    changeUrl(value);
-    setSearchParams({ ROS_URL: value });
-    setIsEdit(false);
-    setData({ url: value });
+    setRosUrl(value);
   };
 
   return (
