@@ -1,5 +1,5 @@
 import { TextField, Box } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactJson from 'react-json-view';
 import { PLUGIN_KEYS } from '../../constants/plugins';
 import usePluginState from '../../hooks/usePluginState';
@@ -15,7 +15,9 @@ const RostopicEcho = ({}) => {
     PLUGIN_KEYS.ROSTOPIC_ECHO
   );
 
-  message ? setOnline() : setOffline();
+  useEffect(() => {
+    message ? setOnline() : setOffline();
+  }, [message]);
 
   return (
     <div>

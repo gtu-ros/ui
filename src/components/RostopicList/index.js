@@ -3,12 +3,18 @@ import { useForceUpdate } from '../../hooks/useForceUpdate';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box, Fab } from '@mui/material';
 import { Refresh } from '@mui/icons-material';
+import { PLUGIN_KEYS } from '../../constants/plugins';
+import usePluginState from '../../hooks/usePluginState';
 
 // TODO: copy topic on click
 const RostopicList = () => {
   const { topics } = useROS();
+  const { setOnline, setOffline } = usePluginState(
+    PLUGIN_KEYS.ROSTOPIC_LIST
+  );
+
+  topics?.length !== 0 ? setOnline() : setOffline();
   const update = useForceUpdate();
-  console.log({ topics });
   const columns = [
     { field: 'id', headerName: 'Topic', flex: 3 },
     {
