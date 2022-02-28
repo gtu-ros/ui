@@ -10,13 +10,16 @@ const RosConnection = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const urlFromSearchParams = searchParams.get('ROS_URL');
-  const { data, setData } = usePluginState(PLUGIN_KEYS.ROS_CONNECTION);
+  const { data, setData, setOnline, setOffline } = usePluginState(
+    PLUGIN_KEYS.ROS_CONNECTION
+  );
 
   const setRosUrl = (url) => {
     changeUrl(url);
     setSearchParams({ ROS_URL: url });
     setIsEdit(false);
     setData({ url: url });
+    isConnected ? setOnline() : setOffline();
   };
 
   const rosUrl =
