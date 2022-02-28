@@ -4,7 +4,7 @@ import { pluginActionTypes } from '../redux/plugins/plugin.types';
 
 const usePluginState = (pluginKey) => {
   const dispatch = useDispatch();
-  const { status } = useSelector(selectPlugins(pluginKey));
+  const { status, data } = useSelector(selectPlugins(pluginKey));
 
   const setOnline = () => {
     if (status !== 'online') {
@@ -31,7 +31,16 @@ const usePluginState = (pluginKey) => {
     });
   };
 
-  return { status, setOnline, setOffline, toggleStatus };
+  const setData = (data) => {
+    if (status !== 'offline') {
+      dispatch({
+        type: pluginActionTypes.SET_DATA,
+        payload: { plugin: pluginKey, data: data }
+      });
+    }
+  };
+
+  return { status, data, setOnline, setOffline, toggleStatus, setData };
 };
 
 export default usePluginState;
