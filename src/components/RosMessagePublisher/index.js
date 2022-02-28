@@ -25,7 +25,11 @@ const RosMessagePublisher = ({}) => {
             frame_id: 'odom'
           },
           pose: {
-            position: message.pose.position,
+            // position: message.pose.position,
+            position: {
+              ...message.pose.position,
+              x: message.pose.position.x + 2
+            },
             orientation: { x: 0, y: 0, z: 0, w: 1 }
           }
         }
