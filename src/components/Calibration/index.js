@@ -1,21 +1,23 @@
 import { TextField, Box, Button } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
+import { PLUGIN_KEYS } from '../../constants/plugins';
+import usePluginState from '../../hooks/usePluginState';
 
 const Calibration = () => {
   const { register, handleSubmit } = useForm();
+  const { setData } = usePluginState(PLUGIN_KEYS.CALIBRATION);
 
   const fields = {
     latitude: 'latitude',
     longitude: 'longitude'
   };
 
-  const onSubmit = (data) => {
-    const log = (field) => {
-      console.log(data[field]);
-    };
-    log(fields.latitude);
-    log(fields.longitude);
+  const onSubmit = (submitData) => {
+    setData({
+      latitude: submitData[fields.latitude],
+      longitude: submitData[fields.longitude]
+    });
   };
 
   return (

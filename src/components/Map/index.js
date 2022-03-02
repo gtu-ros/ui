@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Map, { Marker, NavigationControl } from 'react-map-gl';
+import Map, { Marker, NavigationControl, Source, Layer } from 'react-map-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
@@ -15,10 +15,48 @@ const workshop = {
   longitude: 29.357002765392842
 };
 
+const CustomMarker = ({ coordinates, text, color }) =>
+  coordinates ? (
+    <Marker {...coordinates} anchor="top">
+      <Marker {...coordinates} color={color} />
+      {text}
+    </Marker>
+  ) : (
+    ''
+  );
+
+const PointMarker = ({ coordinates }) => {
+  const geojson = ({ latitude, longitude }) => ({
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [longitude, latitude] }
+      }
+    ]
+  });
+
+  const layerStyle = {
+    id: 'point',
+    type: 'circle',
+    paint: {
+      'circle-radius': 5,
+      'circle-color': 'red'
+    }
+  };
+  return (
+    <Source id="my-data" type="geojson" data={geojson(coordinates)}>
+      <Layer {...layerStyle} />
+    </Source>
+  );
+};
+
 function NavigationMap() {
   const { message } = useSubscribeTopic('/fix', 500);
   const [current, setCurrent] = useState(null);
-  const { status, setOnline, setOffline } = usePluginState(PLUGIN_KEYS.MAP);
+  const { setOnline, setOffline } = usePluginState(PLUGIN_KEYS.MAP);
+  const { data: waypoints } = usePluginState(PLUGIN_KEYS.WAYPOINTS);
+  const { data: initialCoordinates } = usePluginState(PLUGIN_KEYS.CALIBRATION);
 
   useEffect(() => {
     if (message) {
@@ -40,8 +78,17 @@ function NavigationMap() {
       mapStyle="mapbox://styles/mapbox/streets-v9"
       mapboxAccessToken={MAPBOX_TOKEN}
     >
-      <Marker {...workshop} color="red" />
-      {current && <Marker {...current} color="blue" />}
+      <CustomMarker coordinates={initialCoordinates} text={'(0,0)'} />
+      {current && <PointMarker coordinates={current} />}
+      {waypoints?.waypointList.map(({ latitude, longitude, x, y, type }) => (
+        <>
+          <CustomMarker
+            coordinates={{ latitude, longitude }}
+            text={`(${x.toFixed(1)},${y.toFixed(1)})`}
+            color={'red'}
+          />
+        </>
+      ))}
       <NavigationControl visualizePitch />
     </Map>
   );

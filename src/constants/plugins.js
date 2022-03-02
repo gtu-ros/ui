@@ -17,6 +17,7 @@ import { PLUGIN_DATA_KEYS } from '../contexts/PluginsData';
 import RocksTable from '../components/ScienceTables/RocksTable';
 import MeteroitsTable from '../components/ScienceTables/MeteroitsTable';
 import Rosout from '../components/Rosout';
+import Waypoints from '../components/Waypoints';
 import ZedImage from '../components/VideoStream/ZedImage';
 
 export const PLUGIN_TYPES = {
@@ -51,6 +52,7 @@ export const PLUGIN_KEYS = {
   JOINT_STATES: 'JOINT_STATES',
   ROSOUT: 'ROSOUT',
   ZED_IMAGE: 'ZED_IMAGE',
+  WAYPOINTS: 'WAYPOINTS'
 };
 
 export const PLUGINS = {
@@ -126,6 +128,10 @@ export const PLUGINS = {
   [PLUGIN_KEYS.ROSOUT]: {
     title: 'Rosout',
     component: Rosout
+  },
+  [PLUGIN_KEYS.WAYPOINTS]: {
+    title: 'Waypoints',
+    component: Waypoints
   }
 };
 
@@ -166,8 +172,9 @@ export const NAVIGATION_LAYOUT = [
   plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 }),
   plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 3, w: 3, h: 9 }),
   plugin(PLUGIN_KEYS.CALIBRATION, { x: 0, y: 5, w: 3, h: 5 }),
-  plugin(PLUGIN_KEYS.MESSAGE_PUBLISHER, { x: 3, y: 6, w: 3, h: 7 }),
-  plugin(PLUGIN_KEYS.SPEED_CHART, { x: 6, y: 9, w: 6, h: 7 }),
+  plugin(PLUGIN_KEYS.WAYPOINTS, { x: 3, y: 5, w: 4, h: 9 }),
+  plugin(PLUGIN_KEYS.MESSAGE_PUBLISHER, { x: 0, y: 6, w: 3, h: 7 }),
+  plugin(PLUGIN_KEYS.SPEED_CHART, { x: 7, y: 9, w: 5, h: 9 })
 ];
 
 export const SCIENCE_LAYOUT = [
