@@ -30,7 +30,7 @@ const DummyDataChart = () => {
 
   const channels = {
     temp: {
-      units: 'Celsius Degrees',
+      units: '°C',
       label: 'Temperature',
       format: ',.1f',
       series: null,
