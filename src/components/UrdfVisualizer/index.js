@@ -6,6 +6,7 @@ const UrdfVisualizer = (props) => {
     <ModelVisualizer
       {...props}
       urdfPath={
+        'http://0.0.0.0:8000' ||
         'http://' +
         process.env.REACT_APP_FILE_SERVER_URL +
         ':' +

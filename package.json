@@ -32,6 +32,7 @@
     "react-id-generator": "^3.0.2",
     "react-json-view": "^1.21.3",
     "react-map-gl": "^7.0.1",
+    "react-nipple": "^1.0.2",
     "react-redux": "^7.2.6",
     "react-resize-detector": "^7.0.0",
     "react-ros": "^0.10.0",
