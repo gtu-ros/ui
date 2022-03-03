@@ -19,6 +19,7 @@ import MeteroitsTable from '../components/ScienceTables/MeteroitsTable';
 import Rosout from '../components/Rosout';
 import Waypoints from '../components/Waypoints';
 import ZedImage from '../components/VideoStream/ZedImage';
+import DriveControls from '../components/DriveControls';
 
 export const PLUGIN_TYPES = {
   ROS: 'ROS'
@@ -52,7 +53,8 @@ export const PLUGIN_KEYS = {
   JOINT_STATES: 'JOINT_STATES',
   ROSOUT: 'ROSOUT',
   ZED_IMAGE: 'ZED_IMAGE',
-  WAYPOINTS: 'WAYPOINTS'
+  WAYPOINTS: 'WAYPOINTS',
+  DRIVE_CONTROLS: 'DRIVE_CONTROLS',
 };
 
 export const PLUGINS = {
@@ -132,6 +134,10 @@ export const PLUGINS = {
   [PLUGIN_KEYS.WAYPOINTS]: {
     title: 'Waypoints',
     component: Waypoints
+  },
+  [PLUGIN_KEYS.DRIVE_CONTROLS]: {
+    title: 'Drive Controls',
+    component: DriveControls
   }
 };
 
@@ -145,15 +151,28 @@ const plugin = (key, layout) => ({
   key
 });
 
+// export const MAIN_LAYOUT = [
+//   plugin(PLUGIN_KEYS.UTC, { x: 0, y: 0, w: 1, h: 2 }),
+//   plugin(PLUGIN_KEYS.MISSION_ELAPSED_TIME, { x: 1, y: 0, w: 2, h: 2 }),
+//   // plugin(PLUGIN_KEYS.URDF, { x: 7, y: 0, w: 5, h: 13 }),
+//   plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 }),
+//   plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 4, w: 3, h: 9 }),
+//   plugin(PLUGIN_KEYS.ROSTOPIC_LIST, { x: 3, y: 9, w: 4, h: 13 }),
+//   plugin(PLUGIN_KEYS.ROSOUT, { x: 0, y: 18, w: 6, h: 9 }),
+//   plugin(PLUGIN_KEYS.ZED_IMAGE, { x: 6, y: 9, w: 6, h: 11 })
+// ];
+
 export const MAIN_LAYOUT = [
   plugin(PLUGIN_KEYS.UTC, { x: 0, y: 0, w: 1, h: 2 }),
   plugin(PLUGIN_KEYS.MISSION_ELAPSED_TIME, { x: 1, y: 0, w: 2, h: 2 }),
-  plugin(PLUGIN_KEYS.URDF, { x: 7, y: 0, w: 5, h: 13 }),
+  // plugin(PLUGIN_KEYS.URDF, { x: 7, y: 0, w: 5, h: 13 }),
   plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 }),
-  plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 4, w: 3, h: 9 }),
-  plugin(PLUGIN_KEYS.ROSTOPIC_LIST, { x: 3, y: 9, w: 4, h: 13 }),
+  plugin(PLUGIN_KEYS.ROSTOPIC_LIST, { x: 0, y: 9, w: 3, h: 5 }),
   plugin(PLUGIN_KEYS.ROSOUT, { x: 0, y: 18, w: 6, h: 9 }),
-  plugin(PLUGIN_KEYS.ZED_IMAGE, { x: 6, y: 9, w: 6, h: 11 })
+  plugin(PLUGIN_KEYS.ZED_IMAGE, { x: 7, y: 0, w: 5, h: 9 }),
+  plugin(PLUGIN_KEYS.SPEED_CHART, { x: 7, y: 9, w: 6, h: 9 }),
+  plugin(PLUGIN_KEYS.ORIENTATION, { x: 3, y: 0, w: 4, h: 9 }),
+  plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 20, w: 3, h: 9 }),
 ];
 
 export const ROBOTIC_ARM_LAYOUT = [
@@ -178,9 +197,7 @@ export const NAVIGATION_LAYOUT = [
 ];
 
 export const SCIENCE_LAYOUT = [
-  plugin(PLUGIN_KEYS.UTC, { x: 0, y: 0, w: 1, h: 2 }),
-  plugin(PLUGIN_KEYS.MISSION_ELAPSED_TIME, { x: 1, y: 0, w: 2, h: 2 }),
-  plugin(PLUGIN_KEYS.MULTICHANNEL_CHART, { x: 0, y: 6, w: 7, h: 13 }),
+  plugin(PLUGIN_KEYS.MULTICHANNEL_CHART, { x: 0, y: 6, w: 12, h: 13 }),
   plugin(PLUGIN_KEYS.FOSSIL_TABLE, { x: 0, y: 10, w: 12, h: 13 }),
   plugin(PLUGIN_KEYS.ROCKS_TABLE, { x: 0, y: 10, w: 12, h: 13 }),
   plugin(PLUGIN_KEYS.METEROITS_TABLE, { x: 0, y: 10, w: 12, h: 7 })

@@ -27,7 +27,7 @@ const speedFormat = format('.1f');
 class MultiChannelChart extends React.Component {
   constructor(props) {
     super(props);
-    const initialRange = new TimeRange([15 * 60 * 1000, 125 * 60 * 1000]);
+    const initialRange = new TimeRange([0 * 60 * 1000, 1 * 60 * 1000]);
     const {
       channels,
       channelNames,
@@ -90,6 +90,7 @@ class MultiChannelChart extends React.Component {
 
         // Some simple statistics for each channel
         channels[channelName].avg = parseInt(series.avg(channelName), 10);
+        channels[channelName].min = parseInt(series.min(channelName), 10);
         channels[channelName].max = parseInt(series.max(channelName), 10);
       }
 
@@ -218,7 +219,7 @@ class MultiChannelChart extends React.Component {
             id={`${channelName}_axis`}
             label={channels[channelName].label}
             values={summary}
-            min={0}
+            min={channels[channelName].min || 0}
             max={channels[channelName].max}
             width={140}
             type="linear"
@@ -229,7 +230,7 @@ class MultiChannelChart extends React.Component {
             id={`${channelName}_valueaxis`}
             value={value}
             detail={channels[channelName].units}
-            width={80}
+            width={120}
             min={0}
             max={35}
           />
@@ -329,7 +330,7 @@ class MultiChannelChart extends React.Component {
             id={`${channelName}_axis`}
             label={channels[channelName].label}
             values={summary}
-            min={0}
+            min={channels[channelName].min || 0}
             max={channels[channelName].max}
             width={140}
             type="linear"
@@ -431,6 +432,7 @@ class MultiChannelChart extends React.Component {
     for (let channelName of displayChannels) {
       const label = channels[channelName].label;
       const max = channels[channelName].max;
+      const min = channels[channelName].min;
       const format = channels[channelName].format;
       const id = `${channelName}_axis`;
       const visible = channels[channelName].show;
@@ -440,7 +442,7 @@ class MultiChannelChart extends React.Component {
           key={id}
           visible={visible}
           label={label}
-          min={0}
+          min={min}
           max={max}
           width={70}
           type="linear"
