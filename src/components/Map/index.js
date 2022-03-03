@@ -5,6 +5,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
 import usePluginState from '../../hooks/usePluginState';
 import { PLUGIN_KEYS } from '../../constants/plugins';
+import './style.css';
 
 // TODO: set in env
 const MAPBOX_TOKEN =
