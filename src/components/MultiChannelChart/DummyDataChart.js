@@ -55,7 +55,7 @@ const DummyDataChart = () => {
       label: 'CO',
       format: ',.1f',
       series: null,
-      show: true
+      show: false
     },
     ch4: {
       units: 'ppm',
@@ -76,7 +76,7 @@ const DummyDataChart = () => {
       label: 'Humidity',
       format: ',.1f',
       series: null,
-      show: true
+      show: false
     },
     co2: {
       units: 'ppm',
@@ -94,7 +94,6 @@ const DummyDataChart = () => {
     'co',
     'ch4',
     'o2',
-    'humidity',
     'humidity',
     'co2'
   ];
@@ -137,7 +136,6 @@ const DummyDataChart = () => {
         'temp',
         'atmospheric_pressure',
         'co',
-        'co2',
         'ch4',
         'o2',
         'humidity',
