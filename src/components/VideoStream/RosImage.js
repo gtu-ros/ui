@@ -1,17 +1,13 @@
 import { useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
-import { PLUGIN_KEYS } from '../../constants/plugins';
 import usePluginState from '../../hooks/usePluginState';
 import VideoStream from '../VideoStream';
 
-const ZedImage = () => {
-  const [throttleRate, setThrottleRate] = useState(100);
-  const { setOnline, setOffline } = usePluginState(PLUGIN_KEYS.ZED_IMAGE);
-  const { message } = useSubscribeTopic(
-    '/zed2/zed_node/left_raw/image_raw_color/compressed',
-    throttleRate
-  );
+const RosImage = ({ pluginKey, topic, throttleRate: initialThrottleRate }) => {
+  const [throttleRate, setThrottleRate] = useState(initialThrottleRate);
+  const { setOnline, setOffline } = usePluginState(pluginKey);
+  const { message } = useSubscribeTopic(topic, throttleRate);
 
   useEffect(() => {
     message ? setOnline() : setOffline();
@@ -32,4 +28,4 @@ const ZedImage = () => {
   );
 };
 
-export default ZedImage;
+export default RosImage;

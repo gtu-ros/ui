@@ -18,7 +18,11 @@ import RocksTable from '../components/ScienceTables/RocksTable';
 import MeteroitsTable from '../components/ScienceTables/MeteroitsTable';
 import Rosout from '../components/Rosout';
 import Waypoints from '../components/Waypoints';
-import ZedImage from '../components/VideoStream/ZedImage';
+import {
+  ZedImage,
+  Navcam1,
+  Navcam2
+} from '../components/VideoStream/RosCameras';
 import DriveControls from '../components/DriveControls';
 
 export const PLUGIN_TYPES = {
@@ -30,8 +34,6 @@ export const PLUGIN_KEYS = {
   UTC: 'UTC',
   MISSION_ELAPSED_TIME: 'MISSION_ELAPSED_TIME',
   BATTERY_STATUS: 'BATTERY_STATUS',
-  ROVER_NAVCAM_1: 'ROVER_NAVCAM_1',
-  ROVER_NAVCAM_2: 'ROVER_NAVCAM_2',
   BATTERY_VOLTAGE: 'BATTERY_VOLTAGE',
   OPERATIONS: 'OPERATIONS',
   BATTERY_CURRENT: 'BATTERY_CURRENT',
@@ -53,8 +55,10 @@ export const PLUGIN_KEYS = {
   JOINT_STATES: 'JOINT_STATES',
   ROSOUT: 'ROSOUT',
   ZED_IMAGE: 'ZED_IMAGE',
+  NAVCAM_1: 'NAVCAM_1',
+  NAVCAM_2: 'NAVCAM_2',
   WAYPOINTS: 'WAYPOINTS',
-  DRIVE_CONTROLS: 'DRIVE_CONTROLS',
+  DRIVE_CONTROLS: 'DRIVE_CONTROLS'
 };
 
 export const PLUGINS = {
@@ -64,8 +68,6 @@ export const PLUGINS = {
     component: withPluginData(Stopwatch, PLUGIN_DATA_KEYS.STOPWATCH)
   },
   [PLUGIN_KEYS.BATTERY_STATUS]: { title: 'Battery Status' },
-  [PLUGIN_KEYS.ROVER_NAVCAM_1]: { title: 'Rover Navcam 1' },
-  [PLUGIN_KEYS.ROVER_NAVCAM_2]: { title: 'Rover Navcam 2' },
   [PLUGIN_KEYS.BATTERY_VOLTAGE]: { title: 'Battery Voltage' },
   [PLUGIN_KEYS.OPERATIONS]: { title: 'Operations' },
   [PLUGIN_KEYS.BATTERY_CURRENT]: { title: 'Battery Current' },
@@ -116,7 +118,7 @@ export const PLUGINS = {
     fixed: true
   },
   [PLUGIN_KEYS.MULTICHANNEL_CHART]: {
-    title: 'Multi-Channel Chart',
+    title: 'Sensors',
     component: DummyDataChart
   },
   [PLUGIN_KEYS.JOINT_STATES]: {
@@ -127,9 +129,13 @@ export const PLUGINS = {
     title: 'Zed Image',
     component: ZedImage
   },
-  [PLUGIN_KEYS.ROSOUT]: {
-    title: 'Rosout',
-    component: Rosout
+  [PLUGIN_KEYS.NAVCAM_1]: {
+    title: 'Navcam 1',
+    component: Navcam1
+  },
+  [PLUGIN_KEYS.NAVCAM_2]: {
+    title: 'Navcam 2',
+    component: Navcam2
   },
   [PLUGIN_KEYS.WAYPOINTS]: {
     title: 'Waypoints',
@@ -172,7 +178,7 @@ export const MAIN_LAYOUT = [
   plugin(PLUGIN_KEYS.ZED_IMAGE, { x: 7, y: 0, w: 5, h: 9 }),
   plugin(PLUGIN_KEYS.SPEED_CHART, { x: 7, y: 9, w: 6, h: 9 }),
   plugin(PLUGIN_KEYS.ORIENTATION, { x: 3, y: 0, w: 4, h: 9 }),
-  plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 20, w: 3, h: 9 }),
+  plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 20, w: 3, h: 9 })
 ];
 
 export const ROBOTIC_ARM_LAYOUT = [
@@ -186,14 +192,16 @@ export const ROBOTIC_ARM_LAYOUT = [
 export const NAVIGATION_LAYOUT = [
   plugin(PLUGIN_KEYS.UTC, { x: 0, y: 0, w: 1, h: 2 }),
   plugin(PLUGIN_KEYS.MISSION_ELAPSED_TIME, { x: 1, y: 0, w: 2, h: 2 }),
-  plugin(PLUGIN_KEYS.ORIENTATION, { x: 3, y: 0, w: 4, h: 9 }),
-  plugin(PLUGIN_KEYS.MAP, { x: 7, y: 0, w: 5, h: 9 }),
+  plugin(PLUGIN_KEYS.ORIENTATION, { x: 0, y: 6, w: 3, h: 9 }),
+  plugin(PLUGIN_KEYS.MAP, { x: 3, y: 0, w: 5, h: 9 }),
   plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 }),
-  plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 3, w: 3, h: 9 }),
-  plugin(PLUGIN_KEYS.CALIBRATION, { x: 0, y: 5, w: 3, h: 5 }),
-  plugin(PLUGIN_KEYS.WAYPOINTS, { x: 3, y: 5, w: 4, h: 9 }),
-  plugin(PLUGIN_KEYS.MESSAGE_PUBLISHER, { x: 0, y: 6, w: 3, h: 7 }),
-  plugin(PLUGIN_KEYS.SPEED_CHART, { x: 7, y: 9, w: 5, h: 9 })
+  plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 11, w: 3, h: 5 }),
+  plugin(PLUGIN_KEYS.CALIBRATION, { x: 0, y: 5, w: 3, h: 4 }),
+  plugin(PLUGIN_KEYS.WAYPOINTS, { x: 3, y: 5, w: 5, h: 9 }),
+  plugin(PLUGIN_KEYS.MESSAGE_PUBLISHER, { x: 8, y: 6, w: 4, h: 7 }),
+  plugin(PLUGIN_KEYS.SPEED_CHART, { x: 3, y: 9, w: 5, h: 7 }),
+  plugin(PLUGIN_KEYS.NAVCAM_1, { x: 8, y: 0, w: 4, h: 9 }),
+  plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 1, w: 4, h: 9 })
 ];
 
 export const SCIENCE_LAYOUT = [
