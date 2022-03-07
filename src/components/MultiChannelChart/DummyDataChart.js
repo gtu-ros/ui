@@ -65,7 +65,7 @@ const DummyDataChart = () => {
       show: true
     },
     o2: {
-      units: 'ppm',
+      units: 'percent',
       label: 'O2',
       format: ',.1f',
       series: null,
