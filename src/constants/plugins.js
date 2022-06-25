@@ -24,6 +24,7 @@ import {
   Navcam2
 } from '../components/VideoStream/RosCameras';
 import DriveControls from '../components/DriveControls';
+import BluetoothInquiry from '../components/BluetoothInquiry';
 
 export const PLUGIN_TYPES = {
   ROS: 'ROS'
@@ -58,7 +59,8 @@ export const PLUGIN_KEYS = {
   NAVCAM_1: 'NAVCAM_1',
   NAVCAM_2: 'NAVCAM_2',
   WAYPOINTS: 'WAYPOINTS',
-  DRIVE_CONTROLS: 'DRIVE_CONTROLS'
+  DRIVE_CONTROLS: 'DRIVE_CONTROLS',
+  BLUETOOTH_INQUIRY: 'BLUETOOTH_INQUIRY'
 };
 
 export const PLUGINS = {
@@ -148,6 +150,10 @@ export const PLUGINS = {
   [PLUGIN_KEYS.DRIVE_CONTROLS]: {
     title: 'Drive Controls',
     component: DriveControls
+  },
+  [PLUGIN_KEYS.BLUETOOTH_INQUIRY]: {
+    title: 'Bluetooth Inquiry',
+    component: BluetoothInquiry
   }
 };
 
@@ -179,6 +185,7 @@ export const MAIN_LAYOUT = [
   plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 }),
   plugin(PLUGIN_KEYS.ROSTOPIC_LIST, { x: 0, y: 9, w: 3, h: 5 }),
   plugin(PLUGIN_KEYS.ROSOUT, { x: 0, y: 18, w: 6, h: 9 }),
+  plugin(PLUGIN_KEYS.BLUETOOTH_INQUIRY, { x: 0, y: 18, w: 4, h: 7 }),
   plugin(PLUGIN_KEYS.ZED_IMAGE, { x: 7, y: 0, w: 5, h: 9 }),
   plugin(PLUGIN_KEYS.NAVCAM_1, { x: 8, y: 0, w: 4, h: 9 }),
   plugin(PLUGIN_KEYS.SPEED_CHART, { x: 7, y: 9, w: 6, h: 9 }),
