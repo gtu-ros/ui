@@ -6,6 +6,7 @@ import useSubscribeTopic from '../../hooks/useSubscribeTopic';
 import usePluginState from '../../hooks/usePluginState';
 import { PLUGIN_KEYS } from '../../constants/plugins';
 import './style.css';
+import Arc22Map from './Arc22Map';
 
 // TODO: set in env
 const MAPBOX_TOKEN =
@@ -14,6 +15,11 @@ const MAPBOX_TOKEN =
 const workshop = {
   latitude: 40.810114473678,
   longitude: 29.357002765392842
+};
+
+const itu = {
+  latitude: 41.10119431695273,
+  longitude: 29.02074299188313
 };
 
 const CustomMarker = ({ coordinates, text, color }) =>
@@ -71,14 +77,18 @@ function NavigationMap() {
   return (
     <Map
       initialViewState={{
-        ...workshop,
+        ...itu,
         zoom: 17,
         pitch: 65,
         bearing: 80
       }}
-      mapStyle="mapbox://styles/mapbox/streets-v9"
+      // mapStyle="mapbox://styles/mapbox/streets-v9"
+      // mapStyle="mapbox://styles/mapbox/dark-v10"
+      // mapStyle="mapbox://styles/mapbox/satellite-v9"
+      mapStyle="mapbox://styles/mapbox/light-v10"
       mapboxAccessToken={MAPBOX_TOKEN}
     >
+      <Arc22Map />
       <CustomMarker coordinates={initialCoordinates} text={'(0,0)'} />
       {current && <PointMarker coordinates={current} />}
       {waypoints?.waypointList.map(({ latitude, longitude, x, y, type }) => (
