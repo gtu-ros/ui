@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
+import { compressedToUrl } from './utils';
 
 const VideoStream = ({ data }) => {
   const [src, setSrc] = useState();
   useEffect(() => {
-    if (data) setSrc('data:image/jpeg;base64,' + data);
+    if (data) setSrc(compressedToUrl(data));
   }, [data]);
 
   return src ? (
