@@ -18,6 +18,7 @@ import RocksTable from '../components/ScienceTables/RocksTable';
 import MeteroitsTable from '../components/ScienceTables/MeteroitsTable';
 import Rosout from '../components/Rosout';
 import Waypoints from '../components/Waypoints';
+import Markers from '../components/Markers';
 import {
   ZedImage,
   Navcam1,
@@ -59,6 +60,7 @@ export const PLUGIN_KEYS = {
   NAVCAM_1: 'NAVCAM_1',
   NAVCAM_2: 'NAVCAM_2',
   WAYPOINTS: 'WAYPOINTS',
+  MARKERS: 'MARKERS',
   DRIVE_CONTROLS: 'DRIVE_CONTROLS',
   BLUETOOTH_INQUIRY: 'BLUETOOTH_INQUIRY'
 };
@@ -147,6 +149,10 @@ export const PLUGINS = {
     title: 'Waypoints',
     component: Waypoints
   },
+  [PLUGIN_KEYS.MARKERS]: {
+    title: 'Markers',
+    component: Markers
+  },
   [PLUGIN_KEYS.DRIVE_CONTROLS]: {
     title: 'Drive Controls',
     component: DriveControls
@@ -215,7 +221,7 @@ export const NAVIGATION_LAYOUT = [
   plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 }),
   plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 11, w: 3, h: 5 }),
   plugin(PLUGIN_KEYS.CALIBRATION, { x: 0, y: 5, w: 3, h: 4 }),
-  plugin(PLUGIN_KEYS.WAYPOINTS, { x: 3, y: 5, w: 5, h: 9 }),
+  plugin(PLUGIN_KEYS.MARKERS, { x: 3, y: 5, w: 5, h: 9 }),
   plugin(PLUGIN_KEYS.MESSAGE_PUBLISHER, { x: 8, y: 6, w: 4, h: 7 }),
   plugin(PLUGIN_KEYS.SPEED_CHART, { x: 3, y: 9, w: 5, h: 7 }),
   plugin(PLUGIN_KEYS.NAVCAM_1, { x: 8, y: 0, w: 4, h: 9 }),

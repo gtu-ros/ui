@@ -1,13 +1,23 @@
-import { PLUGINS } from '../../constants/plugins';
+import { PLUGINS, PLUGIN_KEYS } from '../../constants/plugins';
 import { pluginActionTypes } from './plugin.types';
 
 const objectMap = (obj, fn) =>
   Object.fromEntries(Object.entries(obj).map(([k, v], i) => [k, fn(v, k, i)]));
 
+const setDefaultSettings = (pluginKey, settings) => {
+  initialState[pluginKey] = {
+    data: {
+      settings
+    }
+  };
+};
+
 const initialState = objectMap(PLUGINS, (plugin) => ({
   type: plugin.type,
   status: 'enabled'
 }));
+
+setDefaultSettings(PLUGIN_KEYS.MAP, { showImageMap: false });
 
 const pluginReducer = (state = initialState, { type, payload }) => {
   switch (type) {

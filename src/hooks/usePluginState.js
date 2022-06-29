@@ -32,7 +32,8 @@ const usePluginState = (pluginKey) => {
   };
 
   const setData = (data) => {
-    if (status !== 'offline') {
+    if (true || status !== 'offline') { // TODO: consider disabling check
+      console.log({data});
       dispatch({
         type: pluginActionTypes.SET_DATA,
         payload: { plugin: pluginKey, data: data }

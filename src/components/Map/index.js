@@ -61,8 +61,11 @@ const PointMarker = ({ coordinates }) => {
 function NavigationMap() {
   const { message } = useSubscribeTopic('/fix', 500);
   const [current, setCurrent] = useState(null);
-  const { setOnline, setOffline } = usePluginState(PLUGIN_KEYS.MAP);
+  const { setOnline, setOffline, data, setData } = usePluginState(
+    PLUGIN_KEYS.MAP
+  );
   const { data: waypoints } = usePluginState(PLUGIN_KEYS.WAYPOINTS);
+  const { data: markers } = usePluginState(PLUGIN_KEYS.MARKERS);
   const { data: initialCoordinates } = usePluginState(PLUGIN_KEYS.CALIBRATION);
 
   useEffect(() => {
@@ -88,14 +91,23 @@ function NavigationMap() {
       mapStyle="mapbox://styles/mapbox/light-v10"
       mapboxAccessToken={MAPBOX_TOKEN}
     >
-      <Arc22Map />
+      {data?.settings?.showImageMap && <Arc22Map />}
       <CustomMarker coordinates={initialCoordinates} text={'(0,0)'} />
       {current && <PointMarker coordinates={current} />}
-      {waypoints?.waypointList.map(({ latitude, longitude, x, y, type }) => (
+      {waypoints?.waypointList?.map(({ latitude, longitude, x, y, type }) => (
         <>
           <CustomMarker
             coordinates={{ latitude, longitude }}
             text={`(${x.toFixed(1)},${y.toFixed(1)})`}
+            color={'red'}
+          />
+        </>
+      ))}
+      {markers?.markerList?.map(({ latitude, longitude, x, y, type }) => (
+        <>
+          <CustomMarker
+            coordinates={{ latitude, longitude }}
+            text={type}
             color={'red'}
           />
         </>

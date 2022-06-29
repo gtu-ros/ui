@@ -1,12 +1,24 @@
-import { Box, Grid, IconButton, Typography } from '@mui/material';
+import {
+  Box,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography
+} from '@mui/material';
 import { useModal } from 'mui-modal-provider';
 import LargeModal from '../LargeModal';
-import { ZoomOutMap, OpenInBrowser } from '@mui/icons-material';
+import { ZoomOutMap, OpenInBrowser, Settings } from '@mui/icons-material';
 import './style.css';
 import { Link } from 'react-router-dom';
 import useRosWs from '../../hooks/useRosWs';
 import VisibilityToggle from '../VisibilityToggle';
 import usePluginState from '../../hooks/usePluginState';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { startCase } from 'lodash';
 
 export const FrameTitle = ({ children }) => {
   return (
@@ -55,7 +67,16 @@ const windowIconStyle = { transform: 'scale(0.6)' };
 const Frame = ({ children, title, pluginKey, fixed = false }) => {
   const { showModal } = useModal();
   const { url } = useRosWs();
-  const { status, toggleStatus } = usePluginState(pluginKey);
+  const { status, toggleStatus, data, setData } = usePluginState(pluginKey);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const { register, handleSubmit } = useForm();
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const zoomOutButton = (
     <WindowButton onClick={() => showModal(LargeModal, { title, children })}>
@@ -75,6 +96,44 @@ const Frame = ({ children, title, pluginKey, fixed = false }) => {
     </Link>
   );
 
+  const settingsButton = (
+    <span>
+      <WindowButton onClick={handleClick}>
+        <Settings style={windowIconStyle} />
+      </WindowButton>
+      <Menu
+        id="basic-menu"
+        className="cancel-draggable"
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button'
+        }}
+      >
+        <form
+          onChange={handleSubmit((d) =>
+            setData({ ...data, settings: { ...d } })
+          )}
+        >
+          {data?.settings &&
+            Object.entries(data?.settings).map(([k, v]) => {
+              if (typeof v == 'boolean') {
+                return (
+                  <MenuItem>
+                    <FormControlLabel
+                      control={<Checkbox defaultChecked={v} {...register(k)} />}
+                      label={startCase(k)}
+                    />
+                  </MenuItem>
+                );
+              }
+            })}
+        </form>
+      </Menu>
+    </span>
+  );
+
   return (
     <div
       style={{ height: '100%', overflow: fixed ? 'hidden' : 'auto' }}
@@ -91,6 +150,7 @@ const Frame = ({ children, title, pluginKey, fixed = false }) => {
               <FrameTitle className="draggable">{title}</FrameTitle>
             </div>
             <div className="window-buttons">
+              {data?.settings && settingsButton}
               {newWindow}
               {zoomOutButton}
             </div>
