@@ -4,7 +4,7 @@ import roverBackView from './rover-back.jpeg';
 import * as THREE from 'three';
 import { Grid, Slider, Typography } from '@mui/material';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
-import { PLUGIN_KEYS } from '../../constants/plugins';
+import { PLUGIN_KEYS } from '../../constants';
 import usePluginState from '../../hooks/usePluginState';
 import OrientationView from './OrientationView';
 

@@ -7,6 +7,7 @@ import VideoStream from '../VideoStream';
 import { compressedToUrl } from './utils';
 import { Download } from '@mui/icons-material';
 import { Box } from '@mui/system';
+import { db } from '../../db';
 
 const RosImage = ({ pluginKey, topic, throttleRate: initialThrottleRate }) => {
   const [throttleRate, setThrottleRate] = useState(initialThrottleRate);
@@ -16,6 +17,15 @@ const RosImage = ({ pluginKey, topic, throttleRate: initialThrottleRate }) => {
   const downloadImage = () => {
     if (message?.data)
       saveAs(compressedToUrl(message.data), `${+new Date()}.jpg`);
+  };
+
+  const saveToDb = () => {
+    if (message?.data)
+      db[pluginKey].add({
+        message: JSON.stringify(message)
+      });
+
+    // message.data;
   };
 
   useEffect(() => {
@@ -33,7 +43,8 @@ const RosImage = ({ pluginKey, topic, throttleRate: initialThrottleRate }) => {
           defaultValue={throttleRate}
           onBlur={(event) => setThrottleRate(+event.target.value)}
         />
-        <IconButton onClick={downloadImage}>
+        {/* <IconButton onClick={downloadImage}> */}
+        <IconButton onClick={saveToDb}>
           <Download />
         </IconButton>
       </Box>

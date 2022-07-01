@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import usePluginState from '../../hooks/usePluginState';
-import { PLUGIN_KEYS } from '../../constants/plugins';
+import { PLUGIN_KEYS } from '../../constants';
 import { gpsToOdom } from '../Waypoints/utils';
 import { ShareLocation } from '@mui/icons-material';
 import AddCircle from '@mui/icons-material/AddCircle';

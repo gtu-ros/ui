@@ -2,7 +2,7 @@ import { Switch, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useROS } from 'react-ros';
 import { useSearchParams } from 'react-router-dom';
-import { PLUGIN_KEYS } from '../../constants/plugins';
+import { PLUGIN_KEYS } from '../../constants';
 import usePluginState from '../../hooks/usePluginState';
 
 const RosConnection = () => {

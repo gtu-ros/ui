@@ -1,7 +1,7 @@
 import Chart from '../Chart';
 import React, { useEffect, useState } from 'react';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
-import { PLUGIN_KEYS } from '../../constants/plugins';
+import { PLUGIN_KEYS } from '../../constants';
 import usePluginState from '../../hooks/usePluginState';
 
 const SpeedChart = () => {

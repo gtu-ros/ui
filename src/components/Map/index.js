@@ -4,7 +4,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
 import usePluginState from '../../hooks/usePluginState';
-import { PLUGIN_KEYS } from '../../constants/plugins';
+import { PLUGIN_KEYS } from '../../constants';
 import './style.css';
 import Arc22Map from './Arc22Map';
 

@@ -1,4 +1,5 @@
-import { PLUGINS, PLUGIN_KEYS } from '../../constants/plugins';
+import { PLUGINS } from '../../constants/plugins';
+import { PLUGIN_KEYS } from '../../constants';
 import { pluginActionTypes } from './plugin.types';
 
 const objectMap = (obj, fn) =>

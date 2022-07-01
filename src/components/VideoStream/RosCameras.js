@@ -1,4 +1,4 @@
-import { PLUGIN_KEYS } from '../../constants/plugins';
+import { PLUGIN_KEYS } from '../../constants';
 import RosImage from './RosImage';
 
 export const ZedImage = () => (

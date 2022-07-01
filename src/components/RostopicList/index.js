@@ -3,7 +3,7 @@ import { useForceUpdate } from '../../hooks/useForceUpdate';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box, Fab } from '@mui/material';
 import { Refresh } from '@mui/icons-material';
-import { PLUGIN_KEYS } from '../../constants/plugins';
+import { PLUGIN_KEYS } from '../../constants';
 import usePluginState from '../../hooks/usePluginState';
 
 // TODO: copy topic on click

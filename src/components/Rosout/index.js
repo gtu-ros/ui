@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
-import { PLUGIN_KEYS } from '../../constants/plugins';
+import { PLUGIN_KEYS } from '../../constants';
 import usePluginState from '../../hooks/usePluginState';
 import _ from 'lodash';
 import LogMessage from '../LogMessage';

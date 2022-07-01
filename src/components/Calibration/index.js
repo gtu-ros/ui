@@ -1,7 +1,7 @@
 import { TextField, Box, Button } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
-import { PLUGIN_KEYS } from '../../constants/plugins';
+import { PLUGIN_KEYS } from '../../constants';
 import usePluginState from '../../hooks/usePluginState';
 
 const Calibration = () => {

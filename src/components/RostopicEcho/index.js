@@ -1,7 +1,7 @@
 import { TextField, Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import ReactJson from 'react-json-view';
-import { PLUGIN_KEYS } from '../../constants/plugins';
+import { PLUGIN_KEYS } from '../../constants';
 import usePluginState from '../../hooks/usePluginState';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
 

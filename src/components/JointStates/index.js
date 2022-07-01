@@ -7,7 +7,7 @@ import { KeyPress } from '../roboticArm/KeyPress';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
 import usePublisher from '../../hooks/usePublisher';
 import { jogMessage } from './utils';
-import { PLUGIN_KEYS } from '../../constants/plugins';
+import { PLUGIN_KEYS } from '../../constants';
 import usePluginState from '../../hooks/usePluginState';
 
 export const JointStates = (props) => {
