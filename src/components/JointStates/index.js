@@ -82,7 +82,7 @@ export const JointStates = (props) => {
 
   const handleSpeedChange = (event, newValue) => {
     setSpeed(newValue);
-    console.log(speed);
+    // console.log(speed);
   };
 
   const rows = [];

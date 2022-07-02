@@ -31,7 +31,7 @@ export default class GridLayout extends React.Component {
   }
 
   onLayoutChange(layout, layouts) {
-    console.log({ layouts });
+    // console.log({ layouts });
     this.props.onLayoutChange(layout, layouts);
   }
 

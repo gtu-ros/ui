@@ -13,7 +13,6 @@ import { useEffect, useState } from 'react';
 import { PLUGIN_KEYS } from '../../constants';
 import usePluginState from '../../hooks/usePluginState';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
-import MissionRecorder from '../MissionRecorder';
 
 const BluetoothInquiry = ({}) => {
   const { message } = useSubscribeTopic('/bluetooth_search_result', 500);
@@ -63,8 +62,6 @@ const BluetoothInquiry = ({}) => {
     })
     .filter((d) => d);
 
-
-  return <MissionRecorder />;
 
   return (
     <div>

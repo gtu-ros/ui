@@ -38,8 +38,6 @@ function getStyles(status) {
     borderRadius: size / 2
   };
 
-  console.log({ status });
-
   let color = colors.BLUE;
   switch (status) {
     case 'online':

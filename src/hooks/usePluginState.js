@@ -31,12 +31,12 @@ const usePluginState = (pluginKey) => {
     });
   };
 
-  const setData = (data) => {
-    if (true || status !== 'offline') { // TODO: consider disabling check
-      console.log({data});
+  const setData = (newData) => {
+    if (true || status !== 'offline') {
+      // TODO: consider disabling check
       dispatch({
         type: pluginActionTypes.SET_DATA,
-        payload: { plugin: pluginKey, data: data }
+        payload: { plugin: pluginKey, data: { ...data, ...newData } }
       });
     }
   };

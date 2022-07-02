@@ -1,35 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Button, IconButton, TextField } from '@mui/material';
 import { saveAs } from 'file-saver';
-import useSubscribeTopic from '../../hooks/useSubscribeTopic';
+import useMessage from '../../hooks/useMessage';
 import usePluginState from '../../hooks/usePluginState';
 import VideoStream from '../VideoStream';
 import { compressedToUrl } from './utils';
 import { Download } from '@mui/icons-material';
 import { Box } from '@mui/system';
-import { db } from '../../db';
 
 const RosImage = ({ pluginKey, topic, throttleRate: initialThrottleRate }) => {
   const [throttleRate, setThrottleRate] = useState(initialThrottleRate);
-  const { setOnline, setOffline } = usePluginState(pluginKey);
-  const { message } = useSubscribeTopic(topic, throttleRate);
+  const { setOnline, setOffline, setData } = usePluginState(pluginKey);
+  const { message } = useMessage(pluginKey, topic, throttleRate);
 
   const downloadImage = () => {
     if (message?.data)
       saveAs(compressedToUrl(message.data), `${+new Date()}.jpg`);
   };
 
-  const saveToDb = () => {
-    if (message?.data)
-      db[pluginKey].add({
-        message: JSON.stringify(message)
-      });
-
-    // message.data;
-  };
-
   useEffect(() => {
     message ? setOnline() : setOffline();
+    setData({ timestamp: message?.header?.stamp?.secs });
   }, [message]);
 
   return (
@@ -43,8 +34,7 @@ const RosImage = ({ pluginKey, topic, throttleRate: initialThrottleRate }) => {
           defaultValue={throttleRate}
           onBlur={(event) => setThrottleRate(+event.target.value)}
         />
-        {/* <IconButton onClick={downloadImage}> */}
-        <IconButton onClick={saveToDb}>
+        <IconButton onClick={downloadImage}>
           <Download />
         </IconButton>
       </Box>

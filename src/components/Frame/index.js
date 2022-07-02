@@ -6,6 +6,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  MenuList,
   Typography
 } from '@mui/material';
 import { useModal } from 'mui-modal-provider';
@@ -19,6 +20,7 @@ import usePluginState from '../../hooks/usePluginState';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { startCase } from 'lodash';
+import moment from 'moment';
 
 export const FrameTitle = ({ children }) => {
   return (
@@ -102,14 +104,10 @@ const Frame = ({ children, title, pluginKey, fixed = false }) => {
         <Settings style={windowIconStyle} />
       </WindowButton>
       <Menu
-        id="basic-menu"
         className="cancel-draggable"
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button'
-        }}
       >
         <form
           onChange={handleSubmit((d) =>
@@ -122,7 +120,7 @@ const Frame = ({ children, title, pluginKey, fixed = false }) => {
                 return (
                   <MenuItem>
                     <FormControlLabel
-                      control={<Checkbox defaultChecked={v} {...register(k)} />}
+                      control={<Checkbox checked={v} {...register(k)} />}
                       label={startCase(k)}
                     />
                   </MenuItem>
@@ -133,6 +131,13 @@ const Frame = ({ children, title, pluginKey, fixed = false }) => {
       </Menu>
     </span>
   );
+
+  const formatTime = (s) =>
+    s
+      ? moment(new Date(s * 1e3))
+          .format()
+          .slice(-14, -6)
+      : '';
 
   return (
     <div
@@ -149,10 +154,13 @@ const Frame = ({ children, title, pluginKey, fixed = false }) => {
               />
               <FrameTitle className="draggable">{title}</FrameTitle>
             </div>
-            <div className="window-buttons">
-              {data?.settings && settingsButton}
-              {newWindow}
-              {zoomOutButton}
+            <div style={{ display: 'flex' }}>
+              <span className="time">{formatTime(data?.timestamp)}</span>
+              <span className="window-buttons">
+                {data?.settings && settingsButton}
+                {newWindow}
+                {zoomOutButton}
+              </span>
             </div>
           </Grid>
         </Header>

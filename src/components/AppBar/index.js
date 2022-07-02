@@ -1,10 +1,19 @@
 import MuiAppBar from '@mui/material/AppBar';
-import { IconButton, Toolbar, Typography } from '@mui/material';
-import { Menu, Fullscreen } from '@mui/icons-material';
-import { useSelector } from 'react-redux';
-import { selectTitle } from '../../redux/ui/ui.selectors';
+import {
+  IconButton,
+  Toolbar,
+  Typography,
+  ToggleButtonGroup,
+  ToggleButton,
+  Grid
+} from '@mui/material';
+import { Menu, Fullscreen, History, Stream } from '@mui/icons-material';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectMissionLogOpen, selectTitle } from '../../redux/ui/ui.selectors';
 import { styled } from '@mui/material/styles';
 import { UI } from '../../utils/constants';
+import { toggleMissionLog } from '../../redux/ui/ui.actions';
+import { purple } from '@mui/material/colors';
 
 const StyledMuiAppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open'
@@ -26,6 +35,8 @@ const StyledMuiAppBar = styled(MuiAppBar, {
 
 const AppBar = ({ onDrawerOpen, onDrawerClose, isOpen, enterFullscreen }) => {
   const title = useSelector(selectTitle);
+  const missionLogOpen = useSelector(selectMissionLogOpen);
+  const dispatch = useDispatch();
 
   return (
     <StyledMuiAppBar
@@ -57,6 +68,28 @@ const AppBar = ({ onDrawerOpen, onDrawerClose, isOpen, enterFullscreen }) => {
         >
           {title}
         </Typography>
+
+        <ToggleButtonGroup
+          color="primary"
+          size="small"
+          exclusive
+          value={missionLogOpen ? 'history' : 'stream'}
+          onChange={(event, newAlignment) => {
+            if (newAlignment === 'history' && !missionLogOpen)
+              dispatch(toggleMissionLog());
+            if (newAlignment === 'stream' && missionLogOpen)
+              dispatch(toggleMissionLog());
+          }}
+          sx={{ backgroundColor: (theme) => theme.palette.grey[200], mr: 2 }}
+        >
+          <ToggleButton value="history">
+            <History />
+          </ToggleButton>
+          <ToggleButton value="stream">
+            <Stream />
+          </ToggleButton>
+        </ToggleButtonGroup>
+
         <IconButton color="inherit" onClick={enterFullscreen}>
           <Fullscreen />
         </IconButton>

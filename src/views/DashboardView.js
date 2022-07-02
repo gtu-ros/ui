@@ -9,6 +9,9 @@ import AppBar from '../components/AppBar';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import { UI } from '../utils/constants';
 import { Outlet } from 'react-router-dom';
+import { selectMissionLogOpen } from '../redux/ui/ui.selectors';
+import { useSelector } from 'react-redux';
+import MissionLogController from '../components/MissionLogController';
 
 const mdTheme = createTheme();
 
@@ -48,6 +51,8 @@ const DashboardView = (props) => {
 
   const [open, setOpen] = useState(false);
   const handle = useFullScreenHandle();
+
+  const missionLogOpen = useSelector(selectMissionLogOpen);
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -92,11 +97,28 @@ const DashboardView = (props) => {
                   : theme.palette.grey[900],
               flexGrow: 1,
               height: '100vh',
-              overflow: 'auto'
+              overflow: 'auto',
+              overflowX: 'hidden'
             }}
           >
             <Toolbar />
             <Outlet />
+
+            {missionLogOpen && (
+              <Box
+                sx={{
+                  position: 'absolute',
+                  height: (theme) => theme.spacing(13),
+                  bottom: 0,
+                  left: (theme) => theme.spacing(9),
+                  right: 0,
+                  marginLeft: 'auto',
+                  marginRight: 'auto'
+                }}
+              >
+                <MissionLogController />
+              </Box>
+            )}
           </Box>
         </Box>
       </FullScreen>

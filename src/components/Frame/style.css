@@ -5,3 +5,18 @@
 .wrapper:hover .window-buttons {
   visibility: visible;
 }
+
+.time {
+  font-size: 0.9em;
+  line-height: 34px;
+  margin-right: 10px;
+}
+
+.wrapper .time {
+  position: absolute;
+  right: 0;
+}
+
+.wrapper:hover .time {
+  position: initial;
+}

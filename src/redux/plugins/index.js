@@ -19,6 +19,7 @@ const initialState = objectMap(PLUGINS, (plugin) => ({
 }));
 
 setDefaultSettings(PLUGIN_KEYS.MAP, { showImageMap: false });
+setDefaultSettings(PLUGIN_KEYS.UTC, { offset: true });
 
 const pluginReducer = (state = initialState, { type, payload }) => {
   switch (type) {

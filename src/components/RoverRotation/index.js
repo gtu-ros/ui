@@ -7,15 +7,26 @@ import useSubscribeTopic from '../../hooks/useSubscribeTopic';
 import { PLUGIN_KEYS } from '../../constants';
 import usePluginState from '../../hooks/usePluginState';
 import OrientationView from './OrientationView';
+import useMessage from '../../hooks/useMessage';
 
 export const RoverRotation = (props) => {
   const float_precision = 1;
-  const { status, setOnline, setOffline } = usePluginState(
+  const { status, setOnline, setOffline, setData } = usePluginState(
     PLUGIN_KEYS.ORIENTATION
   );
-  const { message } = useSubscribeTopic('/zed2/zed_node/imu/data', 500);
+  // const { message } = useSubscribeTopic('/zed2/zed_node/imu/data', 500);
+  const { message } = useMessage(
+    PLUGIN_KEYS.ORIENTATION,
+    '/zed2/zed_node/imu/data',
+    1000
+  );
+
+  useEffect(() => {
+    setData({ timestamp: message?.header?.stamp?.secs });
+  }, [message]);
 
   let orientation = null;
+
   if (message) {
     setOnline();
     const quaternion = new THREE.Quaternion();

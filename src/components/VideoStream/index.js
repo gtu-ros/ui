@@ -5,6 +5,7 @@ const VideoStream = ({ data }) => {
   const [src, setSrc] = useState();
   useEffect(() => {
     if (data) setSrc(compressedToUrl(data));
+    else setSrc('');
   }, [data]);
 
   return src ? (

@@ -14,8 +14,6 @@ const SpeedChart = () => {
     500
   );
 
-  console.log(message);
-
   useEffect(() => {
     if (isConnected && message) {
       setOnline();
