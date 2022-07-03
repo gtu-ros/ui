@@ -85,7 +85,7 @@ const DashboardView = (props) => {
             </List>
             <Divider />
             <List>
-              <Cameras />
+              {/* <Cameras /> */}
             </List>
           </Drawer>
           <Box

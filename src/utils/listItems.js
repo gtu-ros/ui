@@ -81,24 +81,11 @@ export const MainListItems = (props) => (
       </ListItemIcon>
       <ListItemText primary="URDF" />
     </ListItem>
-    <ListItem
-      button
-      onClick={() => {
-        window.open(
-          `${window.location.origin}/navigation`,
-          'navigation',
-          'width=640,height=480'
-        );
-      }}
-    >
-      <ListItemIcon>
-        <MapIcon />
-      </ListItemIcon>
-      <ListItemText primary="Map" />
-    </ListItem>
   </div>
 );
 
+
+// for ip cameras
 export const Cameras = () => {
   const baseUrl = `http://${cameraConfig.ip}:${cameraConfig.port}${cameraConfig.path}`;
 
