@@ -2,7 +2,7 @@ import { DialogContent } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 
-const LargeModal = ({ title, children, ...props }) => (
+export const LargeModal = ({ title, children, ...props }) => (
   <Dialog {...props} maxWidth={'xl'} fullWidth>
     <DialogTitle>{title}</DialogTitle>
     <DialogContent>
@@ -11,4 +11,9 @@ const LargeModal = ({ title, children, ...props }) => (
   </Dialog>
 );
 
-export default LargeModal;
+export const Modal = ({ title, children, ...props }) => (
+  <Dialog {...props}>
+    <DialogTitle>{title}</DialogTitle>
+    <DialogContent>{children}</DialogContent>
+  </Dialog>
+);

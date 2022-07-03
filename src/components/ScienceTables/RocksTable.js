@@ -1,7 +1,7 @@
 import { DataGrid } from '@mui/x-data-grid';
 import { useModal } from 'mui-modal-provider';
 import rocksCsv from './rocks.csv';
-import LargeModal from '../LargeModal';
+import { LargeModal } from '../Modal';
 import LinkCell from './CellRenderers/LinkCell';
 import useCsvTable from '../../hooks/useCsvTable';
 import InfoModal from './InfoModal';

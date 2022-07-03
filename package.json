@@ -17,6 +17,8 @@
     "dexie-export-import": "^1.0.3",
     "dexie-react-hooks": "^1.1.1",
     "file-saver": "^2.0.5",
+    "jpeg-js": "^0.4.4",
+    "jsqr": "^1.4.0",
     "lodash": "^4.17.21",
     "mapbox-gl": "^2.7.0",
     "maplibre-gl": "^2.1.1",

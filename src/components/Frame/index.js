@@ -10,7 +10,7 @@ import {
   Typography
 } from '@mui/material';
 import { useModal } from 'mui-modal-provider';
-import LargeModal from '../LargeModal';
+import { LargeModal } from '../Modal';
 import { ZoomOutMap, OpenInBrowser, Settings } from '@mui/icons-material';
 import './style.css';
 import { Link } from 'react-router-dom';

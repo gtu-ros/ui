@@ -1,7 +1,7 @@
 import { IconButton } from '@mui/material';
 import { useModal } from 'mui-modal-provider';
 import ImageIcon from '@mui/icons-material/Image';
-import LargeModal from '../../LargeModal';
+import { LargeModal } from '../../Modal';
 
 const ImageCell = ({ src, modalTitle = '' }) => {
   const { showModal } = useModal();

@@ -1,8 +1,7 @@
 import * as R from 'ramda';
 import { PLUGIN_KEYS } from '../../constants';
 import { db } from '../../db';
-
-const pipeWhileNotNil = R.pipeWith((f, res) => (R.isNil(res) ? res : f(res)));
+import { pipeWhileNotNil } from '../../utils';
 
 const getLast = (key) => db[key]?.orderBy('secs').last();
 const getFirst = (key) => db[key]?.orderBy('secs').first();
@@ -29,4 +28,3 @@ export const getLastSec = () => lastEntries.then(maxSec);
 export const getFirstSec = () => firstEntries.then(minSec);
 
 export const getMaxCount = () => pluginCounts.then(R.reduce(R.max, 0));
-

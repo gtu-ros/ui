@@ -4,7 +4,7 @@ import meteroitsCsv from './meteroits.csv';
 import ImageCell from './CellRenderers/ImageCell';
 import useCsvTable from '../../hooks/useCsvTable';
 import InfoModal from './InfoModal';
-import LargeModal from '../LargeModal';
+import { LargeModal } from '../Modal';
 
 const MeteroitsTable = () => {
   const { rows } = useCsvTable(meteroitsCsv);
