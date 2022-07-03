@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -23,7 +23,7 @@ import { selectMissionLog } from '../../redux/ui/ui.selectors';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { getFirstSec, getLastSec, getMaxCount } from './utils';
-import { LIMIT, resetDatabase } from '../../db';
+import { exportDatabase, importDatabase, LIMIT, resetDatabase } from '../../db';
 
 const Input = styled(MuiInput)`
   width: 42px;
@@ -50,8 +50,6 @@ const MissionLogController = () => {
 
     getMaxCount().then((c) => setStats((s) => ({ ...s, count: c })));
   }, []);
-
-  console.log({ stats });
 
   const handleSliderChange = (event, newValue) => {
     if (newValue < 0) newValue = 0;
@@ -84,6 +82,17 @@ const MissionLogController = () => {
     setAnchorEl(null);
   };
 
+  const fileInput = useRef();
+
+  const selectFile = () => {
+    fileInput.current.click();
+  };
+
+  const fileUploadHandler = (event) => {
+    const file = event.target.files[0];
+    importDatabase(file);
+  };
+
   return (
     <Paper variant="outlined" square sx={{ height: '100%' }}>
       <Box sx={{ width: '95%', m: 2 }}>
@@ -93,8 +102,9 @@ const MissionLogController = () => {
 
         <Typography
           mb={1}
-        >{`[ ${stats?.first?.toLocaleString()} - ${stats?.last?.toLocaleTimeString()} ] - ${
-          stats?.count} entries`}</Typography>
+        >{`[ ${stats?.first?.toLocaleString()} - ${stats?.last?.toLocaleString()} ] - ${
+          stats?.count
+        } entries`}</Typography>
 
         <Grid container spacing={2} alignItems="center">
           <Grid item>
@@ -113,9 +123,16 @@ const MissionLogController = () => {
               // anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
             >
               <MenuItem onClick={resetDatabase}>Reset Database</MenuItem>
-              <MenuItem>TODO: Export</MenuItem>
-              <MenuItem>TODO: Import</MenuItem>
+              <MenuItem onClick={exportDatabase}>Export</MenuItem>
+              <MenuItem onClick={selectFile}>Import</MenuItem>
             </Menu>
+
+            <input
+              type="file"
+              style={{ display: 'none' }}
+              ref={fileInput}
+              onChange={fileUploadHandler}
+            />
           </Grid>
           <Grid item>
             <Typography>
