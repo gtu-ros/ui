@@ -12,6 +12,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@turf/turf": "^6.5.0",
     "clsx": "^1.1.1",
     "dexie": "^3.2.2",
     "dexie-export-import": "^1.0.3",
@@ -21,6 +22,7 @@
     "jpeg-js": "^0.4.4",
     "jsqr": "^1.4.0",
     "lodash": "^4.17.21",
+    "mapbox": "^1.0.0-beta10",
     "mapbox-gl": "^2.7.0",
     "maplibre-gl": "^2.1.1",
     "moment": "^2.29.3",
@@ -56,6 +58,8 @@
     "serve": "^12.0.0",
     "styled-components": "^5.3.3",
     "three": "^0.141.0",
+    "turf": "^3.0.14",
+    "uuid": "^8.3.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

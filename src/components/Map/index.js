@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import Map, { Marker, NavigationControl, Source, Layer } from 'react-map-gl';
+import Map, { Marker, NavigationControl } from 'react-map-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
 import usePluginState from '../../hooks/usePluginState';
 import { PLUGIN_KEYS } from '../../constants';
 import './style.css';
-import Arc22Map from './Arc22Map';
+import { MarsField } from './Arc22Map';
+import { CustomMarker, PointMarker } from './Markers';
 
 // TODO: set in env
 const MAPBOX_TOKEN =
@@ -22,42 +23,6 @@ const itu = {
   longitude: 29.02074299188313
 };
 
-const CustomMarker = ({ coordinates, text, color }) =>
-  coordinates ? (
-    <Marker {...coordinates} anchor="top">
-      <Marker {...coordinates} color={color} />
-      {text}
-    </Marker>
-  ) : (
-    ''
-  );
-
-const PointMarker = ({ coordinates }) => {
-  const geojson = ({ latitude, longitude }) => ({
-    type: 'FeatureCollection',
-    features: [
-      {
-        type: 'Feature',
-        geometry: { type: 'Point', coordinates: [longitude, latitude] }
-      }
-    ]
-  });
-
-  const layerStyle = {
-    id: 'point',
-    type: 'circle',
-    paint: {
-      'circle-radius': 5,
-      'circle-color': 'red'
-    }
-  };
-  return (
-    <Source id="my-data" type="geojson" data={geojson(coordinates)}>
-      <Layer {...layerStyle} />
-    </Source>
-  );
-};
-
 function NavigationMap() {
   const { message } = useSubscribeTopic('/fix', 500);
   const [current, setCurrent] = useState(null);
@@ -67,6 +32,8 @@ function NavigationMap() {
   const { data: waypoints } = usePluginState(PLUGIN_KEYS.WAYPOINTS);
   const { data: markers } = usePluginState(PLUGIN_KEYS.MARKERS);
   const { data: initialCoordinates } = usePluginState(PLUGIN_KEYS.CALIBRATION);
+  const isArc22MarsFieldVisible = data?.settings?.arc22MarsField;
+  const isEditMode = data?.settings?.editMode;
 
   useEffect(() => {
     if (message) {
@@ -79,6 +46,7 @@ function NavigationMap() {
 
   return (
     <Map
+      onZoomEnd={(e) => setData({ ...data, zoom: e.target.getZoom() })}
       initialViewState={{
         ...itu,
         zoom: 17,
@@ -91,9 +59,9 @@ function NavigationMap() {
       mapStyle="mapbox://styles/mapbox/light-v10"
       mapboxAccessToken={MAPBOX_TOKEN}
     >
-      {data?.settings?.showImageMap && <Arc22Map />}
+      {isArc22MarsFieldVisible && <MarsField edit={isEditMode} />}
       <CustomMarker coordinates={initialCoordinates} text={'(0,0)'} />
-      {current && <PointMarker coordinates={current} />}
+      {current && <PointMarker id="current-marker" coordinates={current} />}
       {waypoints?.waypointList?.map(({ latitude, longitude, x, y, type }) => (
         <>
           <CustomMarker

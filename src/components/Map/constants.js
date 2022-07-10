@@ -4,10 +4,10 @@ const publicPath = 'maps';
 
 const makePath = (area) => mapValues((m) => `/${publicPath}/${area}/${m}`);
 
-const arcMaps = {
+const marsField = {
   annoted: 'annoted.png',
   lengths: 'len.png',
   raw: 'raw.png'
 };
 
-export const arcMapPaths = makePath('arc21')(arcMaps);
+export const marsFieldPath = makePath('arc22')(marsField);

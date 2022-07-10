@@ -18,7 +18,11 @@ const initialState = objectMap(PLUGINS, (plugin) => ({
   status: 'enabled'
 }));
 
-setDefaultSettings(PLUGIN_KEYS.MAP, { showImageMap: false });
+setDefaultSettings(PLUGIN_KEYS.MAP, {
+  arc22MarsField: true,
+  arc22MoonField: false,
+  editMode: true
+});
 setDefaultSettings(PLUGIN_KEYS.UTC, { offset: true });
 
 const pluginReducer = (state = initialState, { type, payload }) => {
