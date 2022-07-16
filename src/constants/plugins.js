@@ -8,7 +8,8 @@ import RostopicEcho from '../components/RostopicEcho';
 import RostopicList from '../components/RostopicList';
 import { RoverRotation } from '../components/RoverRotation';
 import FossilTable from '../components/ScienceTables/FossilTable';
-import SpeedChart from '../components/SpeedChart';
+import ImuAccelerationChart from '../components/Chart/ImuAccelerationChart';
+import GpsVelocityChart from '../components/Chart/GpsVelocityChart';
 import Stopwatch from '../components/Stopwatch';
 import Time from '../components/Time';
 import UrdfVisualizer from '../components/UrdfVisualizer';
@@ -66,8 +67,12 @@ export const PLUGINS = {
     component: RosMessagePublisher
   },
   [PLUGIN_KEYS.SPEED_CHART]: {
+    title: 'Linear Speed',
+    component: GpsVelocityChart
+  },
+  [PLUGIN_KEYS.ACCELERATION_CHART]: {
     title: 'Linear Acceleration',
-    component: SpeedChart
+    component: ImuAccelerationChart
   },
   [PLUGIN_KEYS.FOSSIL_TABLE]: {
     title: 'Fossils',
@@ -159,7 +164,7 @@ export const MAIN_LAYOUT = [
   plugin(PLUGIN_KEYS.NAVCAM_1, { x: 8, y: 0, w: 4, h: 9 }),
   plugin(PLUGIN_KEYS.SPEED_CHART, { x: 7, y: 9, w: 6, h: 9 }),
   plugin(PLUGIN_KEYS.ORIENTATION, { x: 3, y: 0, w: 4, h: 9 }),
-  plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 0, w: 4, h: 9 }),
+  plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 0, w: 4, h: 9 })
   // plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 20, w: 3, h: 9 })
 ];
 
@@ -173,7 +178,7 @@ export const ROBOTIC_ARM_LAYOUT = [
   plugin(PLUGIN_KEYS.NAVCAM_1, { x: 8, y: 0, w: 4, h: 9 }),
   // plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 0, w: 4, h: 9 }),
   // plugin(PLUGIN_KEYS.ZED_IMAGE, { x: 8, y: 0, w: 4, h: 9 }),
-  plugin(PLUGIN_KEYS.ROSOUT, { x: 0, y: 18, w: 6, h: 9 }),
+  plugin(PLUGIN_KEYS.ROSOUT, { x: 0, y: 18, w: 6, h: 9 })
 ];
 
 export const NAVIGATION_LAYOUT = [
@@ -188,7 +193,7 @@ export const NAVIGATION_LAYOUT = [
   plugin(PLUGIN_KEYS.MESSAGE_PUBLISHER, { x: 8, y: 6, w: 4, h: 7 }),
   plugin(PLUGIN_KEYS.SPEED_CHART, { x: 3, y: 9, w: 5, h: 7 }),
   plugin(PLUGIN_KEYS.NAVCAM_1, { x: 8, y: 0, w: 4, h: 9 }),
-  plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 1, w: 4, h: 9 }),
+  plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 1, w: 4, h: 9 })
   // plugin(PLUGIN_KEYS.ZED_IMAGE, { x: 8, y: 1, w: 4, h: 9 })
 ];
 
@@ -198,5 +203,5 @@ export const SCIENCE_LAYOUT = [
   plugin(PLUGIN_KEYS.FOSSIL_TABLE, { x: 0, y: 10, w: 12, h: 13 }),
   plugin(PLUGIN_KEYS.ROCKS_TABLE, { x: 0, y: 10, w: 12, h: 13 }),
   plugin(PLUGIN_KEYS.METEROITS_TABLE, { x: 0, y: 10, w: 12, h: 7 }),
-  plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 }),
+  plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 })
 ];

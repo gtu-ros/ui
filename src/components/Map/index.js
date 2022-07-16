@@ -24,7 +24,7 @@ const itu = {
 };
 
 function NavigationMap() {
-  const { message } = useSubscribeTopic('/fix', 500);
+  const { message } = useSubscribeTopic('/ublox/fix', 500);
   const [current, setCurrent] = useState(null);
   const { setOnline, setOffline, data, setData } = usePluginState(
     PLUGIN_KEYS.MAP
@@ -48,15 +48,15 @@ function NavigationMap() {
     <Map
       onZoomEnd={(e) => setData({ ...data, zoom: e.target.getZoom() })}
       initialViewState={{
-        ...itu,
+        ...workshop,
         zoom: 17,
         pitch: 65,
         bearing: 80
       }}
       // mapStyle="mapbox://styles/mapbox/streets-v9"
       // mapStyle="mapbox://styles/mapbox/dark-v10"
-      // mapStyle="mapbox://styles/mapbox/satellite-v9"
-      mapStyle="mapbox://styles/mapbox/light-v10"
+      mapStyle="mapbox://styles/mapbox/satellite-v9"
+      // mapStyle="mapbox://styles/mapbox/light-v10"
       mapboxAccessToken={MAPBOX_TOKEN}
     >
       {isArc22MarsFieldVisible && <MarsField edit={isEditMode} />}

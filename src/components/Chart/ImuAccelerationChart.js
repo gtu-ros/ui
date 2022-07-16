@@ -1,10 +1,10 @@
-import Chart from '../Chart';
+import Chart from '.';
 import React, { useEffect, useState } from 'react';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
 import { PLUGIN_KEYS } from '../../constants';
 import usePluginState from '../../hooks/usePluginState';
 
-const SpeedChart = () => {
+const ImuAccelerationChart = () => {
   const { status, setOnline, setOffline } = usePluginState(
     PLUGIN_KEYS.SPEED_CHART
   );
@@ -29,4 +29,4 @@ const SpeedChart = () => {
   return <Chart label={'Acceleration'} min={-10} max={10} data={data} />;
 };
 
-export default SpeedChart;
+export default ImuAccelerationChart;
