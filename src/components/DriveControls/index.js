@@ -2,10 +2,12 @@ import usePublisher from '../../hooks/usePublisher';
 
 import ReactNipple from 'react-nipple';
 import 'react-nipple/lib/styles.css';
-import { useState } from 'react';
-import { Button, Grid } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Button, Grid, Slider, Stack } from '@mui/material';
+import { Box } from '@mui/system';
 
 const DriveControls = () => {
+  const [speed, setSpeed] = useState(0);
   const [driveData, setDriveData] = useState();
   const [publish] = usePublisher({
     name: '/teleop/cmd_vel',
@@ -14,7 +16,7 @@ const DriveControls = () => {
 
   const move = (dv, dt) => {
     publish({
-      linear: { x: dv, y: 0, z: 0 },
+      linear: { x: dv * speed, y: 0, z: 0 },
       angular: { x: 0, y: 0, z: dt }
     });
   };
@@ -31,13 +33,29 @@ const DriveControls = () => {
   };
 
   return (
-    <>
+    <div>
+      <Box pt={3} mx={6}>
+        <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+          <Slider
+            color={speed <= 1 ? 'primary' : 'warning'}
+            value={speed}
+            onChange={(e, v) => setSpeed(v)}
+            valueLabelDisplay="auto"
+            step={0.1}
+            marks
+            min={0}
+            max={2}
+          />
+          <Box>{speed}</Box>
+        </Stack>
+      </Box>
+
       <Grid
         container
         spacing={5}
         justifyContent="space-around"
         alignItems="center"
-        my={2}
+        my={1}
       >
         <Grid item>
           <ReactNipple
@@ -93,15 +111,16 @@ const DriveControls = () => {
       <Grid container spacing={5} justifyContent="center" alignItems="center">
         <Grid item>
           <Button
-            onClick={() => {
-              move(0, 0);
-            }}
+            variant="contained"
+            size="large"
+            color="error"
+            onClick={() => move(0, 0)}
           >
             STOP
           </Button>
         </Grid>
       </Grid>
-    </>
+    </div>
   );
 };
 
