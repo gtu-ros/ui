@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Map, { Marker, NavigationControl } from 'react-map-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import useSubscribeTopic from '../../hooks/useSubscribeTopic';
 import usePluginState from '../../hooks/usePluginState';
 import { PLUGIN_KEYS } from '../../constants';
 import './style.css';
 import { MarsField } from './Arc22Map';
 import { CustomMarker, PointMarker } from './Markers';
+import useMessage from '../../hooks/useMessage';
 
 // TODO: set in env
 const MAPBOX_TOKEN =
@@ -24,7 +24,7 @@ const itu = {
 };
 
 function NavigationMap() {
-  const { message } = useSubscribeTopic('/ublox/fix', 500);
+  const { message } = useMessage(PLUGIN_KEYS.MAP, '/ublox/fix', 1000);
   const [current, setCurrent] = useState(null);
   const { setOnline, setOffline, data, setData } = usePluginState(
     PLUGIN_KEYS.MAP
@@ -49,7 +49,7 @@ function NavigationMap() {
     <Map
       onZoomEnd={(e) => setData({ ...data, zoom: e.target.getZoom() })}
       initialViewState={{
-        ...itu,
+        ...workshop,
         zoom: 17,
         pitch: 65,
         bearing: 80
