@@ -3,13 +3,15 @@ import { Source, Layer } from 'react-map-gl';
 import { marsFieldPath } from './constants';
 import FieldResizer from './FieldResizer';
 
+const marsFieldCoordinates = [
+  [29.021333822789757, 41.09993672344968],
+  [29.02174141887747, 41.099848964770246],
+  [29.021617357701643, 41.099509390852866],
+  [29.021217359118282, 41.09962385736763]
+];
+
 export const MarsField = ({ edit, id = 'mars-field' }) => {
-  const [corners, setCorners] = useState([
-    [29.020459451282786, 41.10162164954949],
-    [29.020867048538737, 41.10153389087013],
-    [29.02074299188313, 41.10119431695273],
-    [29.020342991775973, 41.10130878346744]
-  ]);
+  const [corners, setCorners] = useState(marsFieldCoordinates);
 
   return (
     <>

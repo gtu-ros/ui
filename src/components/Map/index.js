@@ -34,6 +34,7 @@ function NavigationMap() {
   const { data: initialCoordinates } = usePluginState(PLUGIN_KEYS.CALIBRATION);
   const isArc22MarsFieldVisible = data?.settings?.arc22MarsField;
   const isEditMode = data?.settings?.editMode;
+  const isSatellite = data?.settings?.satellite;
 
   useEffect(() => {
     if (message) {
@@ -48,15 +49,17 @@ function NavigationMap() {
     <Map
       onZoomEnd={(e) => setData({ ...data, zoom: e.target.getZoom() })}
       initialViewState={{
-        ...workshop,
+        ...itu,
         zoom: 17,
         pitch: 65,
         bearing: 80
       }}
       // mapStyle="mapbox://styles/mapbox/streets-v9"
       // mapStyle="mapbox://styles/mapbox/dark-v10"
-      mapStyle="mapbox://styles/mapbox/satellite-v9"
-      // mapStyle="mapbox://styles/mapbox/light-v10"
+      // mapStyle="mapbox://styles/mapbox/satellite-v9"
+      mapStyle={`mapbox://styles/mapbox/${
+        isSatellite ? 'satellite-v9' : 'light-v10'
+      }`}
       mapboxAccessToken={MAPBOX_TOKEN}
     >
       {isArc22MarsFieldVisible && <MarsField edit={isEditMode} />}
