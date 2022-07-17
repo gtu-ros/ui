@@ -68,10 +68,7 @@ const pluginReducer = (state = initialState, { type, payload }) => {
     case pluginActionTypes.SET_DATA: {
       const { plugin: key, data } = payload;
       const plugin = state[key];
-      console.log('before');
-      console.log(key);
       if (localStorageEnabledPlugins.includes(key)) {
-        console.log('yesss');
         localStorage.setItem(key, JSON.stringify(data));
       }
       return {
