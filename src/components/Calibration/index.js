@@ -6,7 +6,7 @@ import usePluginState from '../../hooks/usePluginState';
 
 const Calibration = () => {
   const { register, handleSubmit } = useForm();
-  const { setData } = usePluginState(PLUGIN_KEYS.CALIBRATION);
+  const { data, setData } = usePluginState(PLUGIN_KEYS.CALIBRATION);
 
   const fields = {
     latitude: 'latitude',
@@ -26,12 +26,14 @@ const Calibration = () => {
         <Box sx={{ '& .MuiTextField-root': { margin: 1, width: '100%' } }}>
           <Box sx={{ display: 'flex' }}>
             <TextField
+              value={data?.latitude}
               size="small"
               variant="outlined"
               label="Initial Latitude"
               {...register(fields.latitude)}
             />
             <TextField
+              value={data?.longitude}
               size="small"
               variant="outlined"
               label="Initial Longitude"
