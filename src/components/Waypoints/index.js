@@ -11,20 +11,53 @@ import {
   MenuItem,
   FormControl,
   Avatar,
-  ListItemAvatar
+  ListItemAvatar,
+  Stack
 } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import usePluginState from '../../hooks/usePluginState';
 import { PLUGIN_KEYS } from '../../constants';
 import { gpsToOdom } from './utils';
-import { ShareLocation } from '@mui/icons-material';
+import { Send, ShareLocation } from '@mui/icons-material';
 import AddCircle from '@mui/icons-material/AddCircle';
 import RemoveCircle from '@mui/icons-material/RemoveCircle';
+import { ActionClient, Goal } from 'roslib';
+import { useROS } from 'react-ros';
 
 const Waypoints = () => {
   const { register, handleSubmit } = useForm();
   const { data: initialCoordinates } = usePluginState(PLUGIN_KEYS.CALIBRATION);
   const { data, setData } = usePluginState(PLUGIN_KEYS.WAYPOINTS);
+  const { ros } = useROS();
+
+  const moveBaseGoal = (x, y) => {
+    const actionClient = new ActionClient({
+      ros: ros,
+      serverName: '/move_base',
+      actionName: 'move_base_msgs/MoveBaseAction'
+    });
+
+    const goal = new Goal({
+      actionClient: actionClient,
+      goalMessage: {
+        target_pose: {
+          header: {
+            frame_id: 'odom'
+          },
+          pose: {
+            position: {
+              x: x,
+              y: y,
+              z: 0 // TODO: check
+            },
+            orientation: { x: 0, y: 0, z: 0, w: 1 }
+          }
+        }
+      }
+    });
+
+    goal.send();
+  };
 
   const fields = {
     latitude: 'latitude',
@@ -85,13 +118,19 @@ const Waypoints = () => {
               label="Longitude"
               {...register(fields.longitude)}
             />
-            <FormControl size="small">
+            <TextField
+              size="small"
+              variant="outlined"
+              label="Name"
+              {...register(fields.type)}
+            />
+            {/* <FormControl size="small">
               <Select {...register(fields.type)}>
                 <MenuItem value={'gate'}>Gate</MenuItem>
                 <MenuItem value={'post'}>Post</MenuItem>
                 <MenuItem value={'no-vision'}>No vision</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
             <IconButton sx={{ m: 1 }} type="submit" color="primary">
               <AddCircle />
             </IconButton>
@@ -107,18 +146,27 @@ const Waypoints = () => {
                 <Divider />
                 <ListItem
                   secondaryAction={
-                    <IconButton
-                      onClick={() =>
-                        setData({
-                          waypointList: [...data.waypointList].filter(
-                            (_, idx) => idx !== index
-                          )
-                        })
-                      }
-                      edge="end"
-                    >
-                      <RemoveCircle />
-                    </IconButton>
+                    <Stack spacing={2} direction="row">
+                      <IconButton
+                        color="error"
+                        onClick={() => moveBaseGoal(x, y)}
+                        edge="end"
+                      >
+                        <Send />
+                      </IconButton>
+                      <IconButton
+                        onClick={() =>
+                          setData({
+                            waypointList: [...data.waypointList].filter(
+                              (_, idx) => idx !== index
+                            )
+                          })
+                        }
+                        edge="end"
+                      >
+                        <RemoveCircle />
+                      </IconButton>
+                    </Stack>
                   }
                 >
                   <ListItemAvatar>
@@ -127,7 +175,9 @@ const Waypoints = () => {
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText
-                    primary={`(${latitude}, ${longitude}) : (${x.toFixed(2)}, ${y.toFixed(2)})`}
+                    primary={`(${latitude}, ${longitude}) : (${x.toFixed(
+                      2
+                    )}, ${y.toFixed(2)})`}
                     secondary={type}
                   />
                 </ListItem>
@@ -137,7 +187,7 @@ const Waypoints = () => {
           <Divider />
         </List>
       </Box>
-      <Button
+      {/* <Button
         size="small"
         color="error"
         sx={{ margin: 1, float: 'right' }}
@@ -145,7 +195,7 @@ const Waypoints = () => {
         variant="contained"
       >
         Publish
-      </Button>
+      </Button> */}
     </div>
   );
 };
