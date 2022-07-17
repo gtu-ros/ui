@@ -11,6 +11,9 @@ import {
 } from './constants/plugins';
 import withRosAutoconnect from './containers/withRosAutoconnect';
 import Layout from './views/Layout';
+import { ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const pluginRoutes = Object.entries(PLUGINS).map(([key, plugin]) => {
@@ -29,6 +32,7 @@ function App() {
 
   return (
     <div className="App">
+      <ToastContainer theme="dark" closeOnClick={false} />
       <Routes>
         <Route path="/" element={<DashboardView />}>
           <Route

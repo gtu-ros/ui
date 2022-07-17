@@ -1,11 +1,19 @@
 import { uniqueId } from 'lodash';
 import { Marker, Source, Layer } from 'react-map-gl';
 
-export const CustomMarker = ({ coordinates, text, color }) =>
+export const CustomMarker = ({ coordinates, text, color, onDrag, onDragEnd }) =>
   coordinates ? (
     <Marker {...coordinates} anchor="top">
-      <Marker {...coordinates} color={color} />
-      {text}
+      <div>
+        <Marker
+          draggable
+          {...coordinates}
+          onDrag={onDrag}
+          onDragEnd={onDragEnd}
+          color={color}
+        />
+        {text}
+      </div>
     </Marker>
   ) : (
     ''

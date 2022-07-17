@@ -9,6 +9,7 @@ import { MarsField } from './Arc22Map';
 import { CustomMarker, PointMarker } from './Markers';
 import useMessage from '../../hooks/useMessage';
 import { purple } from '@mui/material/colors';
+import { toast } from 'react-toastify';
 
 // TODO: set in env
 const MAPBOX_TOKEN =
@@ -25,14 +26,19 @@ const itu = {
 };
 
 function NavigationMap() {
-  const { message } = useMessage(PLUGIN_KEYS.MAP, '/ublox/fix', 1000);
+  const { message } = useMessage(PLUGIN_KEYS.MAP, '/gps/filtered', 1000);
   const [current, setCurrent] = useState(null);
   const { setOnline, setOffline, data, setData } = usePluginState(
     PLUGIN_KEYS.MAP
   );
   const { data: waypoints } = usePluginState(PLUGIN_KEYS.WAYPOINTS);
-  const { data: markers } = usePluginState(PLUGIN_KEYS.MARKERS);
-  const { data: initialCoordinates } = usePluginState(PLUGIN_KEYS.CALIBRATION);
+  const { data: markers, setData: setMarkers } = usePluginState(
+    PLUGIN_KEYS.MARKERS
+  );
+  const {
+    data: initialCoordinates,
+    setData: setInitialCoordinates
+  } = usePluginState(PLUGIN_KEYS.CALIBRATION);
   const isArc22MarsFieldVisible = data?.settings?.arc22MarsField;
   const isEditMode = data?.settings?.editMode;
   const isSatellite = data?.settings?.satellite;
@@ -65,7 +71,16 @@ function NavigationMap() {
       mapboxAccessToken={MAPBOX_TOKEN}
     >
       {isArc22MarsFieldVisible && <MarsField edit={isEditMode} />}
-      <CustomMarker coordinates={initialCoordinates} text={'(0,0)'} />
+      <CustomMarker
+        coordinates={initialCoordinates}
+        onDragEnd={(v) =>
+          setInitialCoordinates({
+            latitude: v.lngLat.lat,
+            longitude: v.lngLat.lng
+          })
+        }
+        text={'(0,0)'}
+      />
       {current && <PointMarker id="current-marker" coordinates={current} />}
       {waypoints?.waypointList?.map(({ latitude, longitude, x, y, type }) => (
         <>
@@ -79,6 +94,9 @@ function NavigationMap() {
       {markers?.markerList?.map(({ latitude, longitude, x, y, name }) => (
         <>
           <CustomMarker
+            onDragEnd={(v) =>
+              toast(`${v.lngLat.lat} ${v.lngLat.lng}`, { autoClose: false })
+            }
             coordinates={{ latitude, longitude }}
             text={name}
             color={purple[200]}
