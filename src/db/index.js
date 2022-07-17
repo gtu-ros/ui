@@ -16,7 +16,8 @@ const dbStructure = {
   [PLUGIN_KEYS.ZED_IMAGE]: '++id, secs',
   [PLUGIN_KEYS.ROSOUT]: '++id, secs',
   [PLUGIN_KEYS.ORIENTATION]: '++id, secs',
-  [PLUGIN_KEYS.MAP]: '++id, secs'
+  [PLUGIN_KEYS.MAP]: '++id, secs',
+  [PLUGIN_KEYS.BLUETOOTH_INQUIRY]: '++id, secs'
 };
 
 const KEYS = Object.keys(dbStructure);

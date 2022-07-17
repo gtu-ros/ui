@@ -11,17 +11,19 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { PLUGIN_KEYS } from '../../constants';
+import useMessage from '../../hooks/useMessage';
 import usePluginState from '../../hooks/usePluginState';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
 
 const BluetoothInquiry = ({}) => {
-  const { message } = useSubscribeTopic('/bluetooth_search_result', 500);
+  const { message } = useMessage(PLUGIN_KEYS.BLUETOOTH_INQUIRY, '/bluetooth_search_result', 500);
   const [foundDevices, setFoundDevices] = useState([]);
-  const { status, setOnline, setOffline } = usePluginState(
+  const { status, setOnline, setOffline, setData } = usePluginState(
     PLUGIN_KEYS.BLUETOOTH_INQUIRY
   );
 
   useEffect(() => {
+    setData({ timestamp: message?.header?.stamp?.secs });
     message ? setOnline() : setOffline();
   }, [message]);
 
