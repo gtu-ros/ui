@@ -8,6 +8,7 @@ import './style.css';
 import { MarsField } from './Arc22Map';
 import { CustomMarker, PointMarker } from './Markers';
 import useMessage from '../../hooks/useMessage';
+import { purple } from '@mui/material/colors';
 
 // TODO: set in env
 const MAPBOX_TOKEN =
@@ -74,12 +75,12 @@ function NavigationMap() {
           />
         </>
       ))}
-      {markers?.markerList?.map(({ latitude, longitude, x, y, type }) => (
+      {markers?.markerList?.map(({ latitude, longitude, x, y, name }) => (
         <>
           <CustomMarker
             coordinates={{ latitude, longitude }}
-            text={type}
-            color={'red'}
+            text={name}
+            color={purple[200]}
           />
         </>
       ))}

@@ -31,7 +31,7 @@ const Markers = () => {
   const fields = {
     latitude: 'latitude',
     longitude: 'longitude',
-    type: 'type'
+    name: 'name'
   };
 
   const onSubmit = (submitData) => {
@@ -53,7 +53,7 @@ const Markers = () => {
     const nextMarker = {
       x,
       y,
-      type: submitData[fields.type],
+      name: submitData[fields.name],
       latitude: submitData[fields.latitude],
       longitude: submitData[fields.longitude]
     };
@@ -95,14 +95,12 @@ const Markers = () => {
               label="Longitude"
               {...register(fields.longitude)}
             />
-            <FormControl size="small">
-              <Select {...register(fields.type)}>
-                <MenuItem value={'start'}>Starting Point</MenuItem>
-                <MenuItem value={'custom1'}>Custom 1</MenuItem>
-                <MenuItem value={'custom2'}>Custom 2</MenuItem>
-                <MenuItem value={'custom3'}>Custom 3</MenuItem>
-              </Select>
-            </FormControl>
+            <TextField
+              size="small"
+              variant="outlined"
+              label="Name"
+              {...register(fields.name)}
+            />
             <IconButton sx={{ m: 1 }} type="submit" color="primary">
               <AddCircle />
             </IconButton>
@@ -113,7 +111,7 @@ const Markers = () => {
       <Box sx={{ display: 'flex' }}>
         <List sx={{ width: '100%' }}>
           {data?.markerList?.map(
-            ({ latitude, longitude, x, y, type }, index) => (
+            ({ latitude, longitude, x, y, name }, index) => (
               <>
                 <Divider />
                 <ListItem
@@ -139,7 +137,7 @@ const Markers = () => {
                   </ListItemAvatar>
                   <ListItemText
                     primary={getMarkerLabel({ latitude, longitude, x, y })}
-                    secondary={type}
+                    secondary={name}
                   />
                 </ListItem>
               </>
