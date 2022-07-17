@@ -39,6 +39,7 @@ function NavigationMap() {
 
   useEffect(() => {
     if (message) {
+      setData({ timestamp: message?.header?.stamp?.secs });
       setCurrent({ latitude: message.latitude, longitude: message.longitude });
       setOnline();
     } else {
