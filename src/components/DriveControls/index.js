@@ -121,7 +121,6 @@ const DriveControls = () => {
             }}
             options={controllerProps.options}
             onEnd={(evt, data) => {
-              console.log('end', driveData?.linear || 0, 0);
               move(driveData?.linear || 0, 0);
               setDriveData({ ...driveData, angular: 0 });
             }}
@@ -130,7 +129,6 @@ const DriveControls = () => {
                 const theta = data.angle.radian - 1.57;
                 const dx = (Math.sin(theta) * data.distance) / 100;
                 move(driveData?.linear || 0, dx);
-                console.log('move', driveData?.linear || 0, dx);
                 setDriveData({ ...driveData, angular: dx });
               }
             }}
