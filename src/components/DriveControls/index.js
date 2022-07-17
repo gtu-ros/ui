@@ -102,7 +102,7 @@ const DriveControls = () => {
             }}
           />
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={2} display="flex" justifyContent="center">
           <Button
             variant="contained"
             size="large"
