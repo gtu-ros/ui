@@ -13,6 +13,12 @@ const setDefaultSettings = (pluginKey, settings) => {
   };
 };
 
+const setDefaultData = (pluginKey, data) => {
+  initialState[pluginKey] = {
+    data
+  };
+};
+
 const initialState = objectMap(PLUGINS, (plugin) => ({
   type: plugin.type,
   status: 'enabled'
@@ -25,6 +31,12 @@ setDefaultSettings(PLUGIN_KEYS.MAP, {
   satellite: false
 });
 setDefaultSettings(PLUGIN_KEYS.UTC, { offset: true });
+
+const localStorageEnabledPlugins = [PLUGIN_KEYS.MARKERS];
+
+localStorageEnabledPlugins.forEach((p) =>
+  setDefaultData(p, JSON.parse(localStorage.getItem(p) || '{}'))
+);
 
 const pluginReducer = (state = initialState, { type, payload }) => {
   switch (type) {
@@ -56,6 +68,12 @@ const pluginReducer = (state = initialState, { type, payload }) => {
     case pluginActionTypes.SET_DATA: {
       const { plugin: key, data } = payload;
       const plugin = state[key];
+      console.log('before');
+      console.log(key);
+      if (localStorageEnabledPlugins.includes(key)) {
+        console.log('yesss');
+        localStorage.setItem(key, JSON.stringify(data));
+      }
       return {
         ...state,
         [key]: { ...plugin, data }
