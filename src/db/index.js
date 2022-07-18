@@ -17,7 +17,8 @@ const dbStructure = {
   [PLUGIN_KEYS.ROSOUT]: '++id, secs',
   [PLUGIN_KEYS.ORIENTATION]: '++id, secs',
   [PLUGIN_KEYS.MAP]: '++id, secs',
-  [PLUGIN_KEYS.BLUETOOTH_INQUIRY]: '++id, secs'
+  [PLUGIN_KEYS.BLUETOOTH_INQUIRY]: '++id, secs',
+  [PLUGIN_KEYS.SENSOR_RAW]: '++id, secs'
 };
 
 const KEYS = Object.keys(dbStructure);

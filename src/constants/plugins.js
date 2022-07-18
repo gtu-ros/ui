@@ -28,6 +28,7 @@ import {
 import DriveControls from '../components/DriveControls';
 import BluetoothInquiry from '../components/BluetoothInquiry';
 import { PLUGIN_KEYS, PLUGIN_TYPES } from '.';
+import SensorRaw from '../components/SensorRaw';
 
 export const PLUGINS = {
   [PLUGIN_KEYS.UTC]: { title: 'UTC', component: Time },
@@ -128,6 +129,10 @@ export const PLUGINS = {
   [PLUGIN_KEYS.BLUETOOTH_INQUIRY]: {
     title: 'Bluetooth Inquiry',
     component: BluetoothInquiry
+  },
+  [PLUGIN_KEYS.SENSOR_RAW]: {
+    title: 'Sensor Raw',
+    component: SensorRaw
   }
 };
 
@@ -164,7 +169,8 @@ export const MAIN_LAYOUT = [
   plugin(PLUGIN_KEYS.NAVCAM_1, { x: 8, y: 0, w: 4, h: 9 }),
   plugin(PLUGIN_KEYS.SPEED_CHART, { x: 7, y: 9, w: 6, h: 9 }),
   plugin(PLUGIN_KEYS.ORIENTATION, { x: 3, y: 0, w: 4, h: 9 }),
-  plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 0, w: 4, h: 9 })
+  plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 0, w: 4, h: 9 }),
+  plugin(PLUGIN_KEYS.SENSOR_RAW, { x: 8, y: 0, w: 4, h: 9 })
   // plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 20, w: 3, h: 9 })
 ];
 
@@ -190,11 +196,14 @@ export const NAVIGATION_LAYOUT = [
   plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 11, w: 3, h: 5 }),
   plugin(PLUGIN_KEYS.CALIBRATION, { x: 0, y: 5, w: 3, h: 4 }),
   plugin(PLUGIN_KEYS.MARKERS, { x: 3, y: 5, w: 5, h: 9 }),
+  plugin(PLUGIN_KEYS.WAYPOINTS, { x: 3, y: 5, w: 5, h: 9 }),
   plugin(PLUGIN_KEYS.MESSAGE_PUBLISHER, { x: 8, y: 6, w: 4, h: 7 }),
-  plugin(PLUGIN_KEYS.SPEED_CHART, { x: 3, y: 9, w: 5, h: 7 }),
+  // plugin(PLUGIN_KEYS.SPEED_CHART, { x: 3, y: 9, w: 5, h: 7 }),
   plugin(PLUGIN_KEYS.ACCELERATION_CHART, { x: 3, y: 9, w: 5, h: 7 }),
-  plugin(PLUGIN_KEYS.NAVCAM_1, { x: 8, y: 0, w: 4, h: 9 }),
-  plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 1, w: 4, h: 9 })
+  plugin(PLUGIN_KEYS.ZED_IMAGE, { x: 8, y: 0, w: 4, h: 9 }),
+  // plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 1, w: 4, h: 9 })
+  plugin(PLUGIN_KEYS.SPEED_CHART, { x: 8, y: 1, w: 4, h: 9 }),
+  plugin(PLUGIN_KEYS.ROSOUT, { x: 0, y: 18, w: 6, h: 9 }),
   // plugin(PLUGIN_KEYS.ZED_IMAGE, { x: 8, y: 1, w: 4, h: 9 })
 ];
 
