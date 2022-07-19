@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IconButton } from '@mui/material';
 import { Stop, PlayArrow, Pause } from '@mui/icons-material';
 import { Grid } from '@mui/material';
+import { PLUGIN_KEYS } from '../../constants';
+import { setLocalStorage } from '../../utils';
 
 const Stopwatch = ({
   seconds,
@@ -13,6 +15,15 @@ const Stopwatch = ({
   reset
 }) => {
   const pad = (n) => n.toString().padStart(2, '0');
+
+  useEffect(
+    () =>
+      setLocalStorage(PLUGIN_KEYS.STOPWATCH)({
+        isRunning,
+        offset: hours * 3600 + minutes * 60 + seconds
+      }),
+    [hours, minutes, seconds, isRunning]
+  );
 
   return (
     <Grid container direction="row" alignItems="center">
