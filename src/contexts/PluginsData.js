@@ -23,8 +23,8 @@ const initialData = {
 export const PluginsDataProvider = ({ children }) => {
   const pluginData = {
     [PLUGIN_DATA_KEYS.STOPWATCH]: useStopwatch({
-      autoStart: initialData.[PLUGIN_KEYS.STOPWATCH].isRunning,
-      offsetTimestamp: offsetDate(initialData[PLUGIN_KEYS.STOPWATCH].offset)
+      autoStart: initialData[PLUGIN_KEYS.STOPWATCH]?.isRunning,
+      offsetTimestamp: offsetDate(initialData[PLUGIN_KEYS.STOPWATCH]?.offset)
     })
   };
 
