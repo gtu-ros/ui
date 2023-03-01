@@ -1,0 +1,55 @@
+.switch-btn {
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    height: 34px;
+    border-radius: 35px;
+    border: 1px solid gray;
+    background-color: #fff;
+    overflow: hidden;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.switch-btn.off {
+    padding-left: 10px;
+    background-color: green;
+    text-align: right;
+    transition: all 0.6s;
+}
+
+.switch-btn.on {
+    padding-right: 10px;
+    background-color: #ff3d12;
+    text-align: left;
+    transition: all 0.6s;
+}
+
+.slider {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border-color: gray;
+    background-color: #fff;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+}
+
+.switch-btn.on .slider {
+    left: 68px;
+}
+
+.switch-btn.off .slider {
+    left: 0px;
+}
+
+.switch-btn:focus {
+    outline: none;
+}
+
+.switch-btn:focus .slider {
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), 0 0 4px rgba(63, 81, 181, 0.5);
+}

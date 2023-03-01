@@ -47,7 +47,7 @@
     "react-resize-detector": "^7.0.0",
     "react-ros": "^0.10.0",
     "react-router-dom": "6",
-    "react-scripts": "4.0.2",
+    "react-scripts": "^5.0.1",
     "react-timer-hook": "^3.0.5",
     "react-timeseries-charts": "0.16.1",
     "react-toastify": "9.0.3",
@@ -64,7 +64,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start --hot",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

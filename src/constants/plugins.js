@@ -29,9 +29,11 @@ import DriveControls from '../components/DriveControls';
 import BluetoothInquiry from '../components/BluetoothInquiry';
 import { PLUGIN_KEYS, PLUGIN_TYPES } from '.';
 import SensorRaw from '../components/SensorRaw';
+import StartStop from '../components/StartStop';
 
 export const PLUGINS = {
   [PLUGIN_KEYS.UTC]: { title: 'UTC', component: Time },
+  [PLUGIN_KEYS.START_STOP]: { title: 'Start Stop', component: StartStop },
   [PLUGIN_KEYS.MISSION_ELAPSED_TIME]: {
     title: 'Mission Elapsed Time',
     component: withPluginData(Stopwatch, PLUGIN_DATA_KEYS.STOPWATCH)
@@ -159,6 +161,7 @@ const plugin = (key, layout) => ({
 
 export const MAIN_LAYOUT = [
   plugin(PLUGIN_KEYS.UTC, { x: 0, y: 0, w: 1, h: 2 }),
+  plugin(PLUGIN_KEYS.START_STOP, { x: 0, y: 0, w: 1, h: 2 }),
   plugin(PLUGIN_KEYS.MISSION_ELAPSED_TIME, { x: 1, y: 0, w: 2, h: 2 }),
   // plugin(PLUGIN_KEYS.URDF, { x: 7, y: 0, w: 5, h: 13 }),
   plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 }),
@@ -208,7 +211,7 @@ export const NAVIGATION_LAYOUT = [
 ];
 
 export const SCIENCE_LAYOUT = [
-  // plugin(PLUGIN_KEYS.MULTICHANNEL_CHART, { x: 0, y: 6, w: 12, h: 13 }),
+  plugin(PLUGIN_KEYS.MULTICHANNEL_CHART, { x: 0, y: 6, w: 12, h: 13 }),
   plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 1, w: 4, h: 9 }),
   plugin(PLUGIN_KEYS.FOSSIL_TABLE, { x: 0, y: 10, w: 12, h: 13 }),
   plugin(PLUGIN_KEYS.ROCKS_TABLE, { x: 0, y: 10, w: 12, h: 13 }),

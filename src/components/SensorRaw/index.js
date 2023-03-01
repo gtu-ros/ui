@@ -9,7 +9,7 @@ import AirIcon from '@mui/icons-material/Air';
 import { blue, purple, red } from '@mui/material/colors';
 import useMessage from '../../hooks/useMessage';
 
-const SensorRaw = ({}) => {
+const SensorRaw = ({ }) => {
   const { message } = useMessage(PLUGIN_KEYS.SENSOR_RAW, '/sensor_raw', 500);
   const { setOnline, setOffline, setData } = usePluginState(
     PLUGIN_KEYS.SENSOR_RAW
@@ -24,21 +24,21 @@ const SensorRaw = ({}) => {
     <Stack spacing={1} m={1}>
       <SensorCard
         title="Temperature"
-        value={32.16}
+        value={message?.temperature.toFixed(2)}
         unit="°C"
         icon={<DeviceThermostatIcon />}
         color={red}
       />
       <SensorCard
         title="Relative Humidity"
-        value={18.43}
+        value={message?.humidity.toFixed(3)}
         unit="%"
         icon={<OpacityIcon />}
         color={blue}
       />
       <SensorCard
         title="Barometric Pressure"
-        value={10283.12}
+        value={message?.pressure.toFixed(3)}
         unit="Pa"
         icon={<AirIcon />}
         color={purple}
