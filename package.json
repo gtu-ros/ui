@@ -1,7 +1,7 @@
 {
   "name": "GTU_Rover_MCT",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "homepage" : "https://gtu-ros.github.io/ui",
   "dependencies": {
     "@emotion/react": "^11.7.1",
