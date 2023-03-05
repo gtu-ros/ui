@@ -104,6 +104,15 @@ const Waypoints = () => {
       });
     });
 
+
+    // const { x, y } = gpsToOdom(
+    //   {
+    //     latitude: submitData[fields.latitude],
+    //     longitude: submitData[fields.longitude]
+    //   },
+    //   initialCoordinates
+    // );
+
     gpsPromise.then((result) => {
       const nextWaypoint = {
         x: positions.b,
@@ -120,7 +129,7 @@ const Waypoints = () => {
         setData({ waypointList: [nextWaypoint] });
       }
 
-      console.log("finish");
+      // console.log("finish");
     });
   };
 
