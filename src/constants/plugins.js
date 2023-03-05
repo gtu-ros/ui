@@ -30,8 +30,9 @@ import BluetoothInquiry from '../components/BluetoothInquiry';
 import { PLUGIN_KEYS, PLUGIN_TYPES } from '.';
 import SensorRaw from '../components/SensorRaw';
 import StartStop from '../components/StartStop';
-import GraphChart from '../components/GraphChart';
+import SensorGraphs from '../components/SensorGraphs';
 import FtırGraph from '../components/FtırGraph';
+import LightIntensity from '../components/LightIntensity';
 
 export const PLUGINS = {
   [PLUGIN_KEYS.UTC]: { title: 'UTC', component: Time },
@@ -138,13 +139,17 @@ export const PLUGINS = {
     title: 'Sensor Raw',
     component: SensorRaw
   },
-  [PLUGIN_KEYS.GRAPH_CHART]: {
-    title: 'Graph Chart',
-    component: GraphChart
+  [PLUGIN_KEYS.SENSOR_GRAPHS]: {
+    title: 'Sensor Graphs',
+    component: SensorGraphs
   },
   [PLUGIN_KEYS.FTIR_GRAPH]: {
     title: 'Ftır Graph',
     component: FtırGraph
+  },
+  [PLUGIN_KEYS.LIGHT]: {
+    title: 'Light Intensity',
+    component: LightIntensity
   }
 };
 
@@ -183,9 +188,9 @@ export const MAIN_LAYOUT = [
   plugin(PLUGIN_KEYS.SPEED_CHART, { x: 7, y: 9, w: 6, h: 9 }),
   plugin(PLUGIN_KEYS.ORIENTATION, { x: 3, y: 0, w: 4, h: 9 }),
   plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 0, w: 4, h: 9 }),
-  plugin(PLUGIN_KEYS.SENSOR_RAW, { x: 8, y: 0, w: 4, h: 9 }),
-  plugin(PLUGIN_KEYS.GRAPH_CHART, { x: 8, y: 0, w: 4, h: 9 }),
-  plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 20, w: 3, h: 9 })
+  //plugin(PLUGIN_KEYS.SENSOR_RAW, { x: 8, y: 0, w: 4, h: 9 }),
+  plugin(PLUGIN_KEYS.SENSOR_GRAPHS, { x: 8, y: 0, w: 4, h: 9 }),
+  plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 20, w: 3, h: 9 }),
 ];
 
 export const ROBOTIC_ARM_LAYOUT = [
@@ -229,4 +234,5 @@ export const SCIENCE_LAYOUT = [
   plugin(PLUGIN_KEYS.METEROITS_TABLE, { x: 0, y: 10, w: 12, h: 7 }),
   plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 }),
   plugin(PLUGIN_KEYS.FTIR_GRAPH, { x: 8, y: 0, w: 4, h: 9 }),
+  plugin(PLUGIN_KEYS.LIGHT, { x: 8, y: 0, w: 4, h: 9 })
 ];
