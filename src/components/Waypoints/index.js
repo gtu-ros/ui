@@ -23,6 +23,7 @@ import AddCircle from '@mui/icons-material/AddCircle';
 import RemoveCircle from '@mui/icons-material/RemoveCircle';
 import { ActionClient, Goal } from 'roslib';
 import { useROS } from 'react-ros';
+import ROSLIB from 'roslib/src/RosLib';
 
 const Waypoints = () => {
   const { register, handleSubmit } = useForm();
@@ -62,8 +63,22 @@ const Waypoints = () => {
   const fields = {
     latitude: 'latitude',
     longitude: 'longitude',
-    type: 'type'
+    type: 'type',
+    head: 'head'
   };
+
+  const positions = {
+    a: null,
+    b: null,
+  }
+
+  const gpsGoalClient = new ROSLIB.Service({
+    ros: ros,
+    name: '/gps_goal_to_pose',
+    serviceType: 'gps_goal_server/decDegreesToPose'
+  });
+
+
 
   const onSubmit = (submitData) => {
     if (!initialCoordinates) {
@@ -71,30 +86,51 @@ const Waypoints = () => {
       return;
     }
 
-    const { x, y } = gpsToOdom(
-      {
+    const latitude = parseFloat(submitData[fields.latitude]);
+    const longitude = parseFloat(submitData[fields.longitude]);
+    const head = parseFloat(submitData[fields.head]);
+
+    const request = new ROSLIB.ServiceRequest({
+      latititude_dec_deg: latitude,
+      longitude_dec_deg: longitude,
+      heading_radians: head,
+    });
+
+    const gpsPromise = new Promise((resolve, reject) => {
+      gpsGoalClient.callService(request, function (result) {
+        positions.a = result.converted_pose.pose.position.x;
+        positions.b = result.converted_pose.pose.position.y;
+        resolve(result);
+      });
+    });
+
+
+    // const { x, y } = gpsToOdom(
+    //   {
+    //     latitude: submitData[fields.latitude],
+    //     longitude: submitData[fields.longitude]
+    //   },
+    //   initialCoordinates
+    // );
+
+    gpsPromise.then((result) => {
+      const nextWaypoint = {
+        x: positions.b,
+        y: positions.a,
+        type: submitData[fields.type],
         latitude: submitData[fields.latitude],
-        longitude: submitData[fields.longitude]
-      },
-      initialCoordinates
-    );
+        longitude: submitData[fields.longitude],
+      };
+      console.log({ nextWaypoint });
 
-    const nextWaypoint = {
-      x,
-      y,
-      type: submitData[fields.type],
-      latitude: submitData[fields.latitude],
-      longitude: submitData[fields.longitude]
-    };
-    console.log({ nextWaypoint });
+      if (data?.waypointList) {
+        setData({ waypointList: [...data.waypointList, nextWaypoint] });
+      } else {
+        setData({ waypointList: [nextWaypoint] });
+      }
 
-    if (data?.waypointList) {
-      setData({ waypointList: [...data.waypointList, nextWaypoint] });
-    } else {
-      setData({ waypointList: [nextWaypoint] });
-    }
-
-    console.log(x, y);
+      // console.log("finish");
+    });
   };
 
   return (
@@ -117,6 +153,12 @@ const Waypoints = () => {
               variant="outlined"
               label="Longitude"
               {...register(fields.longitude)}
+            />
+            <TextField
+              size="small"
+              variant="outlined"
+              label="Head"
+              {...register(fields.head)}
             />
             <TextField
               size="small"
