@@ -1,5 +1,6 @@
+import React, { useState, useEffect } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { Stack } from '@mui/material';
-import { useEffect } from 'react';
 import { PLUGIN_KEYS } from '../../constants';
 import usePluginState from '../../hooks/usePluginState';
 import SensorCard from './SensorCard';
@@ -9,15 +10,20 @@ import AirIcon from '@mui/icons-material/Air';
 import { blue, purple, red } from '@mui/material/colors';
 import useMessage from '../../hooks/useMessage';
 
-const SensorRaw = ({ }) => {
+
+const SensorGraphs = () => {
   const { message } = useMessage(PLUGIN_KEYS.SENSOR_RAW, '/sensor_raw', 500);
-  const { setOnline, setOffline, setData } = usePluginState(
-    PLUGIN_KEYS.SENSOR_RAW
-  );
+  const { setOnline, setOffline } = usePluginState(PLUGIN_KEYS.SENSOR_RAW);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    setData({ timestamp: message?.header?.stamp?.secs });
-    message ? setOnline() : setOffline();
+    if (message) {
+      setData(prevData => [...prevData, { temp: message?.temperature.toFixed(2), humidity: message?.humidity.toFixed(3), pressure: message?.pressure.toFixed(3) }]);
+
+      setOnline();
+    } else {
+      setOffline();
+    }
   }, [message]);
 
   return (
@@ -28,6 +34,7 @@ const SensorRaw = ({ }) => {
         unit="°C"
         icon={<DeviceThermostatIcon />}
         color={red}
+        data={data}
       />
       <SensorCard
         title="Relative Humidity"
@@ -35,6 +42,7 @@ const SensorRaw = ({ }) => {
         unit="%"
         icon={<OpacityIcon />}
         color={blue}
+        data={data}
       />
       <SensorCard
         title="Barometric Pressure"
@@ -42,9 +50,11 @@ const SensorRaw = ({ }) => {
         unit="Pa"
         icon={<AirIcon />}
         color={purple}
+        data={data}
       />
     </Stack>
+
   );
 };
 
-export default SensorRaw;
+export default SensorGraphs;
