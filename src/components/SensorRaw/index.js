@@ -1,5 +1,5 @@
+import React, { useState, useEffect } from 'react';
 import { Stack } from '@mui/material';
-import { useEffect } from 'react';
 import { PLUGIN_KEYS } from '../../constants';
 import usePluginState from '../../hooks/usePluginState';
 import SensorCard from './SensorCard';
@@ -9,14 +9,33 @@ import AirIcon from '@mui/icons-material/Air';
 import { blue, purple, red } from '@mui/material/colors';
 import useMessage from '../../hooks/useMessage';
 
-const SensorRaw = ({ }) => {
+const MAX_ARRAY_SIZE = 120;
+
+
+const SensorRaw = () => {
   const { message } = useMessage(PLUGIN_KEYS.SENSOR_RAW, '/sensor_raw', 500);
-  const { setOnline, setOffline, setData } = usePluginState(
-    PLUGIN_KEYS.SENSOR_RAW
-  );
+  const { setOnline, setOffline, data, setData } = usePluginState(PLUGIN_KEYS.SENSOR_RAW);
+  const [array, setArray] = useState([]);
 
   useEffect(() => {
-    setData({ timestamp: message?.header?.stamp?.secs });
+
+    setData({
+      timestamp: message?.header?.stamp?.secs,
+      temp: message?.temperature.toFixed(2),
+      humidity: message?.humidity.toFixed(3),
+      pressure: message?.pressure.toFixed(3),
+      lux: message?.lux.toFixed(2)
+    });
+
+    setArray(prevData => {
+      const newData = [...prevData, data];
+      if (newData.length > MAX_ARRAY_SIZE) {
+        return newData.slice(newData.length - MAX_ARRAY_SIZE);
+      } else {
+        return newData;
+      }
+    });
+
     message ? setOnline() : setOffline();
   }, [message]);
 
@@ -24,26 +43,30 @@ const SensorRaw = ({ }) => {
     <Stack spacing={1} m={1}>
       <SensorCard
         title="Temperature"
-        value={message?.temperature.toFixed(2)}
+        value={data?.temp}
         unit="°C"
         icon={<DeviceThermostatIcon />}
         color={red}
+        data={array}
       />
       <SensorCard
         title="Relative Humidity"
-        value={message?.humidity.toFixed(3)}
+        value={data?.humidity}
         unit="%"
         icon={<OpacityIcon />}
         color={blue}
+        data={array}
       />
       <SensorCard
         title="Barometric Pressure"
-        value={message?.pressure.toFixed(3)}
+        value={data?.pressure}
         unit="Pa"
         icon={<AirIcon />}
         color={purple}
+        data={array}
       />
     </Stack>
+
   );
 };
 
