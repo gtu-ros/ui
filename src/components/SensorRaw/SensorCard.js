@@ -1,6 +1,7 @@
 import { Grid, Paper, Stack, Typography } from '@mui/material';
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts';
 
-const SensorCard = ({ color, title, value, unit, icon }) => (
+const SensorCard = ({ color, title, value, unit, icon, data }) => (
   <Paper variant="outlined" sx={{ backgroundColor: color[50] }}>
     <Stack spacing={0.5} m={2}>
       <Grid container alignItems="center" justifyContent={'space-between'}>
@@ -26,6 +27,17 @@ const SensorCard = ({ color, title, value, unit, icon }) => (
           </Typography>
         </Grid>
       </Grid>
+
+      <ResponsiveContainer width="100%" height={100}>
+        <LineChart data={data.slice(-120)} scrollable={true}>
+          <XAxis dataKey="name" />
+          <YAxis domain={['dataMin', 'dataMax']} />
+          <Tooltip />
+          {title === 'Temperature' && <Line type="natural" dataKey="temp" stroke={color[500]} dot={false} />}
+          {title === 'Relative Humidity' && <Line type="natural" dataKey="humidity" stroke={color[500]} dot={false} />}
+          {title === 'Barometric Pressure' && <Line type="natural" dataKey="pressure" stroke={color[500]} dot={false} />}
+        </LineChart>
+      </ResponsiveContainer>
     </Stack>
   </Paper>
 );
