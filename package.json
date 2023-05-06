@@ -2,7 +2,7 @@
   "name": "GTU_Rover_MCT",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "https://gturover-ui.netlify.app",
+  "homepage": "https://gturover-ui.netlify.app",
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -52,6 +52,7 @@
     "react-timer-hook": "^3.0.5",
     "react-timeseries-charts": "0.16.1",
     "react-toastify": "9.0.3",
+    "recharts": "^2.5.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-saga": "^1.1.3",
     "reselect": "^4.1.5",
