@@ -3,7 +3,7 @@ import { Button, IconButton, TextField } from '@mui/material';
 import { saveAs } from 'file-saver';
 import useMessage from '../../hooks/useMessage';
 import usePluginState from '../../hooks/usePluginState';
-import VideoStream from '../VideoStream';
+import VideoStream from '.';
 import { compressedToUrl, decodeB64, readQRData } from './utils';
 import { Download, QrCode } from '@mui/icons-material';
 import { Box } from '@mui/system';

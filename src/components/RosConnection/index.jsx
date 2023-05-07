@@ -25,11 +25,7 @@ const RosConnection = () => {
   const rosUrl =
     urlFromSearchParams ||
     data?.url ||
-    url ||
-    'ws://' +
-      process.env.REACT_APP_ROS_BRIDGE_URL +
-      ':' +
-      process.env.REACT_APP_ROS_BRIDGE_PORT;
+    url;
 
   useEffect(() => {
     setRosUrl(rosUrl);

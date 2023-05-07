@@ -2,12 +2,10 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useModal } from 'mui-modal-provider';
 import fossilsCsv from './fossils.csv';
 import { LargeModal } from '../Modal';
-import useCsvTable from '../../hooks/useCsvTable';
 import ImageCell from './CellRenderers/ImageCell';
 import InfoModal from './InfoModal';
 
 const FossilTable = () => {
-  const { rows } = useCsvTable(fossilsCsv);
   const { showModal } = useModal();
 
   const renderInfo = (params) =>
@@ -22,11 +20,6 @@ const FossilTable = () => {
     });
 
   const columns = [
-    {
-      field: 'id',
-      headerName: 'ID',
-      width: 20
-    },
     {
       field: 'Name',
       width: 150
@@ -67,7 +60,8 @@ const FossilTable = () => {
   return (
     <div style={{ height: '100%', position: 'relative' }}>
       <DataGrid
-        rows={rows}
+        rows={fossilsCsv}
+        getRowId={row => row['Name']}
         columns={columns}
         onRowDoubleClick={renderInfo}
         disableSelectionOnClick

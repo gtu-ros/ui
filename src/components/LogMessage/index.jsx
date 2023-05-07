@@ -20,7 +20,7 @@ const LogMessage = ({ message }) => {
   return (
     <div title={altStr} className={`container ${levelClassName}`}>
       <div>
-        <span>[{_.padStart(strLevel, 5, ' ')}]</span>
+        <span>[{padStart(strLevel, 5, ' ')}]</span>
         <span>
           [<Stamp stamp={header.stamp} />]
         </span>
