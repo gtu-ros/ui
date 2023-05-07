@@ -4,9 +4,6 @@ import dsv from '@rollup/plugin-dsv';
 
 export default defineConfig(() => {
   return {
-    build: {
-      outDir: 'build'
-    },
     plugins: [
       react(),
       dsv()
