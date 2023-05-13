@@ -28,3 +28,11 @@ export const getLastSec = () => lastEntries.then(maxSec);
 export const getFirstSec = () => firstEntries.then(minSec);
 
 export const getMaxCount = () => pluginCounts.then(R.reduce(R.max, 0));
+
+export const getStats = async () => {
+  const toDate = (secs) => new Date(secs * 1000);
+  const first = await getFirstSec();
+  const last = await getLastSec();
+  const count = await getMaxCount();
+  return { first: toDate(first), last: toDate(last), count };
+};

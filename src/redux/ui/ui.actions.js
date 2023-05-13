@@ -26,6 +26,14 @@ export const setMissionLogIndex = (index) => ({
   payload: index
 });
 
+export const missionLogNext = () => ({
+  type: uiActionTypes.MISSION_LOG_NEXT,
+});
+
+export const missionLogPrev = () => ({
+  type: uiActionTypes.MISSION_LOG_PREV,
+});
+
 export const setMissionLogOffset = (offset) => ({
   type: uiActionTypes.SET_MISSION_LOG_OFFSET,
   payload: offset
