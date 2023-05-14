@@ -25,6 +25,12 @@ const itu = {
   longitude: 29.02074299188313
 };
 
+// mars desert research station
+const mdrs = {
+  latitude: 38.40633537545838,
+  longitude: -110.79179821374495
+};
+
 function NavigationMap() {
   const { message } = useMessage(PLUGIN_KEYS.MAP, '/gps/filtered', 1000);
   const [current, setCurrent] = useState(null);
@@ -57,7 +63,7 @@ function NavigationMap() {
     <Map
       onZoomEnd={(e) => setData({ ...data, zoom: e.target.getZoom() })}
       initialViewState={{
-        ...workshop,
+        ...mdrs,
         zoom: 17,
         pitch: 65,
         bearing: 80

@@ -25,7 +25,7 @@ const initialState = objectMap(PLUGINS, (plugin) => ({
 }));
 
 setDefaultSettings(PLUGIN_KEYS.MAP, {
-  arc22MarsField: true,
+  arc22MarsField: false,
   arc22MoonField: false,
   editMode: true,
   satellite: false
