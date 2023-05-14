@@ -9,11 +9,12 @@ import { Download, QrCode } from '@mui/icons-material';
 import { Box } from '@mui/system';
 import { useModal } from 'mui-modal-provider';
 import { Modal } from '../Modal';
+import { FEATURES } from '../../constants/features';
 
 const RosImage = ({ pluginKey, topic, throttleRate: initialThrottleRate }) => {
   const [throttleRate, setThrottleRate] = useState(initialThrottleRate);
   const { setOnline, setOffline, setData } = usePluginState(pluginKey);
-  const { message } = useMessage(pluginKey, topic, throttleRate);
+  const { message, isLive } = useMessage(pluginKey, topic, throttleRate);
   const { showModal } = useModal();
 
   const downloadImage = () => {
@@ -39,20 +40,24 @@ const RosImage = ({ pluginKey, topic, throttleRate: initialThrottleRate }) => {
   return (
     <div>
       <Box sx={{ display: 'flex', spacing: 20 }}>
-        <TextField
-          style={{ margin: 10 }}
-          size="small"
-          variant="outlined"
-          label="Throttle rate (ms)"
-          defaultValue={throttleRate}
-          onBlur={(event) => setThrottleRate(+event.target.value)}
-        />
+        {isLive && (
+          <TextField
+            style={{ margin: 10 }}
+            size="small"
+            variant="outlined"
+            label="Throttle rate (ms)"
+            defaultValue={throttleRate}
+            onBlur={(event) => setThrottleRate(+event.target.value)}
+          />
+        )}
         <IconButton onClick={downloadImage}>
           <Download />
         </IconButton>
-        <IconButton onClick={readQRCode}>
-          <QrCode />
-        </IconButton>
+        {FEATURES.qrCode && (
+          <IconButton onClick={readQRCode}>
+            <QrCode />
+          </IconButton>
+        )}
       </Box>
       <VideoStream data={message?.data} />
     </div>
