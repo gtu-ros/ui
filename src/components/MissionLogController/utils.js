@@ -2,6 +2,7 @@ import * as R from 'ramda';
 import { PLUGIN_KEYS } from '../../constants';
 import { db } from '../../db';
 import { pipeWhileNotNil } from '../../utils';
+import { secsToDate } from '../../utils/utils';
 
 const getLast = (key) => db[key]?.orderBy('secs').last();
 const getFirst = (key) => db[key]?.orderBy('secs').first();
@@ -30,11 +31,10 @@ export const getFirstSec = () => firstEntries.then(minSec);
 export const getMaxCount = () => pluginCounts.then(R.reduce(R.max, 0));
 
 export const getStats = async () => {
-  const toDate = (secs) => new Date(secs * 1000);
   const first = await getFirstSec();
   const last = await getLastSec();
   const count = await getMaxCount();
-  return { first: toDate(first), last: toDate(last), count };
+  return { first: secsToDate(first), last: secsToDate(last), count };
 };
 
 export const getSecs = () => R.pipe(

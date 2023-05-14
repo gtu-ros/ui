@@ -10,6 +10,7 @@ import { Box } from '@mui/system';
 import { useModal } from 'mui-modal-provider';
 import { Modal } from '../Modal';
 import { FEATURES } from '../../constants/features';
+import { secsToDate } from '../../utils/utils';
 
 const RosImage = ({ pluginKey, topic, throttleRate: initialThrottleRate }) => {
   const [throttleRate, setThrottleRate] = useState(initialThrottleRate);
@@ -18,8 +19,10 @@ const RosImage = ({ pluginKey, topic, throttleRate: initialThrottleRate }) => {
   const { showModal } = useModal();
 
   const downloadImage = () => {
-    if (message?.data)
-      saveAs(compressedToUrl(message.data), `${+new Date()}.jpg`);
+    if (message?.data) {
+      const name = message.secs ? secsToDate(message.secs).toLocaleString() : +new Date();
+      saveAs(compressedToUrl(message.data), `${name}.jpg`);
+    }
   };
 
   const readQRCode = () => {
