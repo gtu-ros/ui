@@ -38,3 +38,8 @@ export const setMissionLogOffset = (offset) => ({
   type: uiActionTypes.SET_MISSION_LOG_OFFSET,
   payload: offset
 });
+
+export const setMissionLogReady = (secs) => ({
+  type: uiActionTypes.SET_MISSION_LOG_READY,
+  payload: { secs }
+});

@@ -1,32 +1,25 @@
-import { useLiveQuery } from 'dexie-react-hooks';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { db, LIMIT } from '../db';
 import { selectMissionLog } from '../redux/ui/ui.selectors';
 
 const useDbMessage = (pluginKey) => {
-  const missionLog = useSelector(selectMissionLog);
-  const index = missionLog?.index || 1;
-  const offset = missionLog?.offset || 0;
+  const { index, offset, secs } = useSelector(selectMissionLog);
   const [message, setMessage] = useState();
-  const [arr, setArr] = useState([]);
-  //   const arr = useLiveQuery(() => db[pluginKey]?.toArray());
 
   useEffect(() => {
     const getData = async () =>
       await db[pluginKey]
-        ?.offset(offset * LIMIT)
-        .limit(LIMIT)
-        .toArray();
-    getData()
-      .then(setArr)
-      .then(() => console.log('getData'));
-  }, [offset]);
+        ?.where('secs')
+        .above(secs[offset * LIMIT + index])
+        .limit(1)
+        .first();
 
-  useEffect(() => {
-    if (arr && index && arr.length > index) setMessage(arr[index]);
-    else setMessage(null);
-  }, [arr, index]);
+    if (secs) {
+      getData().then(setMessage);
+    }
+  }, [offset, index, secs]);
+
   return { message };
 };
 

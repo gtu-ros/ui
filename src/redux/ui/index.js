@@ -90,6 +90,14 @@ const uiReducer = (state = initialState, { type, payload }) => {
           offset: payload
         }
       };
+    case uiActionTypes.SET_MISSION_LOG_READY:
+      return {
+        ...state,
+        missionLog: {
+          ...state.missionLog,
+          ...payload
+        }
+      }
     default:
       return state;
   }

@@ -36,3 +36,17 @@ export const getStats = async () => {
   const count = await getMaxCount();
   return { first: toDate(first), last: toDate(last), count };
 };
+
+export const getSecs = () => R.pipe(
+  R.map((key) => db[key]),
+  R.filter((x) => x),
+  R.map(async (p) => await p.orderBy('secs').keys()),
+  x => Promise.all(x),
+  R.andThen(
+    R.pipe(
+      R.flatten, 
+      R.uniq,
+      xs => xs.sort()
+    )
+  ),
+)(Object.values(PLUGIN_KEYS));
