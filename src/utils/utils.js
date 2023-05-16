@@ -5,3 +5,5 @@ export const getWindowDimensions = () => {
     height
   };
 };
+
+export const secsToDate = (secs) => new Date(secs * 1000);

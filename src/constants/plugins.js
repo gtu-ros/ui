@@ -1,6 +1,6 @@
 import Calibration from '../components/Calibration';
 import NavigationMap from '../components/Map';
-import DummyDataChart from '../components/MultiChannelChart/DummyDataChart';
+// import DummyDataChart from '../components/MultiChannelChart/DummyDataChart';
 import JointStates from '../components/JointStates';
 import RosConnection from '../components/RosConnection';
 import RosMessagePublisher from '../components/RosMessagePublisher';
@@ -8,8 +8,8 @@ import RostopicEcho from '../components/RostopicEcho';
 import RostopicList from '../components/RostopicList';
 import { RoverRotation } from '../components/RoverRotation';
 import FossilTable from '../components/ScienceTables/FossilTable';
-import ImuAccelerationChart from '../components/Chart/ImuAccelerationChart';
-import GpsVelocityChart from '../components/Chart/GpsVelocityChart';
+// import ImuAccelerationChart from '../components/Chart/ImuAccelerationChart';
+// import GpsVelocityChart from '../components/Chart/GpsVelocityChart';
 import Stopwatch from '../components/Stopwatch';
 import Time from '../components/Time';
 import UrdfVisualizer from '../components/UrdfVisualizer';
@@ -30,6 +30,7 @@ import BluetoothInquiry from '../components/BluetoothInquiry';
 import { PLUGIN_KEYS, PLUGIN_TYPES } from '.';
 import SensorRaw from '../components/SensorRaw';
 import StartStop from '../components/StartStop';
+import Placeholder from '../components/Chart/Placeholder';
 
 export const PLUGINS = {
   [PLUGIN_KEYS.UTC]: { title: 'UTC', component: Time },
@@ -71,11 +72,11 @@ export const PLUGINS = {
   },
   [PLUGIN_KEYS.SPEED_CHART]: {
     title: 'Linear Speed',
-    component: GpsVelocityChart
+    component: Placeholder
   },
   [PLUGIN_KEYS.ACCELERATION_CHART]: {
     title: 'Linear Acceleration',
-    component: ImuAccelerationChart
+    component: Placeholder
   },
   [PLUGIN_KEYS.FOSSIL_TABLE]: {
     title: 'Fossils',
@@ -94,7 +95,7 @@ export const PLUGINS = {
   },
   [PLUGIN_KEYS.MULTICHANNEL_CHART]: {
     title: 'Sensors',
-    component: DummyDataChart
+    component: Placeholder
   },
   [PLUGIN_KEYS.JOINT_STATES]: {
     title: 'Joint States',
@@ -170,7 +171,7 @@ export const MAIN_LAYOUT = [
   plugin(PLUGIN_KEYS.BLUETOOTH_INQUIRY, { x: 0, y: 18, w: 4, h: 7 }),
   plugin(PLUGIN_KEYS.ZED_IMAGE, { x: 7, y: 0, w: 5, h: 9 }),
   plugin(PLUGIN_KEYS.NAVCAM_1, { x: 8, y: 0, w: 4, h: 9 }),
-  plugin(PLUGIN_KEYS.SPEED_CHART, { x: 7, y: 9, w: 6, h: 9 }),
+  // plugin(PLUGIN_KEYS.SPEED_CHART, { x: 7, y: 9, w: 6, h: 9 }),
   plugin(PLUGIN_KEYS.ORIENTATION, { x: 3, y: 0, w: 4, h: 9 }),
   plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 0, w: 4, h: 9 }),
   plugin(PLUGIN_KEYS.SENSOR_RAW, { x: 8, y: 0, w: 4, h: 9 })
@@ -205,13 +206,13 @@ export const NAVIGATION_LAYOUT = [
   plugin(PLUGIN_KEYS.ACCELERATION_CHART, { x: 3, y: 9, w: 5, h: 7 }),
   plugin(PLUGIN_KEYS.ZED_IMAGE, { x: 8, y: 0, w: 4, h: 9 }),
   // plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 1, w: 4, h: 9 })
-  plugin(PLUGIN_KEYS.SPEED_CHART, { x: 8, y: 1, w: 4, h: 9 }),
+  // plugin(PLUGIN_KEYS.SPEED_CHART, { x: 8, y: 1, w: 4, h: 9 }),
   plugin(PLUGIN_KEYS.ROSOUT, { x: 0, y: 18, w: 6, h: 9 }),
   // plugin(PLUGIN_KEYS.ZED_IMAGE, { x: 8, y: 1, w: 4, h: 9 })
 ];
 
 export const SCIENCE_LAYOUT = [
-  plugin(PLUGIN_KEYS.MULTICHANNEL_CHART, { x: 0, y: 6, w: 12, h: 13 }),
+  // plugin(PLUGIN_KEYS.MULTICHANNEL_CHART, { x: 0, y: 6, w: 12, h: 13 }),
   plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 1, w: 4, h: 9 }),
   plugin(PLUGIN_KEYS.FOSSIL_TABLE, { x: 0, y: 10, w: 12, h: 13 }),
   plugin(PLUGIN_KEYS.ROCKS_TABLE, { x: 0, y: 10, w: 12, h: 13 }),

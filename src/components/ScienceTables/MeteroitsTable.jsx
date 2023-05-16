@@ -2,12 +2,10 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useModal } from 'mui-modal-provider';
 import meteroitsCsv from './meteroits.csv';
 import ImageCell from './CellRenderers/ImageCell';
-import useCsvTable from '../../hooks/useCsvTable';
 import InfoModal from './InfoModal';
 import { LargeModal } from '../Modal';
 
 const MeteroitsTable = () => {
-  const { rows } = useCsvTable(meteroitsCsv);
   const { showModal } = useModal();
 
   const renderInfo = (params) =>
@@ -22,11 +20,6 @@ const MeteroitsTable = () => {
     });
 
   const columns = [
-    {
-      field: 'id',
-      headerName: 'ID',
-      width: 20
-    },
     {
       field: 'Name',
       width: 150
@@ -59,8 +52,9 @@ const MeteroitsTable = () => {
   return (
     <div style={{ height: '100%', position: 'relative' }}>
       <DataGrid
-        rows={rows}
+        rows={meteroitsCsv}
         columns={columns}
+        getRowId={row => row['Name']}
         onRowDoubleClick={renderInfo}
         disableSelectionOnClick
         hideFooter

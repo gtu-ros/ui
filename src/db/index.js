@@ -14,6 +14,7 @@ export const LIMIT = 60;
 
 const dbStructure = {
   [PLUGIN_KEYS.ZED_IMAGE]: '++id, secs',
+  [PLUGIN_KEYS.NAVCAM_1]: '++id, secs',
   [PLUGIN_KEYS.ROSOUT]: '++id, secs',
   [PLUGIN_KEYS.ORIENTATION]: '++id, secs',
   [PLUGIN_KEYS.MAP]: '++id, secs',

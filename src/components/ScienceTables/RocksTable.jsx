@@ -3,12 +3,10 @@ import { useModal } from 'mui-modal-provider';
 import rocksCsv from './rocks.csv';
 import { LargeModal } from '../Modal';
 import LinkCell from './CellRenderers/LinkCell';
-import useCsvTable from '../../hooks/useCsvTable';
 import InfoModal from './InfoModal';
 import ColorList from './CellRenderers/ColorList';
 
 const RocksTable = () => {
-  const { rows } = useCsvTable(rocksCsv);
   const { showModal } = useModal();
 
   const renderInfo = (params) =>
@@ -18,11 +16,6 @@ const RocksTable = () => {
     });
 
   const columns = [
-    {
-      field: 'id',
-      headerName: 'ID',
-      width: 20
-    },
     {
       field: 'Rock Name',
       width: 160
@@ -66,7 +59,8 @@ const RocksTable = () => {
   return (
     <div style={{ height: '100%', position: 'relative' }}>
       <DataGrid
-        rows={rows}
+        rows={rocksCsv}
+        getRowId={row => row['Rock Name']}
         columns={columns}
         onRowDoubleClick={renderInfo}
         disableSelectionOnClick

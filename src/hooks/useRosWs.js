@@ -3,18 +3,7 @@ import { TFClient, Topic } from 'roslib';
 import { UrdfClient } from 'ros3d';
 
 const useRosWs = () => {
-  const rosUrl =
-    'ws://' +
-    process.env.REACT_APP_ROS_BRIDGE_URL +
-    ':' +
-    process.env.REACT_APP_ROS_BRIDGE_PORT;
-
-  const { ros, listeners, url, changeUrl } = useROS();
-  const isNetlifyBuild = !!process.env.NETLIFY;
-  if (url !== rosUrl && !isNetlifyBuild) {
-    // console.log({ rosUrl });
-    // changeUrl(rosUrl);
-  }
+  const { ros, listeners } = useROS();
 
   const tfClientToFrame = (fixedFrame, rate) => {
     return new TFClient({

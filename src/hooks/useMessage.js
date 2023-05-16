@@ -20,8 +20,8 @@ const useMessage = (pluginKey, topicInput, throttleRate = 1000) => {
             secs: m.header.stamp.secs,
             ...m
           });
+          console.log('db save');
         }
-        console.log('db save');
       }, 1000),
     [db, pluginKey]
   );

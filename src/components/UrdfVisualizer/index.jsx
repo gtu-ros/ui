@@ -5,13 +5,7 @@ const UrdfVisualizer = (props) => {
   return (
     <ModelVisualizer
       {...props}
-      urdfPath={
-        'http://0.0.0.0:8000' ||
-        'http://' +
-        process.env.REACT_APP_FILE_SERVER_URL +
-        ':' +
-        process.env.REACT_APP_FILE_SERVER_PORT
-      }
+      urdfPath={'http://0.0.0.0:8000'}
       targetFrame={simulation.constants.ROBOT_BASE_LINK}
       tfRate={simulation.config.tfRate}
       // width={simulation.config.width}
