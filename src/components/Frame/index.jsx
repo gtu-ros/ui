@@ -21,6 +21,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { startCase } from 'lodash';
 import moment from 'moment';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from './ErrorFallback';
 
 export const FrameTitle = ({ children }) => {
   return (
@@ -168,7 +170,13 @@ const Frame = ({ children, title, pluginKey, fixed = false }) => {
           sx={fixed && { height: 'calc(100% - 30px)' }} // header height: 30px
           className="cancel-draggable"
         >
-          {status !== 'disabled' && children}
+          {status !== 'disabled' && (
+            <ErrorBoundary
+            FallbackComponent={ErrorFallback}
+            >
+              {children}
+            </ErrorBoundary>
+          )}
         </Box>
       </Box>
     </div>

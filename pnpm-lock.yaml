@@ -35,6 +35,7 @@ specifiers:
   react: 17.0.1
   react-canvas-map: ^0.0.9
   react-dom: 17.0.1
+  react-error-boundary: ^4.0.4
   react-flight-indicators: ./src/dep/react-flight-indicators
   react-full-screen: ^1.1.0
   react-gauge-chart: 0.4.0
@@ -63,7 +64,6 @@ specifiers:
   turf: ^3.0.14
   uuid: ^8.3.2
   vite: ^4.3.5
-  web-vitals: ^1.0.1
 
 dependencies:
   '@emotion/react': 11.10.6_react@17.0.1
@@ -97,6 +97,7 @@ dependencies:
   react: 17.0.1
   react-canvas-map: 0.0.9_w7o5yyljkiidx2s2nzb26ottzu
   react-dom: 17.0.1_react@17.0.1
+  react-error-boundary: 4.0.4_react@17.0.1
   react-flight-indicators: link:src/dep/react-flight-indicators
   react-full-screen: 1.1.0_react@17.0.1
   react-gauge-chart: 0.4.0_w7o5yyljkiidx2s2nzb26ottzu
@@ -124,7 +125,6 @@ dependencies:
   three: 0.141.0
   turf: 3.0.14
   uuid: 8.3.2
-  web-vitals: 1.0.1
 
 devDependencies:
   '@rollup/plugin-dsv': 3.0.2
@@ -17443,6 +17443,15 @@ packages:
       react-dom: 17.0.1_react@17.0.1
     dev: false
 
+  /react-error-boundary/4.0.4_react@17.0.1:
+    resolution: {integrity: sha512-AbqMFx8bCsob8rCHZvJYQ42MQijK0/034RUvan9qrqyJCpazr8d9vKHrysbxcr6odoHLZvQEcYomFPoIqH9fow==}
+    peerDependencies:
+      react: '>=16.13.1'
+    dependencies:
+      '@babel/runtime': 7.20.13
+      react: 17.0.1
+    dev: false
+
   /react-error-overlay/3.0.0:
     resolution: {integrity: sha512-XzgvowFrwDo6TWcpJ/WTiarb9UI6lhA4PMzS7n1joK3sHfBBBOQHUc0U4u57D6DWO9vHv6lVSWx2Q/Ymfyv4hw==}
     dev: false
@@ -21705,10 +21714,6 @@ packages:
 
   /web-namespaces/1.1.4:
     resolution: {integrity: sha512-wYxSGajtmoP4WxfejAPIr4l0fVh+jeMXZb08wNc0tMg6xsfZXj3cECqIK0G7ZAqUq0PP8WlMDtaOGVBTAWztNw==}
-    dev: false
-
-  /web-vitals/1.0.1:
-    resolution: {integrity: sha512-io/H/D18edTL1D2lcaUTLNLFEVZIPhNd4IdXDB9bEb+uDv2m/6NfyHiXKLFjbmI1ubeYpoQpR1gl9nlcWdI0vA==}
     dev: false
 
   /webidl-conversions/3.0.1:
