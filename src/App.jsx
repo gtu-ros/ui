@@ -32,7 +32,7 @@ function App() {
 
   return (
     <div className="App">
-      <ToastContainer theme="dark" closeOnClick={false} />
+      <ToastContainer theme="dark" draggable={false} closeOnClick={false} />
       <Routes>
         <Route path="/" element={<DashboardView />}>
           <Route

@@ -1,15 +1,11 @@
 import {
   TextField,
   Box,
-  Button,
   List,
   ListItem,
   ListItemText,
   IconButton,
   Divider,
-  Select,
-  MenuItem,
-  FormControl,
   Avatar,
   ListItemAvatar,
   Stack
@@ -17,16 +13,23 @@ import {
 import { useForm } from 'react-hook-form';
 import usePluginState from '../../hooks/usePluginState';
 import { PLUGIN_KEYS } from '../../constants';
-import { gpsToOdom } from './utils';
 import { Send, ShareLocation } from '@mui/icons-material';
 import AddCircle from '@mui/icons-material/AddCircle';
 import RemoveCircle from '@mui/icons-material/RemoveCircle';
 import { ActionClient, Goal } from 'roslib';
 import { useROS } from 'react-ros';
 import ROSLIB from 'roslib/src/RosLib';
+import { fillFromClipboard } from '../../utils/utils';
+import { ArrowCircleRight } from '@mui/icons-material';
+
+const inputProps = {
+  size: 'small',
+  variant: 'outlined',
+  InputLabelProps: { shrink: true }
+};
 
 const Waypoints = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
   const { data: initialCoordinates } = usePluginState(PLUGIN_KEYS.CALIBRATION);
   const { data, setData } = usePluginState(PLUGIN_KEYS.WAYPOINTS);
   const { ros } = useROS();
@@ -69,16 +72,14 @@ const Waypoints = () => {
 
   const positions = {
     a: null,
-    b: null,
-  }
+    b: null
+  };
 
   const gpsGoalClient = new ROSLIB.Service({
     ros: ros,
     name: '/gps_goal_to_pose',
     serviceType: 'gps_goal_server/decDegreesToPose'
   });
-
-
 
   const onSubmit = (submitData) => {
     if (!initialCoordinates) {
@@ -93,25 +94,16 @@ const Waypoints = () => {
     const request = new ROSLIB.ServiceRequest({
       latititude_dec_deg: latitude,
       longitude_dec_deg: longitude,
-      heading_radians: head,
+      heading_radians: head
     });
 
     const gpsPromise = new Promise((resolve, reject) => {
-      gpsGoalClient.callService(request, function (result) {
+      gpsGoalClient.callService(request, function(result) {
         positions.a = result.converted_pose.pose.position.x;
         positions.b = result.converted_pose.pose.position.y;
         resolve(result);
       });
     });
-
-
-    // const { x, y } = gpsToOdom(
-    //   {
-    //     latitude: submitData[fields.latitude],
-    //     longitude: submitData[fields.longitude]
-    //   },
-    //   initialCoordinates
-    // );
 
     gpsPromise.then((result) => {
       const nextWaypoint = {
@@ -119,7 +111,7 @@ const Waypoints = () => {
         y: positions.a,
         type: submitData[fields.type],
         latitude: submitData[fields.latitude],
-        longitude: submitData[fields.longitude],
+        longitude: submitData[fields.longitude]
       };
       console.log({ nextWaypoint });
 
@@ -128,9 +120,12 @@ const Waypoints = () => {
       } else {
         setData({ waypointList: [nextWaypoint] });
       }
-
-      // console.log("finish");
     });
+  };
+
+  const handleImport = async () => {
+    const set = x => y => setValue(x, y)
+    fillFromClipboard([ set('latitude'), set('longitude')]);
   };
 
   return (
@@ -142,29 +137,28 @@ const Waypoints = () => {
           }}
         >
           <Box sx={{ display: 'flex' }}>
+            <IconButton color="secondary" onClick={handleImport}>
+              <ArrowCircleRight />
+            </IconButton>
             <TextField
-              size="small"
-              variant="outlined"
               label="Latitude"
               {...register(fields.latitude)}
+              {...inputProps}
             />
             <TextField
-              size="small"
-              variant="outlined"
               label="Longitude"
               {...register(fields.longitude)}
+              {...inputProps}
             />
             <TextField
-              size="small"
-              variant="outlined"
               label="Head"
               {...register(fields.head)}
+              {...inputProps}
             />
             <TextField
-              size="small"
-              variant="outlined"
               label="Name"
               {...register(fields.type)}
+              {...inputProps}
             />
             {/* <FormControl size="small">
               <Select {...register(fields.type)}>
@@ -173,7 +167,7 @@ const Waypoints = () => {
                 <MenuItem value={'no-vision'}>No vision</MenuItem>
               </Select>
             </FormControl> */}
-            <IconButton sx={{ m: 1 }} type="submit" color="primary">
+            <IconButton type="submit" color="primary">
               <AddCircle />
             </IconButton>
           </Box>

@@ -59,8 +59,16 @@ function NavigationMap() {
     }
   }, [message]);
 
+  const handleMapClick = e => {
+      const { lat, lng } = e.lngLat;
+      navigator.clipboard.writeText(`${lat} ${lng}`);
+      toast(`${lat} ${lng}`, { autoClose: true });
+  }
+
   return (
     <Map
+      cursor='crosshair'
+      onClick={handleMapClick}
       onZoomEnd={(e) => setData({ ...data, zoom: e.target.getZoom() })}
       initialViewState={{
         ...mdrs,
@@ -68,9 +76,6 @@ function NavigationMap() {
         pitch: 65,
         bearing: 80
       }}
-      // mapStyle="mapbox://styles/mapbox/streets-v9"
-      // mapStyle="mapbox://styles/mapbox/dark-v10"
-      // mapStyle="mapbox://styles/mapbox/satellite-v9"
       mapStyle={`mapbox://styles/mapbox/${
         isSatellite ? 'satellite-v9' : 'light-v10'
       }`}
@@ -100,9 +105,6 @@ function NavigationMap() {
       {markers?.markerList?.map(({ latitude, longitude, x, y, name }) => (
         <>
           <CustomMarker
-            onDragEnd={(v) =>
-              toast(`${v.lngLat.lat} ${v.lngLat.lng}`, { autoClose: false })
-            }
             coordinates={{ latitude, longitude }}
             text={name}
             color={purple[200]}

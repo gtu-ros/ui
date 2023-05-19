@@ -1,15 +1,11 @@
 import {
   TextField,
   Box,
-  Button,
   List,
   ListItem,
   ListItemText,
   IconButton,
   Divider,
-  Select,
-  MenuItem,
-  FormControl,
   Avatar,
   ListItemAvatar
 } from '@mui/material';
@@ -20,13 +16,21 @@ import { gpsToOdom } from '../Waypoints/utils';
 import { ShareLocation } from '@mui/icons-material';
 import AddCircle from '@mui/icons-material/AddCircle';
 import RemoveCircle from '@mui/icons-material/RemoveCircle';
+import { ArrowCircleRight } from '@mui/icons-material';
+import { fillFromClipboard } from '../../utils/utils';
+
+const inputProps = {
+  size: 'small',
+  variant: 'outlined',
+  InputLabelProps: { shrink: true }
+};
 
 const Markers = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
   const { data: initialCoordinates } = usePluginState(PLUGIN_KEYS.CALIBRATION);
   const { data, setData } = usePluginState(PLUGIN_KEYS.MARKERS);
 
-  console.log({data});
+  console.log({ data });
 
   const fields = {
     latitude: 'latitude',
@@ -35,11 +39,6 @@ const Markers = () => {
   };
 
   const onSubmit = (submitData) => {
-    // if (!initialCoordinates) {
-    //   console.log('No initial coordinates');
-    //   return;
-    // }
-
     const { x, y } = initialCoordinates
       ? gpsToOdom(
           {
@@ -74,6 +73,11 @@ const Markers = () => {
     return `(${latitude}, ${longitude})`;
   };
 
+  const handleImport = async () => {
+    const set = (x) => (y) => setValue(x, y);
+    fillFromClipboard([set('latitude'), set('longitude')]);
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -83,23 +87,23 @@ const Markers = () => {
           }}
         >
           <Box sx={{ display: 'flex' }}>
+            <IconButton color="secondary" onClick={handleImport}>
+              <ArrowCircleRight />
+            </IconButton>
             <TextField
-              size="small"
-              variant="outlined"
               label="Latitude"
               {...register(fields.latitude)}
+              {...inputProps}
             />
             <TextField
-              size="small"
-              variant="outlined"
               label="Longitude"
               {...register(fields.longitude)}
+              {...inputProps}
             />
             <TextField
-              size="small"
-              variant="outlined"
               label="Name"
               {...register(fields.name)}
+              {...inputProps}
             />
             <IconButton sx={{ m: 1 }} type="submit" color="primary">
               <AddCircle />
