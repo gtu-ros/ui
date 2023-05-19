@@ -1,8 +1,8 @@
-import { Grid, Slider, Typography } from '@mui/material';
+import { Box, Slider, Typography } from '@mui/material';
 
-const OrientationView = ({ title, img, angle }) => {
+const OrientationView = ({ children, title, angle }) => {
   return (
-    <Grid xs={6}>
+    <Box sx={{ width: '100%'}}>
       <Typography
         component="h2"
         variant="subtitle2"
@@ -23,16 +23,7 @@ const OrientationView = ({ title, img, angle }) => {
           margin: 'auto'
         }}
       >
-        <img
-          src={img}
-          style={{
-            width: '100%',
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)'
-          }}
-        />
+        {children}
       </div>
 
       <div style={{ margin: 'auto', width: ' 80%', maxWidth: '400px' }}>
@@ -43,7 +34,7 @@ const OrientationView = ({ title, img, angle }) => {
           max={180}
         />
       </div>
-    </Grid>
+    </Box>
   );
 };
 
