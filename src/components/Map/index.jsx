@@ -6,7 +6,7 @@ import usePluginState from '../../hooks/usePluginState';
 import { PLUGIN_KEYS } from '../../constants';
 import './style.css';
 import { MarsField } from './Arc22Map';
-import { CustomMarker, PointMarker } from './Markers';
+import { ArrowMarker, CustomMarker, PointMarker } from './Markers';
 import useMessage from '../../hooks/useMessage';
 import { purple } from '@mui/material/colors';
 import { toast } from 'react-toastify';
@@ -41,6 +41,7 @@ function NavigationMap() {
   const { data: markers, setData: setMarkers } = usePluginState(
     PLUGIN_KEYS.MARKERS
   );
+  const { data: orientation } = usePluginState(PLUGIN_KEYS.ORIENTATION);
   const {
     data: initialCoordinates,
     setData: setInitialCoordinates
@@ -52,22 +53,27 @@ function NavigationMap() {
   useEffect(() => {
     if (message) {
       setData({ timestamp: message?.header?.stamp?.secs });
-      setCurrent({ latitude: message.latitude, longitude: message.longitude });
+      setCurrent({
+        timestamp: message?.header?.stamp?.secs,
+        latitude: message.latitude,
+        longitude: message.longitude,
+        heading: orientation.orientation.z * 180 / Math.PI + initialCoordinates?.headingCalibration
+      });
       setOnline();
     } else {
       setOffline();
     }
-  }, [message]);
+  }, [message, initialCoordinates]);
 
-  const handleMapClick = e => {
-      const { lat, lng } = e.lngLat;
-      navigator.clipboard.writeText(`${lat} ${lng}`);
-      toast(`${lat} ${lng}`, { autoClose: true });
-  }
+  const handleMapClick = (e) => {
+    const { lat, lng } = e.lngLat;
+    navigator.clipboard.writeText(`${lat} ${lng}`);
+    toast(`${lat} ${lng}`, { autoClose: true });
+  };
 
   return (
     <Map
-      cursor='crosshair'
+      cursor="crosshair"
       onClick={handleMapClick}
       onZoomEnd={(e) => setData({ ...data, zoom: e.target.getZoom() })}
       initialViewState={{
@@ -93,6 +99,7 @@ function NavigationMap() {
         text={'(0,0)'}
       />
       {current && <PointMarker id="current-marker" coordinates={current} />}
+      {current && <ArrowMarker id="current-arrow-marker" coordinates={current} />}
       {waypoints?.waypointList?.map(({ latitude, longitude, x, y, type }) => (
         <>
           <CustomMarker
