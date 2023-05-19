@@ -23,19 +23,18 @@ const Calibration = () => {
   });
 
   const onSubmit = (submitData) => {
-
     const latitude = parseFloat(submitData[fields.latitude]);
     const longitude = parseFloat(submitData[fields.longitude]);
     const head = parseFloat(submitData[fields.head]);
 
-    setData({
-      latitude: latitude,
-      longitude: longitude,
-      head: head,
-    });
+    if (!latitude || !longitude || !head) {
+      console.log('calibration: missing parameters', { latitude, longitude, head });
+      return;
+    }
+
+    setData({ latitude, longitude, head });
 
     isHeading.set([latitude, longitude, head]);
-
   };
 
   return (
@@ -60,7 +59,7 @@ const Calibration = () => {
             <TextField
               value={data?.head}
               size="small"
-              variant='outlined'
+              variant="outlined"
               label="Heading"
               {...register(fields.head)}
             />
