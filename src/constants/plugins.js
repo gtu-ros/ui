@@ -31,6 +31,7 @@ import { PLUGIN_KEYS, PLUGIN_TYPES } from '.';
 import SensorRaw from '../components/SensorRaw';
 import StartStop from '../components/StartStop';
 import Placeholder from '../components/Chart/Placeholder';
+import ScienceControls from '../components/ScienceControls';
 
 export const PLUGINS = {
   [PLUGIN_KEYS.UTC]: { title: 'UTC', component: Time },
@@ -136,6 +137,10 @@ export const PLUGINS = {
   [PLUGIN_KEYS.SENSOR_RAW]: {
     title: 'Sensor Raw',
     component: SensorRaw
+  },
+  [PLUGIN_KEYS.SCIENCE_CONTROLS]: {
+    title: 'Science Controls',
+    component: ScienceControls
   }
 };
 
@@ -174,7 +179,7 @@ export const MAIN_LAYOUT = [
   // plugin(PLUGIN_KEYS.SPEED_CHART, { x: 7, y: 9, w: 6, h: 9 }),
   plugin(PLUGIN_KEYS.ORIENTATION, { x: 3, y: 0, w: 4, h: 9 }),
   plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 0, w: 4, h: 9 }),
-  plugin(PLUGIN_KEYS.SENSOR_RAW, { x: 8, y: 0, w: 4, h: 9 })
+  //plugin(PLUGIN_KEYS.SENSOR_RAW, { x: 8, y: 0, w: 4, h: 9 })
   // plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 20, w: 3, h: 9 })
 ];
 
@@ -217,5 +222,7 @@ export const SCIENCE_LAYOUT = [
   plugin(PLUGIN_KEYS.FOSSIL_TABLE, { x: 0, y: 10, w: 12, h: 13 }),
   plugin(PLUGIN_KEYS.ROCKS_TABLE, { x: 0, y: 10, w: 12, h: 13 }),
   plugin(PLUGIN_KEYS.METEROITS_TABLE, { x: 0, y: 10, w: 12, h: 7 }),
-  plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 })
+  plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 }),
+  plugin(PLUGIN_KEYS.SCIENCE_CONTROLS, { x: 0, y: 2, w: 2.8, h: 7 }),
+  plugin(PLUGIN_KEYS.SENSOR_RAW, { x: 2.8, y: 3, w: 4, h: 9 })
 ];
