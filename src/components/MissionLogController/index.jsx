@@ -86,7 +86,7 @@ const MissionLogController = () => {
           </Grid>
           <Grid item>
             <Typography>
-              {index}/{max}
+              {index + 1}/{LIMIT}
             </Typography>
           </Grid>
           <Grid item xs>
