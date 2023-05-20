@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import roverSideView from './rover-side.jpeg';
 import roverBackView from './rover-back.jpeg';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import * as THREE from 'three';
-import { Box, Grid, Slider, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { PLUGIN_KEYS } from '../../constants';
 import usePluginState from '../../hooks/usePluginState';
 import OrientationView from './OrientationView';
