@@ -32,6 +32,7 @@ import SensorRaw from '../components/SensorRaw';
 import StartStop from '../components/StartStop';
 import Placeholder from '../components/Chart/Placeholder';
 import ScienceControls from '../components/ScienceControls';
+import LightIntensity from '../components/LightIntensity';
 
 export const PLUGINS = {
   [PLUGIN_KEYS.UTC]: { title: 'UTC', component: Time },
@@ -141,6 +142,11 @@ export const PLUGINS = {
   [PLUGIN_KEYS.SCIENCE_CONTROLS]: {
     title: 'Science Controls',
     component: ScienceControls
+  },
+
+  [PLUGIN_KEYS.LIGHT_INTENSITY]: {
+    title: 'Life Detection',
+    component: LightIntensity
   }
 };
 
@@ -180,7 +186,7 @@ export const MAIN_LAYOUT = [
   plugin(PLUGIN_KEYS.ORIENTATION, { x: 3, y: 0, w: 4, h: 9 }),
   plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 0, w: 4, h: 9 }),
   //plugin(PLUGIN_KEYS.SENSOR_RAW, { x: 8, y: 0, w: 4, h: 9 })
-  // plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 20, w: 3, h: 9 })
+  plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 20, w: 3, h: 9 })
 ];
 
 export const ROBOTIC_ARM_LAYOUT = [
@@ -218,11 +224,12 @@ export const NAVIGATION_LAYOUT = [
 
 export const SCIENCE_LAYOUT = [
   // plugin(PLUGIN_KEYS.MULTICHANNEL_CHART, { x: 0, y: 6, w: 12, h: 13 }),
-  plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 1, w: 4, h: 9 }),
-  plugin(PLUGIN_KEYS.FOSSIL_TABLE, { x: 0, y: 10, w: 12, h: 13 }),
-  plugin(PLUGIN_KEYS.ROCKS_TABLE, { x: 0, y: 10, w: 12, h: 13 }),
-  plugin(PLUGIN_KEYS.METEROITS_TABLE, { x: 0, y: 10, w: 12, h: 7 }),
-  plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 }),
+  plugin(PLUGIN_KEYS.NAVCAM_2, { x: 0, y: 15, w: 4, h: 9 }),
+  plugin(PLUGIN_KEYS.FOSSIL_TABLE, { x: 0, y: 21, w: 12, h: 13 }),
+  plugin(PLUGIN_KEYS.ROCKS_TABLE, { x: 0, y: 32, w: 12, h: 13 }),
+  plugin(PLUGIN_KEYS.METEROITS_TABLE, { x: 0, y: 45, w: 12, h: 7 }),
+  plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 0, w: 3, h: 2 }),
   plugin(PLUGIN_KEYS.SCIENCE_CONTROLS, { x: 0, y: 2, w: 2.8, h: 7 }),
-  plugin(PLUGIN_KEYS.SENSOR_RAW, { x: 2.8, y: 3, w: 4, h: 9 })
+  plugin(PLUGIN_KEYS.SENSOR_RAW, { x: 4, y: 0, w: 8, h: 20 }),
+  plugin(PLUGIN_KEYS.LIGHT_INTENSITY, { x: 0, y: 9, w: 4, h: 8 }),
 ];
