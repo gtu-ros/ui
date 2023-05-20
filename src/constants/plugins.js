@@ -1,6 +1,6 @@
 import Calibration from '../components/Calibration';
 import NavigationMap from '../components/Map';
-// import DummyDataChart from '../components/MultiChannelChart/DummyDataChart';
+import SensorChart from '../components/MultiChannelChart/SensorChart';
 import JointStates from '../components/JointStates';
 import RosConnection from '../components/RosConnection';
 import RosMessagePublisher from '../components/RosMessagePublisher';
@@ -32,7 +32,6 @@ import StartStop from '../components/StartStop';
 import ScienceControls from '../components/ScienceControls';
 import LightIntensity from '../components/LightIntensity';
 import GpsVelocityChart from '../components/Chart/GpsVelocityChart';
-import Placeholder from '../components/Chart/Placeholder';
 
 export const PLUGINS = {
   [PLUGIN_KEYS.UTC]: { title: 'UTC', component: Time },
@@ -97,7 +96,7 @@ export const PLUGINS = {
   },
   [PLUGIN_KEYS.MULTICHANNEL_CHART]: {
     title: 'Sensors',
-    component: Placeholder
+    component: SensorChart
   },
   [PLUGIN_KEYS.JOINT_STATES]: {
     title: 'Joint States',
