@@ -57,7 +57,9 @@ function NavigationMap() {
         timestamp: message?.header?.stamp?.secs,
         latitude: message.latitude,
         longitude: message.longitude,
-        heading: orientation.orientation.z * 180 / Math.PI + initialCoordinates?.headingCalibration
+        heading:
+          (orientation.orientation.z * 180) / Math.PI +
+          (initialCoordinates?.headingCalibration) || 0
       });
       setOnline();
     } else {
@@ -99,7 +101,9 @@ function NavigationMap() {
         text={'(0,0)'}
       />
       {current && <PointMarker id="current-marker" coordinates={current} />}
-      {current && <ArrowMarker id="current-arrow-marker" coordinates={current} />}
+      {current && (
+        <ArrowMarker id="current-arrow-marker" coordinates={current} />
+      )}
       {waypoints?.waypointList?.map(({ latitude, longitude, x, y, type }) => (
         <>
           <CustomMarker

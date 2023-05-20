@@ -83,7 +83,7 @@ export const ArrowMarker = ({ id, coordinates }) => {
     id: 'arrow',
     type: 'line',
     paint: {
-      'line-color': 'red',
+      'line-color': 'orange',
       'line-width': 4,
       'line-opacity': 0.5,
       'line-translate': [0, -5]
