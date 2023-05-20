@@ -27,14 +27,12 @@ const SensorCard = ({ color, title, value, unit, icon, data, dKey }) => (
           </Typography>
         </Grid>
       </Grid>
-
       <ResponsiveContainer width="100%" height={100}>
         <LineChart data={data} scrollable={true}>
           <XAxis dataKey="name" />
           <YAxis domain={['dataMin', 'dataMax']} />
           <Tooltip />
-          <Line type="natural" dataKey={dKey} isAnimationActive={false} stroke={color[500]} dot={false} />
-
+          <Line type="natural" dataKey={dKey} stroke={color[500]} dot={false} />
         </LineChart>
       </ResponsiveContainer>
     </Stack>
