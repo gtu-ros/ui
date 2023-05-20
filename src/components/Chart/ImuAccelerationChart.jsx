@@ -36,7 +36,7 @@ const ImuAccelerationChart = () => {
   }, [isConnected, message]);
 
   const valueFormat = format('.2f');
-  const currentValue = data.slice(-1)[0].acceleration;
+  const currentValue = data.slice(-1)[0]?.acceleration;
 
   return (
     <>

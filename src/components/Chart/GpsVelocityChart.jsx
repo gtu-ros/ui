@@ -36,7 +36,7 @@ const GpsVelocityChart = () => {
   }, [isConnected, message]);
 
   const valueFormat = format('.2f');
-  const currentValue = data.slice(-1)[0].velocity;
+  const currentValue = data.slice(-1)[0]?.velocity;
 
   return (
     <>
