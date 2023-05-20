@@ -37,16 +37,18 @@ export const getStats = async () => {
   return { first: secsToDate(first), last: secsToDate(last), count };
 };
 
-export const getSecs = () => R.pipe(
-  R.map((key) => db[key]),
-  R.filter((x) => x),
-  R.map(async (p) => await p.orderBy('secs').keys()),
-  x => Promise.all(x),
-  R.andThen(
-    R.pipe(
-      R.flatten, 
-      R.uniq,
-      xs => xs.sort()
-    )
-  ),
-)(Object.values(PLUGIN_KEYS));
+export const getSecs = () =>
+  R.pipe(
+    R.map((key) => db[key]),
+    R.filter((x) => x),
+    R.map(async (p) => {
+      try {
+        const x = await p.orderBy('secs').keys();
+        return x;
+      } catch (e) {
+        return [];
+      }
+    }),
+    (x) => Promise.all(x),
+    R.andThen(R.pipe(R.flatten, R.uniq, (xs) => xs.sort()))
+  )(Object.values(PLUGIN_KEYS));
