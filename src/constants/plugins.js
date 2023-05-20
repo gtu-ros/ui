@@ -8,8 +8,7 @@ import RostopicEcho from '../components/RostopicEcho';
 import RostopicList from '../components/RostopicList';
 import { RoverRotation } from '../components/RoverRotation';
 import FossilTable from '../components/ScienceTables/FossilTable';
-// import ImuAccelerationChart from '../components/Chart/ImuAccelerationChart';
-// import GpsVelocityChart from '../components/Chart/GpsVelocityChart';
+import ImuAccelerationChart from '../components/Chart/ImuAccelerationChart';
 import Stopwatch from '../components/Stopwatch';
 import Time from '../components/Time';
 import UrdfVisualizer from '../components/UrdfVisualizer';
@@ -30,9 +29,10 @@ import BluetoothInquiry from '../components/BluetoothInquiry';
 import { PLUGIN_KEYS, PLUGIN_TYPES } from '.';
 import SensorRaw from '../components/SensorRaw';
 import StartStop from '../components/StartStop';
-import Placeholder from '../components/Chart/Placeholder';
 import ScienceControls from '../components/ScienceControls';
 import LightIntensity from '../components/LightIntensity';
+import GpsVelocityChart from '../components/Chart/GpsVelocityChart';
+import Placeholder from '../components/Chart/Placeholder';
 
 export const PLUGINS = {
   [PLUGIN_KEYS.UTC]: { title: 'UTC', component: Time },
@@ -74,11 +74,11 @@ export const PLUGINS = {
   },
   [PLUGIN_KEYS.SPEED_CHART]: {
     title: 'Linear Speed',
-    component: Placeholder
+    component: GpsVelocityChart
   },
   [PLUGIN_KEYS.ACCELERATION_CHART]: {
     title: 'Linear Acceleration',
-    component: Placeholder
+    component: ImuAccelerationChart
   },
   [PLUGIN_KEYS.FOSSIL_TABLE]: {
     title: 'Fossils',

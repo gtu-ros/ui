@@ -1,8 +1,17 @@
-import Chart from '.';
 import React, { useEffect, useState } from 'react';
 import useSubscribeTopic from '../../hooks/useSubscribeTopic';
 import { PLUGIN_KEYS } from '../../constants';
 import usePluginState from '../../hooks/usePluginState';
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid
+} from 'recharts';
+import { format } from 'd3-format';
 
 const GpsVelocityChart = () => {
   const { status, setOnline, setOffline } = usePluginState(
@@ -17,9 +26,8 @@ const GpsVelocityChart = () => {
   useEffect(() => {
     if (isConnected && message) {
       setOnline();
-      console.log({message})
       const velocity = message?.twist?.twist?.linear?.x;
-      setData([...data.slice(-50), [Date.now(), velocity]]);
+      setData([...data.slice(-50), { velocity }]);
     } else {
       setOffline();
       status !== 'offline' && setOffline();
@@ -27,7 +35,34 @@ const GpsVelocityChart = () => {
     }
   }, [isConnected, message]);
 
-  return <Chart label={'Velocity'} min={-5} max={5} data={data} />;
+  const valueFormat = format('.2f');
+  const currentValue = data.slice(-1)[0].velocity;
+
+  return (
+    <>
+      <ResponsiveContainer width="100%" height={300}>
+        <LineChart
+          data={data}
+          margin={{
+            right: 80
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis domain={['dataMin', 'dataMax']} />
+          <Tooltip />
+          <Line
+            type="monotone"
+            dataKey={'acceleration'}
+            isAnimationActive={false}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+      <h2 style={{ paddingRight: 20, float: 'right', marginTop: -80 }}>
+        {valueFormat(currentValue)}
+      </h2>
+    </>
+  );
 };
 
 export default GpsVelocityChart;

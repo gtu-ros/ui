@@ -32,7 +32,7 @@ const mdrs = {
 };
 
 function NavigationMap() {
-  const { message } = useMessage(PLUGIN_KEYS.MAP, '/gps/filtered', 1000);
+  const { message } = useMessage(PLUGIN_KEYS.MAP, '/ublox/fix', 1000);
   const [current, setCurrent] = useState(null);
   const { setOnline, setOffline, data, setData } = usePluginState(
     PLUGIN_KEYS.MAP
