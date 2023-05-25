@@ -28,7 +28,8 @@ setDefaultSettings(PLUGIN_KEYS.MAP, {
   arc22MarsField: false,
   arc22MoonField: false,
   editMode: true,
-  satellite: false
+  satellite: false,
+  offline: true
 });
 setDefaultSettings(PLUGIN_KEYS.UTC, { offset: true });
 

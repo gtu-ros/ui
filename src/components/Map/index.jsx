@@ -10,6 +10,7 @@ import { ArrowMarker, CustomMarker, PointMarker } from './Markers';
 import useMessage from '../../hooks/useMessage';
 import { purple } from '@mui/material/colors';
 import { toast } from 'react-toastify';
+import { OFFLINE_STYLE } from './constants';
 
 // TODO: set in env
 const MAPBOX_TOKEN =
@@ -49,6 +50,7 @@ function NavigationMap() {
   const isArc22MarsFieldVisible = data?.settings?.arc22MarsField;
   const isEditMode = data?.settings?.editMode;
   const isSatellite = data?.settings?.satellite;
+  const isOffline = data?.settings?.offline;
 
   useEffect(() => {
     if (message) {
@@ -73,6 +75,21 @@ function NavigationMap() {
     toast(`${lat} ${lng}`, { autoClose: true });
   };
 
+  const getStyle = () => {
+    const styles = {
+      satellite: 'mapbox://styles/mapbox/satellite-v9',
+      default: 'mapbox://styles/mapbox/light-v10',
+      offline: OFFLINE_STYLE
+    };
+
+    switch(true) {
+      case (isSatellite): return styles.satellite;
+      case (isOffline): return styles.offline;
+      default:
+      return styles.default;
+    }
+  }
+
   return (
     <Map
       cursor="crosshair"
@@ -84,9 +101,7 @@ function NavigationMap() {
         pitch: 65,
         bearing: 80
       }}
-      mapStyle={`mapbox://styles/mapbox/${
-        isSatellite ? 'satellite-v9' : 'light-v10'
-      }`}
+      mapStyle={getStyle()}
       mapboxAccessToken={MAPBOX_TOKEN}
     >
       {isArc22MarsFieldVisible && <MarsField edit={isEditMode} />}
