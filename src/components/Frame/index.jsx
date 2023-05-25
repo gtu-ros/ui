@@ -18,7 +18,7 @@ import useRosWs from '../../hooks/useRosWs';
 import VisibilityToggle from '../VisibilityToggle';
 import usePluginState from '../../hooks/usePluginState';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { startCase } from 'lodash';
 import moment from 'moment';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -73,7 +73,9 @@ const Frame = ({ children, title, pluginKey, fixed = false }) => {
   const { url } = useRosWs();
   const { status, toggleStatus, data, setData } = usePluginState(pluginKey);
   const [anchorEl, setAnchorEl] = useState(null);
-  const { register, handleSubmit } = useForm();
+  const { control, handleSubmit } = useForm({
+    defaultValues: { ...data?.settings }
+  });
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -122,8 +124,20 @@ const Frame = ({ children, title, pluginKey, fixed = false }) => {
                 return (
                   <MenuItem>
                     <FormControlLabel
-                      control={<Checkbox checked={v} {...register(k)} />}
                       label={startCase(k)}
+                      control={
+                        <Controller
+                          name={k}
+                          control={control}
+                          render={({ field: props }) => (
+                            <Checkbox
+                              {...props}
+                              checked={props.value}
+                              onChange={(e) => props.onChange(e.target.checked)}
+                            />
+                          )}
+                        />
+                      }
                     />
                   </MenuItem>
                 );
@@ -171,9 +185,7 @@ const Frame = ({ children, title, pluginKey, fixed = false }) => {
           className="cancel-draggable"
         >
           {status !== 'disabled' && (
-            <ErrorBoundary
-            FallbackComponent={ErrorFallback}
-            >
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
               {children}
             </ErrorBoundary>
           )}
