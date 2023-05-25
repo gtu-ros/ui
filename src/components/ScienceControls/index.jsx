@@ -8,8 +8,8 @@ const ScienceControls = () => {
     const [isValve1On, setIsValve1On] = useState(false);
     const [isValve2On, setIsValve2On] = useState(false);
     const [isValve3On, setIsValve3On] = useState(false);
-    const [isPump1On, setIsPump1On] = useState(false);
-    const [isPump2On, setIsPump2On] = useState(false);
+    const [isValve4On, setIsValve4On] = useState(false);
+    const [isPumpOn, setIsPumpOn] = useState(false);
     const [activeMotorButton, setActiveMotorButton] = useState(null);
     const { ros } = useROS();
 
@@ -33,13 +33,13 @@ const ScienceControls = () => {
         ros: ros,
         name: 'valve3'
     });
-    const pump1Param = new ROSLIB.Param({
+    const valve4Param = new ROSLIB.Param({
         ros: ros,
-        name: 'pump1'
+        name: 'valve4'
     });
-    const pump2Param = new ROSLIB.Param({
+    const pumpParam = new ROSLIB.Param({
         ros: ros,
-        name: 'pump2'
+        name: 'pump'
     });
 
     useEffect(() => {
@@ -53,11 +53,11 @@ const ScienceControls = () => {
             valve3Param.get((valve3Val) => {
                 setIsValve3On(valve3Val === 0);
             });
-            pump1Param.get((pump1Val) => {
-                setIsPump1On(pump1Val === 0);
+            valve4Param.get((valve4Val) => {
+                setIsValve4On(valve4Val === 0);
             });
-            pump2Param.get((pump2Val) => {
-                setIsPump2On(pump2Val === 1);
+            pumpParam.get((pumpVal) => {
+                setIsPumpOn(pumpVal === 0);
             });
             isMotor.get((motorVal) => {
                 setActiveMotorButton(motorVal);
@@ -101,14 +101,14 @@ const ScienceControls = () => {
         valve3Param.set(isValve3On ? 1 : 0);
     };
 
-    const handlePump1 = () => {
-        setIsPump1On(!isPump1On);
-        pump1Param.set(isPump1On ? 1 : 0);
+    const handleValve4 = () => {
+        setIsValve4On(!isValve4On);
+        valve4Param.set(isValve4On ? 1 : 0);
     };
 
-    const handlePump2 = () => {
-        setIsPump2On(!isPump2On);
-        pump2Param.set(isPump2On ? 0 : 1);
+    const handlePump = () => {
+        setIsPumpOn(!isPumpOn);
+        pumpParam.set(isPumpOn ? 1 : 0);
     };
 
     return (
@@ -160,30 +160,34 @@ const ScienceControls = () => {
             <div className='btn-box'>
                 VALVE BUTTONS
                 <div>
-                    <button className={isValve1On ? "switch-btn on" : "switch-btn off"} onClick={handleValve1}>
-                        VALVE 1
-                        <span className="slider" />
-                    </button>
-                    <button className={isValve2On ? "switch-btn on" : "switch-btn off"} onClick={handleValve2}>
-                        VALVE 2
-                        <span className="slider" />
-                    </button>
-                    <button className={isValve3On ? "switch-btn on" : "switch-btn off"} onClick={handleValve3}>
-                        VALVE 3
-                        <span className="slider" />
-                    </button>
+                    <div>
+                        <button className={isValve1On ? "switch-btn on" : "switch-btn off"} onClick={handleValve1}>
+                            VALVE 1
+                            <span className="slider" />
+                        </button>
+                        <button className={isValve2On ? "switch-btn on" : "switch-btn off"} onClick={handleValve2}>
+                            VALVE 2
+                            <span className="slider" />
+                        </button>
+                    </div>
+                    <div>
+                        <button className={isValve3On ? "switch-btn on" : "switch-btn off"} onClick={handleValve3}>
+                            VALVE 3
+                            <span className="slider" />
+                        </button>
+                        <button className={isValve4On ? "switch-btn on" : "switch-btn off"} onClick={handleValve4}>
+                            VALVE 4
+                            <span className="slider" />
+                        </button>
+                    </div>
                 </div>
             </div>
 
             <div className='btn-box'>
                 PUMP BUTTONS
                 <div style={{ textAlign: 'center' }}>
-                    <button className={isPump1On ? "switch-btn on" : "switch-btn off"} onClick={handlePump1}>
-                        PUMP 1
-                        <span className="slider" />
-                    </button>
-                    <button className={isPump2On ? "switch-btn on" : "switch-btn off"} onClick={handlePump2}>
-                        PUMP 2
+                    <button className={isPumpOn ? "switch-btn on" : "switch-btn off"} onClick={handlePump}>
+                        PUMP
                         <span className="slider" />
                     </button>
                 </div>
