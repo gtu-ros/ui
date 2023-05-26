@@ -95,3 +95,42 @@ export const ArrowMarker = ({ id, coordinates }) => {
     </Source>
   );
 };
+
+export const Line = ({ start, end }) => {
+  const point = ({ longitude, latitude }) => [
+    parseFloat(longitude),
+    parseFloat(latitude)
+  ];
+
+  const geojson = (start, end) => {
+    console.log([point(start), point(end)]);
+    return {
+      type: 'FeatureCollection',
+      features: [
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'LineString',
+            coordinates: [point(start), point(end)]
+          }
+        }
+      ]
+    };
+  };
+
+  const layerStyle = {
+    id: 'line',
+    type: 'line',
+    paint: {
+      'line-color': 'green',
+      'line-width': 2,
+      'line-opacity': 0.5,
+      'line-dasharray': [2, 1],
+    }
+  };
+  return (
+    <Source type="geojson" data={geojson(start, end)}>
+      <Layer id={uniqueId()} {...layerStyle} />
+    </Source>
+  );
+};

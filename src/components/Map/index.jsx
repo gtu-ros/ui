@@ -6,7 +6,7 @@ import usePluginState from '../../hooks/usePluginState';
 import { PLUGIN_KEYS } from '../../constants';
 import './style.css';
 import { MarsField } from './Arc22Map';
-import { ArrowMarker, CustomMarker, PointMarker } from './Markers';
+import { ArrowMarker, CustomMarker, Line, PointMarker } from './Markers';
 import useMessage from '../../hooks/useMessage';
 import { purple } from '@mui/material/colors';
 import { toast } from 'react-toastify';
@@ -61,7 +61,7 @@ function NavigationMap() {
         longitude: message.longitude,
         heading:
           (orientation.orientation.z * 180) / Math.PI +
-          (initialCoordinates?.headingCalibration) || 0
+            initialCoordinates?.headingCalibration || 0
       });
       setOnline();
     } else {
@@ -82,13 +82,15 @@ function NavigationMap() {
       offline: OFFLINE_STYLE
     };
 
-    switch(true) {
-      case (isSatellite): return styles.satellite;
-      case (isOffline): return styles.offline;
+    switch (true) {
+      case isSatellite:
+        return styles.satellite;
+      case isOffline:
+        return styles.offline;
       default:
-      return styles.default;
+        return styles.default;
     }
-  }
+  };
 
   return (
     <Map
@@ -137,6 +139,9 @@ function NavigationMap() {
           />
         </>
       ))}
+      {current && markers?.focused && (
+        <Line start={current} end={markers.focused} />
+      )}
       <NavigationControl visualizePitch />
     </Map>
   );

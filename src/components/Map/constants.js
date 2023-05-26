@@ -226,7 +226,7 @@ export const OFFLINE_STYLE = {
       ],
       'source-layer': 'country',
       paint: {
-        'fill-color': '#fae364'
+        'fill-color': '#fdf6cc'
       }
     },
     {
@@ -307,7 +307,7 @@ export const OFFLINE_STYLE = {
       ],
       'source-layer': 'country',
       paint: {
-        'fill-color': '#aadb78'
+        'fill-color': '#ddf1c9'
       }
     },
     {

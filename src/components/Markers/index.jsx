@@ -30,8 +30,6 @@ const Markers = () => {
   const { data: initialCoordinates } = usePluginState(PLUGIN_KEYS.CALIBRATION);
   const { data, setData } = usePluginState(PLUGIN_KEYS.MARKERS);
 
-  console.log({ data });
-
   const fields = {
     latitude: 'latitude',
     longitude: 'longitude',
@@ -134,7 +132,11 @@ const Markers = () => {
                     </IconButton>
                   }
                 >
-                  <ListItemAvatar>
+                  <ListItemAvatar
+                    onClick={() =>
+                      setData({ ...data, focused: { latitude, longitude } })
+                    }
+                  >
                     <Avatar>
                       <ShareLocation />
                     </Avatar>
