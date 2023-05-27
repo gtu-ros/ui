@@ -11,6 +11,7 @@ import useMessage from '../../hooks/useMessage';
 import { purple } from '@mui/material/colors';
 import { toast } from 'react-toastify';
 import { OFFLINE_STYLE } from './constants';
+import { UrcMap } from './UrcMap';
 
 // TODO: set in env
 const MAPBOX_TOKEN =
@@ -107,6 +108,7 @@ function NavigationMap() {
       mapboxAccessToken={MAPBOX_TOKEN}
     >
       {isArc22MarsFieldVisible && <MarsField edit={isEditMode} />}
+      <UrcMap />
       <CustomMarker
         coordinates={initialCoordinates}
         onDragEnd={(v) =>
