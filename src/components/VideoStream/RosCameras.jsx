@@ -13,7 +13,7 @@ export const Navcam1 = () => (
   <RosImage
     pluginKey={PLUGIN_KEYS.NAVCAM_1}
     throttleRate={100}
-    topic={'/usb_cam/image_raw/compressed'}
+    topic={'/camera1/usb_cam/image_raw/compressed'}
   />
 );
 
@@ -21,6 +21,6 @@ export const Navcam2 = () => (
   <RosImage
     pluginKey={PLUGIN_KEYS.NAVCAM_2}
     throttleRate={100}
-    topic={'/usb_cam2/image_raw/compressed'}
+    topic={'/camera2/usb_cam/image_raw/compressed'}
   />
 );
