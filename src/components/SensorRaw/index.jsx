@@ -27,7 +27,7 @@ const SensorRaw = () => {
       humidity: message?.humidity.toFixed(3),
       pressure: message?.pressure.toFixed(3),
       altitude: message?.altitude.toFixed(3),
-      Co: message?.Co_gas_val,
+      co: message?.CO_gas_val,
       metan: message?.met_gas_val,
       O2: message?.o2_concentration,
       colorTemp: message?.color_temp,
@@ -101,8 +101,8 @@ const SensorRaw = () => {
       <Grid style={{ marginBottom: '5px' }} container spacing={2}>
         <Grid item xs={6}>
           <SensorCard
-            title="Co"
-            dKey="Co"
+            title="CO"
+            dKey="co"
             value={data?.co}
             unit="%"
             icon={<AirIcon />}
