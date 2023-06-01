@@ -4,8 +4,9 @@ import Frame from '../components/Frame';
 import GridLayout from '../components/Grid';
 
 const Layout = ({ plugins, gridKey = '' }) => {
+  const isMobile = "ontouchstart" in document.documentElement;
   return (
-    <GridLayout editable>
+    <GridLayout editable={!isMobile}>
       {plugins.map((item) => {
         const {
           plugin: { title, component, fixed },
