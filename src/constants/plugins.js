@@ -32,6 +32,9 @@ import StartStop from '../components/StartStop';
 import ScienceControls from '../components/ScienceControls';
 import LightIntensity from '../components/LightIntensity';
 import GpsVelocityChart from '../components/Chart/GpsVelocityChart';
+import WheelCmd from '../components/WheelCmd';
+import DmsConversion from '../components/DmsConversion';
+import RoboticArmTeleop from '../components/RoboticArmTeleop';
 
 export const PLUGINS = {
   [PLUGIN_KEYS.UTC]: { title: 'UTC', component: Time },
@@ -142,11 +145,22 @@ export const PLUGINS = {
     title: 'Science Controls',
     component: ScienceControls
   },
-
   [PLUGIN_KEYS.LIGHT_INTENSITY]: {
     title: 'Life Detection',
     component: LightIntensity
-  }
+  },
+  [PLUGIN_KEYS.WHEEL_CMD]: {
+    title: 'Wheel CMD',
+    component: WheelCmd
+  },
+  [PLUGIN_KEYS.DMS_CONVERSION]: {
+    title: 'DMS Conversion',
+    component: DmsConversion
+  },
+  [PLUGIN_KEYS.ARM_TELEOP]: {
+    title: 'Robotic Arm Teleop',
+    component: RoboticArmTeleop
+  },
 };
 
 export const getPluginType = (pluginKey) => {
@@ -159,33 +173,25 @@ const plugin = (key, layout) => ({
   key
 });
 
-// export const MAIN_LAYOUT = [
-//   plugin(PLUGIN_KEYS.UTC, { x: 0, y: 0, w: 1, h: 2 }),
-//   plugin(PLUGIN_KEYS.MISSION_ELAPSED_TIME, { x: 1, y: 0, w: 2, h: 2 }),
-//   // plugin(PLUGIN_KEYS.URDF, { x: 7, y: 0, w: 5, h: 13 }),
-//   plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 }),
-//   plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 4, w: 3, h: 9 }),
-//   plugin(PLUGIN_KEYS.ROSTOPIC_LIST, { x: 3, y: 9, w: 4, h: 13 }),
-//   plugin(PLUGIN_KEYS.ROSOUT, { x: 0, y: 18, w: 6, h: 9 }),
-//   plugin(PLUGIN_KEYS.ZED_IMAGE, { x: 6, y: 9, w: 6, h: 11 })
-// ];
-
 export const MAIN_LAYOUT = [
   plugin(PLUGIN_KEYS.UTC, { x: 0, y: 0, w: 1, h: 2 }),
-  plugin(PLUGIN_KEYS.START_STOP, { x: 0, y: 0, w: 1, h: 2 }),
   plugin(PLUGIN_KEYS.MISSION_ELAPSED_TIME, { x: 1, y: 0, w: 2, h: 2 }),
-  // plugin(PLUGIN_KEYS.URDF, { x: 7, y: 0, w: 5, h: 13 }),
   plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 }),
-  plugin(PLUGIN_KEYS.ROSTOPIC_LIST, { x: 0, y: 9, w: 3, h: 5 }),
-  plugin(PLUGIN_KEYS.ROSOUT, { x: 0, y: 18, w: 6, h: 9 }),
-  plugin(PLUGIN_KEYS.BLUETOOTH_INQUIRY, { x: 0, y: 18, w: 4, h: 7 }),
-  plugin(PLUGIN_KEYS.ZED_IMAGE, { x: 7, y: 0, w: 5, h: 9 }),
-  plugin(PLUGIN_KEYS.NAVCAM_1, { x: 8, y: 0, w: 4, h: 9 }),
-  // plugin(PLUGIN_KEYS.SPEED_CHART, { x: 7, y: 9, w: 6, h: 9 }),
-  plugin(PLUGIN_KEYS.ORIENTATION, { x: 3, y: 0, w: 4, h: 9 }),
-  plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 0, w: 4, h: 9 }),
-  //plugin(PLUGIN_KEYS.SENSOR_RAW, { x: 8, y: 0, w: 4, h: 9 })
-  plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 20, w: 3, h: 9 })
+  plugin(PLUGIN_KEYS.ZED_IMAGE, { x: 3, y: 9, w: 5, h: 10 }),
+  plugin(PLUGIN_KEYS.NAVCAM_1, { x: 8, y: 0, w: 4, h: 11 }),
+  plugin(PLUGIN_KEYS.SPEED_CHART, { x: 0, y: 12, w: 3, h: 8 }),
+  plugin(PLUGIN_KEYS.ACCELERATION_CHART, { x: 0, y: 20, w: 3, h: 8 }),
+  plugin(PLUGIN_KEYS.ORIENTATION, { x: 8, y: 18, w: 4, h: 9 }),
+  plugin(PLUGIN_KEYS.ROSOUT, { x: 3, y: 19, w: 5, h: 9 }),
+  plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 9, w: 4, h: 11 }),
+  plugin(PLUGIN_KEYS.MAP, { x: 3, y: 0, w: 5, h: 9 }),
+  // plugin(PLUGIN_KEYS.SENSOR_RAW, { x: 8, y: 0, w: 4, h: 9 }),
+  plugin(PLUGIN_KEYS.MARKERS, { x: 3, y: 18, w: 5, h: 9 }),
+  // plugin(PLUGIN_KEYS.WAYPOINTS, { x: 3, y: 18, w: 5, h: 9 }),
+  plugin(PLUGIN_KEYS.CALIBRATION, { x: 0, y: 5, w: 3, h: 8 }),
+  plugin(PLUGIN_KEYS.ARM_TELEOP, { x: 0, y: 6, w: 3, h: 12 }),
+  plugin(PLUGIN_KEYS.DMS_CONVERSION, { x: 0, y: 21, w: 3, h: 4 }),
+  // plugin(PLUGIN_KEYS.WHEEL_CMD, { x: 0, y: 5, w: 3, h: 9 }),
 ];
 
 export const ROBOTIC_ARM_LAYOUT = [
@@ -193,42 +199,41 @@ export const ROBOTIC_ARM_LAYOUT = [
   plugin(PLUGIN_KEYS.MISSION_ELAPSED_TIME, { x: 1, y: 0, w: 2, h: 2 }),
   plugin(PLUGIN_KEYS.URDF, { x: 3, y: 0, w: 7, h: 11 }),
   // plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 3, w: 3, h: 9 }),
-  plugin(PLUGIN_KEYS.JOINT_STATES, { x: 0, y: 4, w: 9, h: 8 }),
+  // plugin(PLUGIN_KEYS.JOINT_STATES, { x: 0, y: 4, w: 9, h: 8 }),
   plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 }),
-  plugin(PLUGIN_KEYS.NAVCAM_1, { x: 8, y: 0, w: 4, h: 9 }),
+  // plugin(PLUGIN_KEYS.NAVCAM_1, { x: 8, y: 0, w: 4, h: 9 }),
   // plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 0, w: 4, h: 9 }),
   // plugin(PLUGIN_KEYS.ZED_IMAGE, { x: 8, y: 0, w: 4, h: 9 }),
-  plugin(PLUGIN_KEYS.ROSOUT, { x: 0, y: 18, w: 6, h: 9 })
+  // plugin(PLUGIN_KEYS.ROSOUT, { x: 0, y: 18, w: 6, h: 9 })
 ];
 
 export const NAVIGATION_LAYOUT = [
   plugin(PLUGIN_KEYS.UTC, { x: 0, y: 0, w: 1, h: 2 }),
   plugin(PLUGIN_KEYS.MISSION_ELAPSED_TIME, { x: 1, y: 0, w: 2, h: 2 }),
-  plugin(PLUGIN_KEYS.ORIENTATION, { x: 0, y: 6, w: 3, h: 9 }),
-  plugin(PLUGIN_KEYS.MAP, { x: 3, y: 0, w: 5, h: 9 }),
-  plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 2, w: 3, h: 2 }),
-  plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 11, w: 3, h: 5 }),
-  plugin(PLUGIN_KEYS.CALIBRATION, { x: 0, y: 5, w: 3, h: 4 }),
-  plugin(PLUGIN_KEYS.MARKERS, { x: 3, y: 5, w: 5, h: 9 }),
-  plugin(PLUGIN_KEYS.WAYPOINTS, { x: 3, y: 5, w: 5, h: 9 }),
+  plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 1, y: 2, w: 2, h: 2 }),
+  plugin(PLUGIN_KEYS.START_STOP, { x: 0, y: 2, w: 1, h: 2 }),
+  // plugin(PLUGIN_KEYS.ORIENTATION, { x: 0, y: 6, w: 3, h: 9 }),
+  // plugin(PLUGIN_KEYS.ROSOUT, { x: 0, y: 18, w: 6, h: 9 }),
+  // plugin(PLUGIN_KEYS.MAP, { x: 3, y: 0, w: 5, h: 9 }),
+  plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 4, w: 3, h: 8 }),
+  // plugin(PLUGIN_KEYS.CALIBRATION, { x: 0, y: 5, w: 3, h: 8 }),
+  plugin(PLUGIN_KEYS.ROSTOPIC_LIST, { x: 3, y: 0, w: 5, h: 12 }),
   plugin(PLUGIN_KEYS.MESSAGE_PUBLISHER, { x: 8, y: 6, w: 4, h: 7 }),
-  // plugin(PLUGIN_KEYS.SPEED_CHART, { x: 3, y: 9, w: 5, h: 7 }),
-  plugin(PLUGIN_KEYS.ACCELERATION_CHART, { x: 3, y: 9, w: 5, h: 7 }),
-  plugin(PLUGIN_KEYS.ZED_IMAGE, { x: 8, y: 0, w: 4, h: 9 }),
-  // plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 1, w: 4, h: 9 })
+  // plugin(PLUGIN_KEYS.BLUETOOTH_INQUIRY, { x: 0, y: 18, w: 4, h: 7 }),
+  // plugin(PLUGIN_KEYS.ACCELERATION_CHART, { x: 3, y: 9, w: 5, h: 7 }),
+  // plugin(PLUGIN_KEYS.ZED_IMAGE, { x: 8, y: 0, w: 4, h: 9 }),
+  // plugin(PLUGIN_KEYS.NAVCAM_1, { x: 8, y: 1, w: 4, h: 9 }),
   // plugin(PLUGIN_KEYS.SPEED_CHART, { x: 8, y: 1, w: 4, h: 9 }),
   plugin(PLUGIN_KEYS.ROSOUT, { x: 0, y: 18, w: 6, h: 9 }),
-  // plugin(PLUGIN_KEYS.ZED_IMAGE, { x: 8, y: 1, w: 4, h: 9 })
 ];
 
 export const SCIENCE_LAYOUT = [
-  // plugin(PLUGIN_KEYS.MULTICHANNEL_CHART, { x: 0, y: 6, w: 12, h: 13 }),
-  plugin(PLUGIN_KEYS.NAVCAM_2, { x: 0, y: 15, w: 4, h: 9 }),
+  plugin(PLUGIN_KEYS.MULTICHANNEL_CHART, { x: 0, y: 6, w: 12, h: 13 }),
   plugin(PLUGIN_KEYS.FOSSIL_TABLE, { x: 0, y: 21, w: 12, h: 13 }),
   plugin(PLUGIN_KEYS.ROCKS_TABLE, { x: 0, y: 32, w: 12, h: 13 }),
   plugin(PLUGIN_KEYS.METEROITS_TABLE, { x: 0, y: 45, w: 12, h: 7 }),
   plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 0, w: 3, h: 2 }),
-  plugin(PLUGIN_KEYS.SCIENCE_CONTROLS, { x: 0, y: 2, w: 2.8, h: 7 }),
+  plugin(PLUGIN_KEYS.SCIENCE_CONTROLS, { x: 0, y: 2, w: 4, h: 8 }),
   plugin(PLUGIN_KEYS.SENSOR_RAW, { x: 4, y: 0, w: 8, h: 20 }),
-  plugin(PLUGIN_KEYS.LIGHT_INTENSITY, { x: 0, y: 9, w: 4, h: 8 }),
+  plugin(PLUGIN_KEYS.LIGHT_INTENSITY, { x: 0, y: 3, w: 4, h: 7 }),
 ];
