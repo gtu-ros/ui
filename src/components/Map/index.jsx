@@ -52,6 +52,7 @@ function NavigationMap() {
   const isEditMode = data?.settings?.editMode;
   const isSatellite = data?.settings?.satellite;
   const isOffline = data?.settings?.offline;
+  const isUrcImage = data?.settings?.urcSatelliteImage;
 
   useEffect(() => {
     if (message) {
@@ -108,7 +109,7 @@ function NavigationMap() {
       mapboxAccessToken={MAPBOX_TOKEN}
     >
       {isArc22MarsFieldVisible && <MarsField edit={isEditMode} />}
-      <UrcMap />
+      {isUrcImage && <UrcMap />}
       <CustomMarker
         coordinates={initialCoordinates}
         onDragEnd={(v) =>
