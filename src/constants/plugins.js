@@ -35,6 +35,7 @@ import GpsVelocityChart from '../components/Chart/GpsVelocityChart';
 import WheelCmd from '../components/WheelCmd';
 import DmsConversion from '../components/DmsConversion';
 import RoboticArmTeleop from '../components/RoboticArmTeleop';
+import ContainerControls from '../components/ContainerControls';
 
 export const PLUGINS = {
   [PLUGIN_KEYS.UTC]: { title: 'UTC', component: Time },
@@ -161,6 +162,11 @@ export const PLUGINS = {
     title: 'Robotic Arm Teleop',
     component: RoboticArmTeleop
   },
+  [PLUGIN_KEYS.CONTAINER_CONTROLS]: {
+    title: 'Containers',
+    component: ContainerControls
+  }
+
 };
 
 export const getPluginType = (pluginKey) => {
@@ -214,7 +220,7 @@ export const NAVIGATION_LAYOUT = [
   plugin(PLUGIN_KEYS.START_STOP, { x: 0, y: 2, w: 1, h: 2 }),
   // plugin(PLUGIN_KEYS.ORIENTATION, { x: 0, y: 6, w: 3, h: 9 }),
   // plugin(PLUGIN_KEYS.ROSOUT, { x: 0, y: 18, w: 6, h: 9 }),
-  // plugin(PLUGIN_KEYS.MAP, { x: 3, y: 0, w: 5, h: 9 }),
+  plugin(PLUGIN_KEYS.MAP, { x: 3, y: 0, w: 5, h: 9 }),
   plugin(PLUGIN_KEYS.ROSTOPIC_ECHO, { x: 0, y: 4, w: 3, h: 8 }),
   // plugin(PLUGIN_KEYS.CALIBRATION, { x: 0, y: 5, w: 3, h: 8 }),
   plugin(PLUGIN_KEYS.ROSTOPIC_LIST, { x: 3, y: 0, w: 5, h: 12 }),
@@ -233,7 +239,8 @@ export const SCIENCE_LAYOUT = [
   plugin(PLUGIN_KEYS.ROCKS_TABLE, { x: 0, y: 32, w: 12, h: 13 }),
   plugin(PLUGIN_KEYS.METEROITS_TABLE, { x: 0, y: 45, w: 12, h: 7 }),
   plugin(PLUGIN_KEYS.ROS_CONNECTION, { x: 0, y: 0, w: 3, h: 2 }),
-  plugin(PLUGIN_KEYS.SCIENCE_CONTROLS, { x: 0, y: 2, w: 4, h: 8 }),
-  plugin(PLUGIN_KEYS.SENSOR_RAW, { x: 4, y: 0, w: 8, h: 20 }),
-  plugin(PLUGIN_KEYS.LIGHT_INTENSITY, { x: 0, y: 3, w: 4, h: 7 }),
+  //plugin(PLUGIN_KEYS.SCIENCE_CONTROLS, { x: 0, y: 2, w: 4, h: 8 }),
+  plugin(PLUGIN_KEYS.CONTAINER_CONTROLS, { x: 0, y: 2, w: 4, h: 8 }),
+  plugin(PLUGIN_KEYS.SENSOR_RAW, { x: 4, y: 0, w: 8, h: 15 }),
+  //plugin(PLUGIN_KEYS.LIGHT_INTENSITY, { x: 0, y: 3, w: 4, h: 7 }),
 ];
