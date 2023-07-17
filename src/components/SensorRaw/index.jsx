@@ -7,6 +7,7 @@ import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat';
 import OpacityIcon from '@mui/icons-material/Opacity';
 import AirIcon from '@mui/icons-material/Air';
 import HeightIcon from '@mui/icons-material/Height';
+import ScaleIcon from '@mui/icons-material/Scale';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import { blue, purple, red } from '@mui/material/colors';
 import useMessage from '../../hooks/useMessage';
@@ -27,11 +28,12 @@ const SensorRaw = () => {
       humidity: message?.humidity.toFixed(3),
       pressure: message?.pressure.toFixed(3),
       altitude: message?.altitude.toFixed(3),
-      co: message?.CO_gas_val,
+      // co: message?.CO_gas_val,
       metan: message?.met_gas_val,
-      O2: message?.o2_concentration,
-      colorTemp: message?.color_temp,
-      lux: message?.lux.toFixed(2)
+      // O2: message?.o2_concentration,
+      // colorTemp: message?.color_temp,
+      // lux: message?.lux.toFixed(2)
+      weight: message?.weight_average.toFixed(2),
     });
 
     setArray(prevData => {
@@ -101,9 +103,9 @@ const SensorRaw = () => {
       <Grid style={{ marginBottom: '5px' }} container spacing={2}>
         <Grid item xs={6}>
           <SensorCard
-            title="CO"
-            dKey="co"
-            value={data?.co}
+            title="Metan"
+            dKey="metan"
+            value={data?.metan}
             unit="%"
             icon={<AirIcon />}
             color={red}
@@ -112,18 +114,18 @@ const SensorRaw = () => {
         </Grid>
         <Grid item xs={6}>
           <SensorCard
-            title="Metan"
-            dKey="metan"
-            value={data?.metan}
-            unit="%"
-            icon={<AirIcon />}
+            title="Weight"
+            dKey="weight"
+            value={data?.weight}
+            unit="gr"
+            icon={<ScaleIcon />}
             color={blue}
             data={array}
           />
         </Grid>
       </Grid>
 
-      <Grid style={{ marginBottom: '5px' }} container spacing={2}>
+      {/* <Grid style={{ marginBottom: '5px' }} container spacing={2}>
         <Grid item xs={6}>
           <SensorCard
             title="O2"
@@ -146,7 +148,7 @@ const SensorRaw = () => {
             data={array}
           />
         </Grid>
-      </Grid>
+      </Grid> */}
     </Stack >
 
   );
