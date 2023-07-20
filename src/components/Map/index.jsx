@@ -18,8 +18,8 @@ const MAPBOX_TOKEN =
   'pk.eyJ1IjoiZmF0aWhrYWFuIiwiYSI6ImNremF6MHg1bjBnc2oyb3M2bmhxcXNlc3EifQ.StZVKUOK3pkk3IflnaHlKQ';
 
 const workshop = {
-  latitude: 40.810114473678,
-  longitude: 29.357002765392842
+  latitude: 39.939556,
+  longitude: 32.595028
 };
 
 const itu = {
@@ -32,6 +32,11 @@ const mdrs = {
   latitude: 38.40633537545838,
   longitude: -110.79179821374495
 };
+
+const metu = {
+  latitude: 39.90127,
+  longitude: 32.77010
+}
 
 function NavigationMap() {
   const { message } = useMessage(PLUGIN_KEYS.MAP, '/ublox/fix', 1000);
@@ -63,7 +68,7 @@ function NavigationMap() {
         longitude: message.longitude,
         heading:
           (orientation.orientation.z * 180) / Math.PI +
-            initialCoordinates?.headingCalibration || 0
+          initialCoordinates?.headingCalibration || 0
       });
       setOnline();
     } else {
@@ -100,7 +105,7 @@ function NavigationMap() {
       onClick={handleMapClick}
       onZoomEnd={(e) => setData({ ...data, zoom: e.target.getZoom() })}
       initialViewState={{
-        ...mdrs,
+        ...metu,
         zoom: 17,
         pitch: 65,
         bearing: 80
