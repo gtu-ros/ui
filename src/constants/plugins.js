@@ -36,6 +36,7 @@ import WheelCmd from '../components/WheelCmd';
 import DmsConversion from '../components/DmsConversion';
 import RoboticArmTeleop from '../components/RoboticArmTeleop';
 import ContainerControls from '../components/ContainerControls';
+import CameraRotation from '../components/CameraRotation';
 
 export const PLUGINS = {
   [PLUGIN_KEYS.UTC]: { title: 'UTC', component: Time },
@@ -122,6 +123,10 @@ export const PLUGINS = {
     title: 'Navcam 2',
     component: Navcam2
   },
+  [PLUGIN_KEYS.NAVCAM_3]: {
+    title: '360 CAM',
+    component: Navcam2
+  },
   [PLUGIN_KEYS.WAYPOINTS]: {
     title: 'Waypoints',
     component: Waypoints
@@ -165,6 +170,10 @@ export const PLUGINS = {
   [PLUGIN_KEYS.CONTAINER_CONTROLS]: {
     title: 'Containers',
     component: ContainerControls
+  },
+  [PLUGIN_KEYS.CAMERA_ROTATION]: {
+    title: 'Rotate',
+    component: CameraRotation
   }
 
 };
@@ -191,6 +200,7 @@ export const MAIN_LAYOUT = [
   plugin(PLUGIN_KEYS.ROSOUT, { x: 3, y: 19, w: 5, h: 9 }),
   plugin(PLUGIN_KEYS.NAVCAM_2, { x: 8, y: 9, w: 4, h: 11 }),
   plugin(PLUGIN_KEYS.MAP, { x: 3, y: 0, w: 5, h: 9 }),
+  plugin(PLUGIN_KEYS.CAMERA_ROTATION, { x: 9, y: 10, w: 3, h: 5 }),
   // plugin(PLUGIN_KEYS.SENSOR_RAW, { x: 8, y: 0, w: 4, h: 9 }),
   //plugin(PLUGIN_KEYS.MARKERS, { x: 3, y: 18, w: 5, h: 9 }),
   // plugin(PLUGIN_KEYS.WAYPOINTS, { x: 3, y: 18, w: 5, h: 9 }),
