@@ -24,3 +24,11 @@ export const Navcam2 = () => (
     topic={'/camera2/usb_cam/image_raw/compressed'}
   />
 );
+
+export const Navcam3 = () => (
+  <RosImage
+    pluginKey={PLUGIN_KEYS.NAVCAM_2}
+    throttleRate={100}
+    topic={'/camera3/image_raw/compressed'}
+  />
+);
